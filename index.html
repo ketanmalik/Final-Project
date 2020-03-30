@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BOOTSTRAP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <style>
+      body {
+        position: relative;
+        background-color: #d7d7d7;
+      }
+      #carousel-example {
+        padding-top: 70px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      .navbar-dark .navbar-nav .nav-link {
+        color: #fcfcfc;
+      }
+    </style>
+  </head>
+  <body data-spy="scroll" data-target=".navbar" data-offset="50">
+    <nav
+      class="navbar navbar-expand-md navbar-dark fixed-top"
+      style="background-color: #581845;"
+    >
+      <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <!-- <li class="nav-item">
+        <a class="nav-link" href="#section1">Services</a>
+      </li> -->
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbardrop"
+              data-toggle="dropdown"
+            >
+              Products
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#section1">Fuselage</a>
+              <a class="dropdown-item" href="#section2">Wings</a>
+              <a class="dropdown-item" href="#section3">Empennage</a>
+              <a class="dropdown-item" href="#section4">Power Plant</a>
+              <a class="dropdown-item" href="#section5">Landing Gear</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Clients</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" >Contact Us <i class='far fa-envelope' style='font-size:14px'></i></a> 
+          </li>
+        </ul>
+        
+<!-- Search -->
+<form class="form-inline" role="search">
+  <input type="text" class="form-control">
+  <button type="submit" class="btn btn-secondary" >Search</button>
+  </form>
+      </div>
+    </nav>
+
+    <!--Carousel with controls and indicators-->
+
+
+
+    <div
+      id="carousel-example"
+      class="carousel slide carousel-fade"
+      data-ride="carousel"
+    >
+      <!--Indicators-->
+      <ol class="carousel-indicators">
+        <li
+          data-target="#carousel-example"
+          data-slide-to="0"
+          class="active"
+        ></li>
+        <li data-target="#carousel-example" data-slide-to="1"></li>
+        <li data-target="#carousel-example" data-slide-to="2"></li>
+      </ol>
+      <!--/.Indicators-->
+      <!--Slides-->
+      <div class="carousel-inner" role="listbox">
+        <!--First slide-->
+        <div class="carousel-item active">
+          <img
+            class="d-block w-100"
+            src="Optimized-img2.jpg"
+            alt="First slide"
+          />
+        </div>
+        <!--/First slide-->
+        <!--Second slide-->
+        <div class="carousel-item">
+          <img
+            class="d-block w-100"
+            src="img3.jpg"
+            alt="Second slide"
+          />
+        </div>
+        <!--/Second slide-->
+        <!--Third slide-->
+        <div class="carousel-item">
+          <img
+            class="d-block w-100"
+            src="img4.jpg"
+            alt="Third slide"
+          />
+        </div>
+        <!--/Third slide-->
+      </div>
+      <!--/.Slides-->
+      <!--Controls-->
+      <a
+        class="carousel-control-prev"
+        href="#carousel-example"
+        role="button"
+        data-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a
+        class="carousel-control-next"
+        href="#carousel-example"
+        role="button"
+        data-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+      <!--/.Controls-->
+    </div>
+    <!--/.Carousel Wrapper-->
+
+
+
+      <!--/.Jumbotron-->
+    <div class="jumbotron">
+      <img src="jumbotron2.jpg" class="img-fluid rounded-circle float-right" alt="Sample image" >
+      <h1><span class="badge badge-warning">Welcome to our site.!</span></h1>
+      <p >Celebrating Our Differences
+        Ten years ago we established Global Inclusion as an official function in our company. <br>To mark that milestone, colleagues 
+        tell us how their identities and experiences are recognized and embraced at State Street.
+         </p>
+        
+      </div>
+      		
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Thanks for showing interest in our website!</strong> &nbsp; Here are some of our products!
+  </div>
+    <div
+      id="section1"
+      class="container-fluid"
+      style="padding-top:70px;padding-bottom:70px"
+    >
+      <h1>Products</h1>
+      <div class="row" style="padding-bottom: 20px;">
+
+<!--Cards-->
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+          <div class="card" style="height:600px">
+            <img
+              class="card-img-top"
+              src="turbine.jpg"
+              alt="Card image"
+              style="width:100%;height:260px"
+            />
+            <div class="card-body">
+              <h4 class="card-title">Turbine Blade</h4>
+              <p class="card-text" style="height:200px">
+                Blade for the main turbine of the AirBus 319, 320, 321, and 330
+                models using proprietary ceramic coating. The blade features
+                film cooling holes throught the design to maximize coating.
+               
+              </p>
+              <a  class="btn btn-info" role="button" data-toggle="modal" data-target="#f1" >View Inventory</a>
+<!--modal-->
+<div class="modal fade" id="f1" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+  <div class="modal-content">
+  <div class="modal-header">
+  <h4 class="modal-title" id="modalLabel">Inventory</h4>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+    A turbine blade is the individual component which makes up the turbine section of a gas turbine or steam turbine. <br>
+     The blades are responsible for extracting energy from the high temperature,
+     high pressure gas produced by the combustor. 
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  </div>
+  </div>
+  </div>
+  </div>
+      
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+          <div class="card" style="height:600px">
+            <img
+              class="card-img-top"
+              src="exhaustcone.jpeg"
+              alt="Card image"
+              style="width:100% ;height:260px"
+            />
+            <div class="card-body">
+              <h4 class="card-title">Exhaust Cone</h4>
+              <p class="card-text" style="height:200px">
+                Titanium base, ceramic coated exhaust cone. Contains standard
+                film cooling intake holes. Compatable with Airbus 319, 320, and
+                330 models.
+              </p>
+              <a  class="btn btn-info" role="button" data-toggle="modal" data-target="#f2">View Inventory</a>
+              
+              <!--modal-->
+<div class="modal fade" id="f2" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+  <div class="modal-content">
+  <div class="modal-header">
+  <h4 class="modal-title" id="modalLabel">Inventory</h4>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+    The exhaust cone collects the gases that discharged from turbine and gradually converts them into a single jet. <br>
+              The collected gases are delivered either directly, or via the tailpipe to the jet nozzle.
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  </div>
+  </div>
+  </div>
+  </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+          <div class="card" style="height:600px">
+            <img
+              class="card-img-top"
+              src="flametube.jpg"
+              alt="Card image"
+              style="width:100%;height:260px"
+            />
+            <div class="card-body">
+              <h4 class="card-title">Flame Tube</h4>
+              <p class="card-text" style="height:200px">
+                Flame tube using proprietary nonmetalic recipe. Flame tube bears
+                all standard exhaust holes an
+              </p>
+              <a class="btn btn-info" role="button" data-toggle="modal" data-target="#f3">See Inventory</a>
+              
+              
+                           <!--modal-->
+<div class="modal fade" id="f3" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+  <div class="modal-content">
+  <div class="modal-header">
+  <h4 class="modal-title" id="modalLabel">Inventory</h4>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+    The flame tube is designed to mix a small percentage of the air that enters the combustion chamber with the fuel
+
+              and control the burning process so that the flame never actually touches the walls of the chamber.
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  </div>
+  </div>
+  </div>
+  </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+          <div class="card" style="height:600px">
+            <img
+              class="card-img-top"
+              src="ring.jpg"
+              alt="Card image"
+              style="width:100% ;height:260px"
+            />
+            <div class="card-body">
+              <h4 class="card-title">Ring Fitting</h4>
+              <p class="card-text" style="height:200px">
+                Standard engine ring fitting for Airbus series 300 engines,
+                containing all standard mounting holes. Titanium alloy blend.
+              </p>
+              <a class="btn btn-info" data-target="#f4" data-toggle="modal">See Inventory</a>
+<!--modal-->
+<div class="modal fade" id="f4" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+  <div class="modal-content">
+  <div class="modal-header">
+  <h4 class="modal-title" id="modalLabel">Inventory</h4>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+    A piston ring is a metallic split ring that is attached to the outer diameter of a piston in an internal combustion engine or steam engine.
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  </div>
+  </div>
+  </div>
+  </div>
+
+              
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!--sections-->
+    <div id="section1" class="container-fluid" style="padding-top:20px;padding-bottom:40px">
+      <h1>Fuselage</h1>
+      <p>The fuselage, or body of the airplane, is a long hollow tube which holds all the pieces of an airplane together.</p>
+      <p> As with most other parts of the airplane, the shape of the fuselage is normally determined by the mission of the aircraft.</p>
+    </div>
+    <div id="section2" class="container-fluid" style="padding-top:40px;padding-bottom:40px">
+      <h1>Wings</h1>
+      <p> A wing is a type of fin that produces lift, while moving through air or some other fluid.</p>
+      <p> As such, wings have streamlined cross-sections that are subject to aerodynamic forces and act as airfoils.</p>
+    </div>
+    <div id="section3" class="container-fluid" style="padding-top:40px;padding-bottom:40px">
+      <h1>Empennage</h1>
+      <p>The empennage, also known as the tail or tail assembly.</p>
+      <p>It is a structure at the rear of an aircraft that provides stability during flight, in a way similar to the feathers on an arrow.</p>
+    </div>
+    <div id="section4" class="container-fluid" style="padding-top:40px;padding-bottom:40px">
+      <h1>Power Plant</h1>
+      <p>An aircraft engine is a component of the propulsion system for an aircraft that generates mechanical power.</p>
+      <p> Aircraft engines are almost always either lightweight piston engines or gas turbines, except for small multicopter UAVs which are almost always electric aircraft.</p>
+    </div>
+    <div id="section5" class="container-fluid" style="padding-top:40px;padding-bottom:40px">
+      <h1>Landing Gear</h1>
+      <p> For aircraft, the landing gear supports the craft when it is not flying, allowing it to take off, land, and taxi without damage.</p>
+      <p> Wheeled landing gear is the most common with skis or floats needed to operate from snow/ice/water and skids for vertical operation on land.</p>
+    </div>
+
+    <!-- Footer -->
+<footer class="page-footer font-small special-color-dark pt-4" style="background-color: #782A61;">
+
+  <!-- Footer Elements -->
+  <div class="container">
+
+    <!-- Social buttons -->
+    <ul class="list-unstyled list-inline text-center">
+      <li class="list-inline-item">
+        <a class="btn-floating btn-fb mx-1">
+          <i class="fab fa-facebook-f"> </i>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a class="btn-floating btn-tw mx-1">
+          <i class="fab fa-twitter"> </i>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a class="btn-floating btn-gplus mx-1">
+          <i class="fab fa-google-plus-g"> </i>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a class="btn-floating btn-li mx-1">
+          <i class="fab fa-linkedin-in"> </i>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a class="btn-floating btn-dribbble mx-1">
+          <i class="fab fa-dribbble"> </i>
+        </a>
+      </li>
+    </ul>
+    <!-- Social buttons 782A61 -->
+
+  </div>
+  <!-- Footer Elements -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3" style="background-color: #581845;">&copy; 2020 Copyright:
+    <i> LMNTrix</i>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+  </body>
+</html>
+
+
