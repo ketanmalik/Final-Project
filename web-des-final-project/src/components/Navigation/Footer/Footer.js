@@ -15,22 +15,22 @@ const footer = props => {
             <ul className="list-unstyled text-small">
               <li>
                 <p>
-                  <i class="fas fa-home mr-3"></i> New York, NY 10012, US
+                  <i className="fas fa-home mr-3"></i> New York, NY 10012, US
                 </p>
               </li>
               <li>
                 <p>
-                  <i class="fas fa-envelope mr-3"></i> info@example.com
+                  <i className="fas fa-envelope mr-3"></i> info@example.com
                 </p>
               </li>
               <li>
                 <p>
-                  <i class="fas fa-phone mr-3"></i> + 01 234 567 88
+                  <i className="fas fa-phone mr-3"></i> + 01 234 567 88
                 </p>
               </li>
               <li>
                 <p>
-                  <i class="fas fa-print mr-3"></i> + 01 234 567 89
+                  <i className="fas fa-print mr-3"></i> + 01 234 567 89
                 </p>
               </li>
             </ul>
@@ -91,29 +91,29 @@ const footer = props => {
 
           <div className="col-6 col-md-3">
             <h5 className="font-weight-bold text-uppercase mb-4">Connect</h5>
-            <ul class="list-unstyled">
-              <li class="list-inline-item">
-                <Link className="btn-floating btn-fb mx-1">
+            <ul className="list-unstyled">
+              <li className="list-inline-item">
+                <Link to="" className="btn-floating btn-fb mx-1">
                   <i className="fab fa-facebook-f"> </i>
                 </Link>
               </li>
               <li className="list-inline-item">
-                <Link className="btn-floating btn-tw mx-1">
+                <Link to="" className="btn-floating btn-tw mx-1">
                   <i className="fab fa-twitter"> </i>
                 </Link>
               </li>
               <li className="list-inline-item">
-                <Link className="btn-floating btn-gplus mx-1">
+                <Link to="" className="btn-floating btn-gplus mx-1">
                   <i className="fab fa-google-plus-g"> </i>
                 </Link>
               </li>
               <li className="list-inline-item">
-                <Link className="btn-floating btn-li mx-1">
+                <Link to="" className="btn-floating btn-li mx-1">
                   <i className="fab fa-linkedin-in"> </i>
                 </Link>
               </li>
               <li className="list-inline-item">
-                <Link className="btn-floating btn-dribbble mx-1">
+                <Link to="" className="btn-floating btn-dribbble mx-1">
                   <i className="fab fa-dribbble"> </i>
                 </Link>
               </li>
@@ -133,41 +133,6 @@ const footer = props => {
             &copy;&nbsp;Copyright Company Name - {new Date().getFullYear()}
           </div>
         </div>
-        {/* <div
-        className="row"
-        style={{ textAlign: "center", padding: "25px 0px 0px 0px" }}
-      >
-        <div className="col-12 col-md">
-          Logo - &copy;&nbsp;&nbsp;{new Date().getFullYear()}
-          <ul class="list-unstyled list-inline text-center">
-            <li class="list-inline-item">
-              <Link className="btn-floating btn-fb mx-1">
-                <i className="fab fa-facebook-f"> </i>
-              </Link>
-            </li>
-            <li className="list-inline-item">
-              <Link className="btn-floating btn-tw mx-1">
-                <i className="fab fa-twitter"> </i>
-              </Link>
-            </li>
-            <li className="list-inline-item">
-              <Link className="btn-floating btn-gplus mx-1">
-                <i className="fab fa-google-plus-g"> </i>
-              </Link>
-            </li>
-            <li className="list-inline-item">
-              <Link className="btn-floating btn-li mx-1">
-                <i className="fab fa-linkedin-in"> </i>
-              </Link>
-            </li>
-            <li className="list-inline-item">
-              <Link className="btn-floating btn-dribbble mx-1">
-                <i className="fab fa-dribbble"> </i>
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div> */}
       </footer>
     </div>
   );
