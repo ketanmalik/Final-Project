@@ -1,8 +1,13 @@
 import React from "react";
+import Carousel from "./Carousel";
 
-const home = props => {
+const Home = props => {
   console.log("home", props);
-  return <div>Home</div>;
+  return (
+    <div>
+      <Carousel {...props} />
+    </div>
+  );
 };
 
-export default home;
+export default Home;
