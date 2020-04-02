@@ -1,13 +1,13 @@
 import React from "react";
 import Home from "../Home/Home";
-import Clients from "../Clients/Clients";
-import AboutUs from "../AboutUs/AboutUs";
+import Lease from "../Lease/Lease";
+import About from "../About/About";
 import ContactUs from "../ContactUs/ContactUs";
 
 export const home = props => <Home {...props} />;
 
-export const clients = props => <Clients {...props} />;
+export const lease = props => <Lease {...props} />;
 
-export const aboutus = props => <AboutUs {...props} />;
+export const about = props => <About {...props} />;
 
 export const contactus = props => <ContactUs {...props} />;
