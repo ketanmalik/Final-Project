@@ -15,19 +15,13 @@ class NavLinkDropdown extends Component {
         </Link>
         <div className="dropdown-menu">
           <Link className="dropdown-item" to="#section41">
-            Fuselage
+            Featured Parts
           </Link>
           <Link className="dropdown-item" to="#section42">
-            Wings
+            View Inventory
           </Link>
           <Link className="dropdown-item" to="#section42">
-            Empennage
-          </Link>
-          <Link className="dropdown-item" to="#section42">
-            Power Plant
-          </Link>
-          <Link className="dropdown-item" to="#section42">
-            Landing Gear
+            Sell Parts
           </Link>
         </div>
       </li>

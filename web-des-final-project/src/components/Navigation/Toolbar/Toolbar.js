@@ -9,8 +9,8 @@ class toolbar extends Component {
     super(props);
     this.state = {
       links: [
-        { path: "/clients", content: "Clients", isActive: false },
-        { path: "/aboutus", content: "About Us", isActive: false },
+        { path: "/lease", content: "Lease", isActive: false },
+        { path: "/about", content: "About", isActive: false },
         { path: "/contactus", content: "Contact Us", isActive: false }
       ]
     };
@@ -23,12 +23,11 @@ class toolbar extends Component {
   setActiveLink = () => {
     const links = [...this.state.links];
     const path = window.location.href.split("/");
-    console.log(links);
     switch (path[path.length - 1]) {
-      case "clients":
+      case "lease":
         links[0].isActive = true;
         break;
-      case "aboutus":
+      case "about":
         links[1].isActive = true;
         break;
       case "contactus":
@@ -43,7 +42,6 @@ class toolbar extends Component {
   navLinkHandler = i => {
     const links = this.state.links.slice();
     for (const j in links) {
-      console.log("click", links[j], i, j, i == j);
       links[j].isActive = i == j;
     }
     this.setState({ links: links });
