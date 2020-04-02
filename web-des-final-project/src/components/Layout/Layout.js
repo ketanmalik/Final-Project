@@ -5,7 +5,7 @@ import "./Layout.css";
 
 const layout = props => {
   return (
-    <div className="container">
+    <div style={{ marginTop: "5em" }}>
       <Toolbar />
       {props.children}
       <Footer />

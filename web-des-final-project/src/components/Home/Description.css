@@ -1,0 +1,57 @@
+.description {
+  margin: 3em;
+  display: flex;
+  flex-direction: row;
+}
+
+.description h2 {
+  font-weight: 800;
+}
+
+.desc-left-wrapper {
+  width: 50%;
+  animation: slide-left 2s;
+  animation-fill-mode: forwards;
+}
+
+.desc-right-wrapper {
+  margin-left: 10%;
+  width: 40%;
+  animation: slide-right 2s;
+  animation-fill-mode: forwards;
+}
+
+.description p {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.description li {
+  font-weight: bold;
+}
+
+@keyframes slide-left {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    margin-left: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes slide-right {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    margin-left: 30px;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .description {
+    flex-direction: column;
+  }
+}

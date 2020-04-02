@@ -1,14 +1,15 @@
 import React from "react";
+import Container from "react-bootstrap/Container";
 import Layout from "./components/Layout/Layout";
 import MainContent from "./containers/MainContent/MainContent";
 
 function App() {
   return (
-    <div>
+    <Container fluid>
       <Layout>
         <MainContent />
       </Layout>
-    </div>
+    </Container>
   );
 }
 
