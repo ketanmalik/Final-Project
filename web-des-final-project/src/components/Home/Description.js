@@ -11,7 +11,7 @@ export const description = props => {
     {
       heading: "Safety",
       text:
-        "We are PMA certified manufacturers and offer nothing less than the highest quality parts and consumables on the market"
+        "We are PMA certified manufacturers and offer nothing less than the highest quality parts and consumables in the market"
     },
     {
       heading: "Level of Service",

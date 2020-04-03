@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import asaLogo from "../../../assets/images/asa-logo.png";
+import "./Footer.scss";
 
 const footer = props => {
   return (
@@ -10,7 +11,8 @@ const footer = props => {
     >
       <div
         className="row"
-        style={{ backgroundColor: "#581845", padding: "30px 0px 0px 30px" }}
+        id="custom-row"
+        // style={{ backgroundColor: "#581845", padding: "30px 0px 0px 30px" }}
       >
         <div className="col-6 col-md-3">
           <h6 className="font-weight-bold text-uppercase mb-4">Contact Us</h6>
@@ -41,9 +43,9 @@ const footer = props => {
         {/* <hr class="clearfix w-100 d-md-none" /> */}
 
         <div className="col-6 col-md-3">
-          <h5 className="font-weight-bold text-uppercase mb-4">
+          <h6 className="font-weight-bold text-uppercase mb-4">
             Certifications
-          </h5>
+          </h6>
           <ul className="list-unstyled text-small">
             <li>
               <p>
@@ -59,9 +61,9 @@ const footer = props => {
         {/* <hr class="clearfix w-100 d-md-none" /> */}
 
         <div className="col-6 col-md-3">
-          <h5 className="font-weight-bold text-uppercase mb-4">
+          <h6 className="font-weight-bold text-uppercase mb-4">
             Terms & Conditions
-          </h5>
+          </h6>
           <ul className="list-unstyled text-small">
             <li>
               <p>
@@ -83,7 +85,7 @@ const footer = props => {
         {/* <hr class="clearfix w-100 d-md-none" /> */}
 
         <div className="col-6 col-md-3">
-          <h5 className="font-weight-bold text-uppercase mb-4">Connect</h5>
+          <h6 className="font-weight-bold text-uppercase mb-4">Connect</h6>
           <ul className="list-unstyled">
             <li className="list-inline-item">
               <Link to="" className="btn-floating btn-fb mx-1">

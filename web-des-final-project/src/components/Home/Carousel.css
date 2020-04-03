@@ -1,12 +1,39 @@
 .carousel {
-  width: 1100px;
-  height: 500px;
+  width: 100%;
+  animation: fade-in 2s;
+  animation-fill-mode: forwards;
   margin: auto;
+}
+
+.carousel-caption {
+  opacity: 0.8;
+  background-color: #cccccc;
+}
+.carousel-caption h1 {
+  font-weight: 800;
+  color: #003366;
+}
+.carousel-caption p {
+  font-weight: 800;
+  color: #003366;
 }
 
 @media (max-width: 1200px) {
   .carousel {
     width: auto;
     height: auto;
+  }
+}
+.carousel .carousel-inner img {
+  display: block;
+  object-fit: cover;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

@@ -8,29 +8,31 @@ import "./Carousel.css";
 const carousel = props => {
   console.log("carousel", props);
   return (
-    <Carousel interval="2500" height="100px">
+    <Carousel fade="true" interval="2500" height="100px">
       <Carousel.Item>
         <img className="d-block w-100" src={img1} alt="First slide" />
         <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h1>Parts</h1>
+          <p>Discover an extensive inventory of aircraft parts and APUs</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100" src={img2} alt="Second slide" />
-
+        <img className="d-block w-100" src={img2} alt="Third slide" />
         <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img className="d-block w-100" src={img3} alt="Third slide" />
-
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
+          <h1>Reliable Team</h1>
           <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+            We take pride in our commitment to safe and professional service by
+            experienced engineers
+          </p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img className="d-block w-100" src={img3} alt="Second slide" />
+        <Carousel.Caption>
+          <h1>Leasing</h1>
+          <p>
+            Aircraft Engines and APUs ready to support your engine leasing and
+            rental needs
           </p>
         </Carousel.Caption>
       </Carousel.Item>

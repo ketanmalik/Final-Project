@@ -5,11 +5,9 @@ import MainContent from "./containers/MainContent/MainContent";
 
 function App() {
   return (
-    <Container fluid>
-      <Layout>
-        <MainContent />
-      </Layout>
-    </Container>
+    <Layout>
+      <MainContent />
+    </Layout>
   );
 }
 
