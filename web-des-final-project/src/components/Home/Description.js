@@ -22,7 +22,7 @@ export const description = props => {
 
   let cardLayout = null;
   cardLayout = cards.map((key, i) => {
-    return <Cards heading={key.heading} text={key.text} />;
+    return <Cards heading={key.heading} text={key.text} key={i} />;
   });
   return (
     <div className="description">
