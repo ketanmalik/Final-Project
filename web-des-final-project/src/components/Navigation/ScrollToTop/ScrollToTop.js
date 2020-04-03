@@ -15,6 +15,7 @@ class ScrollToTop extends Component {
   }
 
   toggleVisibility = () => {
+    console.log(window.pageYOffset, this.props.yOffSet);
     if (window.pageYOffset > this.props.yOffSet) {
       this.setState({
         isVisible: true
@@ -39,7 +40,7 @@ class ScrollToTop extends Component {
         {this.props.children}
         <div className="btn-wrapper">
           <Button onClick={this.scrollToTop}>
-            <i class="fas fa-chevron-up"></i>
+            <i className="fas fa-chevron-up"></i>
           </Button>
         </div>
       </div>
