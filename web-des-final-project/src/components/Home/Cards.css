@@ -1,7 +1,10 @@
-.card-body {
+.card-div {
+  margin-bottom: 1em;
+}
+
+.card-div .card .card-body {
   color: white;
   background: #18582b;
-  /* font-weight: bold; */
 }
 .card-title {
   font-weight: 900;

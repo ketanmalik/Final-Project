@@ -4,7 +4,7 @@ import "./Cards.css";
 
 export const cards = props => {
   return (
-    <div style={{ marginBottom: "1em" }}>
+    <div className="card-div">
       <Card>
         <Card.Body>
           <Card.Title>{props.heading}</Card.Title>

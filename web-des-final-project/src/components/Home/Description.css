@@ -1,11 +1,13 @@
 .description {
   margin: 3em;
+  margin-left: 0;
   display: flex;
   flex-direction: row;
 }
 
 .description h2 {
   font-weight: 800;
+  color: #333;
 }
 
 .desc-left-wrapper {
@@ -28,6 +30,7 @@
 
 .description li {
   font-weight: bold;
+  color: #333;
 }
 
 @keyframes slide-left {
@@ -50,8 +53,25 @@
   }
 }
 
+@media (min-width: 1195px) {
+  .description {
+    margin: 3em;
+  }
+}
+
 @media (max-width: 600px) {
   .description {
     flex-direction: column;
+  }
+  .desc-left-wrapper {
+    width: 100%;
+    /* animation: slide-left 2s;
+    animation-fill-mode: forwards; */
+  }
+
+  .desc-right-wrapper {
+    width: 100%;
+    /* animation: slide-right 2s;
+    animation-fill-mode: forwards; */
   }
 }

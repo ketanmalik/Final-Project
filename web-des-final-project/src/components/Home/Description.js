@@ -6,8 +6,7 @@ export const description = props => {
   const cards = [
     {
       heading: "Distribution & Logistics",
-      text:
-        "We have the ability to provide domestic and international delivery."
+      text: "We have the ability to provide domestic and international delivery"
     },
     {
       heading: "Safety",
@@ -17,7 +16,7 @@ export const description = props => {
     {
       heading: "Level of Service",
       text:
-        "We operate multiple warehouse locations with our logistics centers for reliable and quick delivery of your parts."
+        "We operate multiple warehouse locations with our logistics centers for reliable and quick delivery of your parts"
     }
   ];
 
