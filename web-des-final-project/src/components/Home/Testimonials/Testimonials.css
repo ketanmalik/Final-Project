@@ -1,0 +1,36 @@
+.testinonials-wrapper {
+  margin-top: 1em;
+  margin-bottom: 3em;
+  background-color: #e9ecef;
+}
+
+.testinonials-wrapper h2 {
+  color: #003366;
+  text-align: center;
+  font-weight: 800;
+  padding: 1em 0em 0em 0em;
+}
+
+.testinonials-wrapper h6 {
+  color: #003366;
+  text-align: center;
+  font-weight: 800;
+}
+
+.testimonial-img {
+  /* position: absolute; */
+  width: 100%;
+  height: 100%;
+}
+
+.testimonial-img img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.testimonial-desciption {
+  padding: 1em 0em 0em 0em;
+  text-align: center;
+  font-weight: 500;
+}
