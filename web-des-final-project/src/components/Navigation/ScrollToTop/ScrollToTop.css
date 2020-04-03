@@ -1,0 +1,17 @@
+.btn-wrapper {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 5em;
+  margin-left: 88%;
+  padding: 5px;
+}
+
+.btn-wrapper .btn-primary {
+  background-color: #581845;
+}
+
+@media (min-width: 325px) and (max-width: 370px) {
+  .btn-wrapper {
+    margin-left: 85%;
+  }
+}

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Pagination from "../../Navigation/Pagination/Pagination";
 import Card from "react-bootstrap/Card";
-import CardDeck from "react-bootstrap/CardDeck";
 import "./CardsDeck.css";
 import img from "../../../assets/images/brakeAssembly.jpg";
 
@@ -80,7 +79,6 @@ class CardsDeck extends Component {
           clicked={e => this.paginationHandler(e)}
         />
         <div className="cards-wrapper">{cardsDeck}</div>
-        {/* <CardDeck>{cardsDeck}</CardDeck> */}
       </div>
     );
   }
