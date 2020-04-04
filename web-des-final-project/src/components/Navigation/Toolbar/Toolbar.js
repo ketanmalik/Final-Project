@@ -9,6 +9,10 @@ class toolbar extends Component {
     super(props);
     this.state = {
       links: [
+        { path: "/parts", content: "parts", isActive: false },
+        { path: "/parts/featured", content: "parts", isActive: false },
+        { path: "/parts/inventory", content: "parts", isActive: false },
+        { path: "/parts/sell", content: "parts", isActive: false },
         { path: "/lease", content: "Lease", isActive: false },
         { path: "/about", content: "About", isActive: false },
         { path: "/contactus", content: "Contact Us", isActive: false }
@@ -25,13 +29,13 @@ class toolbar extends Component {
     const path = window.location.href.split("/");
     switch (path[path.length - 1]) {
       case "lease":
-        links[0].isActive = true;
+        links[4].isActive = true;
         break;
       case "about":
-        links[1].isActive = true;
+        links[5].isActive = true;
         break;
       case "contactus":
-        links[2].isActive = true;
+        links[6].isActive = true;
         break;
       default:
         break;
@@ -41,10 +45,24 @@ class toolbar extends Component {
 
   navLinkHandler = i => {
     const links = this.state.links.slice();
-    for (const j in links) {
-      links[j].isActive = i == j;
+    links[0].isActive = false;
+    links[1].isActive = false;
+    links[2].isActive = false;
+    links[3].isActive = false;
+    console.log(links);
+    for (var j = 4; j < 7; j++) {
+      links[j].isActive = i + 4 == j;
     }
     this.setState({ links: links });
+  };
+
+  navLinkDropdownHandler = i => {
+    this.navLinkHandler(5);
+    const links = this.state.links.slice();
+    links[0].isActive = true;
+    for (var j = 1; j < 4; j++) {
+      links[j].isActive = i == j;
+    }
   };
 
   homeButtonHandler = () => {
@@ -57,7 +75,8 @@ class toolbar extends Component {
 
   render() {
     let navLinks = null;
-    navLinks = this.state.links.map((link, i) => (
+    let topLinks = [...this.state.links].slice(4, 7);
+    navLinks = topLinks.map((link, i) => (
       <NavLink
         path={link.path}
         content={link.content}
@@ -89,7 +108,15 @@ class toolbar extends Component {
           </button>
           <div className="collapse navbar-collapse" id="collapsibleNavbar">
             <ul className="navbar-nav">
-              <NavLinkDropdown path="/" title="Products" />
+              <NavLinkDropdown
+                path="/"
+                title="Products"
+                isActive={this.state.links[0].isActive}
+                clicked={this.navLinkDropdownHandler}
+                item1={this.state.links[1].isActive}
+                item2={this.state.links[2].isActive}
+                item3={this.state.links[3].isActive}
+              />
               {navLinks}
             </ul>
           </div>

@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 class NavLinkDropdown extends Component {
   render() {
     return (
-      <li className="nav-item dropdown">
+      <li
+        className={
+          "nav-item " + (this.props.isActive ? "active dropdown" : "dropdown")
+        }
+      >
         <Link
           className="nav-link dropdown-toggle"
           to={this.props.path}
@@ -14,13 +18,25 @@ class NavLinkDropdown extends Component {
           {this.props.title}
         </Link>
         <div className="dropdown-menu">
-          <Link className="dropdown-item" to="#section41">
+          <Link
+            className={"dropdown-item" + (this.props.item1 ? " active" : "")}
+            to="#section41"
+            onClick={() => this.props.clicked(1)}
+          >
             Featured Parts
           </Link>
-          <Link className="dropdown-item" to="#section42">
+          <Link
+            className={"dropdown-item" + (this.props.item2 ? " active" : "")}
+            to="#section42"
+            onClick={() => this.props.clicked(2)}
+          >
             View Inventory
           </Link>
-          <Link className="dropdown-item" to="#section42">
+          <Link
+            className={"dropdown-item" + (this.props.item3 ? " active" : "")}
+            to="#section42"
+            onClick={() => this.props.clicked(3)}
+          >
             Sell Parts
           </Link>
         </div>
