@@ -28,6 +28,18 @@ class toolbar extends Component {
     const links = [...this.state.links];
     const path = window.location.href.split("/");
     switch (path[path.length - 1]) {
+      case "featured":
+        links[0].isActive = true;
+        links[1].isActive = true;
+        break;
+      case "inventory":
+        links[0].isActive = true;
+        links[2].isActive = true;
+        break;
+      case "sell":
+        links[0].isActive = true;
+        links[3].isActive = true;
+        break;
       case "lease":
         links[4].isActive = true;
         break;

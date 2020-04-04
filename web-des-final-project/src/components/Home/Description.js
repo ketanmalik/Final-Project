@@ -27,14 +27,16 @@ export const description = props => {
   return (
     <div className="description">
       <div className="desc-left-wrapper">
-        <h2>Parts for Business and Commercial </h2>
-        <h2>Jets, Turboprops & Helicopters</h2>
-        <p>
-          In today's Aviation Industry, locating the parts you need and having a
-          vendor deliver them on time is key, along with finding someone who can
-          secure you a better price than most vendors. The staff at Buy Aircraft
-          Parts is focused on Sustainment and Modernization projects
-          domestically and internationally
+        <h2>Your Premier Provider of Aircraft</h2>
+        <h2>Parts and Engine Leasing Services</h2>
+        <p id="description-paragraph">
+          From a single bolt to a complete engine, we offer an extensive
+          inventory of aircraft parts, engines and APUs across multiple makes
+          and models of commercial and business jets, turboprops and
+          helicopters. With our qualified engineers, we can source assets for
+          anything that flies. We also buy old parts from global vendors and
+          certified retailers. Come to us for buying, selling or <i>leasing</i>{" "}
+          aircraft parts.
         </p>
         <ul>
           <li>Jet engine & turboprop parts</li>

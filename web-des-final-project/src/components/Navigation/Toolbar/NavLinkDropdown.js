@@ -27,7 +27,7 @@ class NavLinkDropdown extends Component {
           </Link>
           <Link
             className={"dropdown-item" + (this.props.item2 ? " active" : "")}
-            to="#section42"
+            to="/parts/inventory"
             onClick={() => this.props.clicked(2)}
           >
             View Inventory

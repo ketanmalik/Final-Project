@@ -7,4 +7,4 @@ class Inventory extends Component {
   }
 }
 
-export default Component;
+export default Inventory;

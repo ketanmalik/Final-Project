@@ -1,0 +1,14 @@
+.description-wrapper {
+  margin: 5em;
+}
+#custom-para {
+  text-align: center;
+  font-weight: 800;
+  color: #333;
+  font-size: 50px;
+}
+@media (max-width: 380px) {
+  #custom-para {
+    font-size: 30px;
+  }
+}
