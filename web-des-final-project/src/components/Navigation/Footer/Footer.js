@@ -51,7 +51,7 @@ const footer = props => {
               <p>
                 <a style={{ textDecoration: "none", color: "white" }} href="#">
                   ASA Certificate
-                  <img src={asaLogo} height="100px" />
+                  <img src={asaLogo} height="100px" alt="ASA Logo" />
                 </a>
               </p>
             </li>

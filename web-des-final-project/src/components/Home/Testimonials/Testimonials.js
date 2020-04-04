@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import img1 from "../../../assets/images/testimonials1.png";
 import img2 from "../../../assets/images/testimonials.png";

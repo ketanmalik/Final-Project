@@ -26,10 +26,11 @@
 .description p {
   margin-top: 2em;
   margin-bottom: 2em;
+  font-weight: 600;
 }
 
 .description li {
-  font-weight: bold;
+  font-weight: 700;
   color: #333;
 }
 

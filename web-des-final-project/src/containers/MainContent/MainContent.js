@@ -4,7 +4,8 @@ import {
   home as Home,
   lease as Lease,
   about as About,
-  contactus as ContactUs
+  contactus as ContactUs,
+  inventory as Inventory
 } from "../../components/Pages/Pages";
 
 class MainContent extends Component {
@@ -26,6 +27,11 @@ class MainContent extends Component {
           exact
           path="/contactus"
           render={routeProps => <ContactUs {...routeProps} />}
+        />
+        <Route
+          exact
+          path="/parts/inventory"
+          render={routeProps => <Inventory {...routeProps} />}
         />
       </Switch>
     );
