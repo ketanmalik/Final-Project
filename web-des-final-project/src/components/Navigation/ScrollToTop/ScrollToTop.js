@@ -4,25 +4,24 @@ import "./ScrollToTop.css";
 
 class ScrollToTop extends Component {
   state = {
-    isVisible: false
+    isVisible: false,
   };
 
   componentDidMount() {
     var scrollComponent = this;
-    document.addEventListener("scroll", e => {
+    document.addEventListener("scroll", (e) => {
       scrollComponent.toggleVisibility();
     });
   }
 
   toggleVisibility = () => {
-    console.log(window.pageYOffset, this.props.yOffSet);
     if (window.pageYOffset > this.props.yOffSet) {
       this.setState({
-        isVisible: true
+        isVisible: true,
       });
     } else {
       this.setState({
-        isVisible: false
+        isVisible: false,
       });
     }
   };
@@ -30,7 +29,7 @@ class ScrollToTop extends Component {
   scrollToTop = () => {
     window.scrollTo({
       top: this.props.topPos,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 

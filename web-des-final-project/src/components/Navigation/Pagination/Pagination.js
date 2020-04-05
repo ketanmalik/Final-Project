@@ -1,7 +1,7 @@
 import React from "react";
 import Pagination from "react-bootstrap/Pagination";
 
-const pagination = props => {
+const pagination = (props) => {
   const pageNumbers = [];
   for (var i = 1; i <= Math.ceil(props.totalItems / props.itemsPerPage); i++) {
     pageNumbers.push(
@@ -14,6 +14,7 @@ const pagination = props => {
       </Pagination.Item>
     );
   }
+
   return <Pagination>{pageNumbers}</Pagination>;
 };
 

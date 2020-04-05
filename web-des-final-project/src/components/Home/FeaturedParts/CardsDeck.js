@@ -12,41 +12,40 @@ class CardsDeck extends Component {
     products: [
       {
         title: "Brake Assembly",
-        description: "Some description about product"
+        description: "Some description about product",
       },
       {
         title: "Nose Wheel Assembly",
-        description: "Some description about product"
+        description: "Some description about product",
       },
       {
         title: "Main Wheel Assembly",
-        description: "Some description about product"
+        description: "Some description about product",
       },
       {
         title: "Trim Actuator Assembly",
-        description: "Some description about product"
+        description: "Some description about product",
       },
       {
         title: "HPT Disk Assembly",
-        description: "Some description about product"
+        description: "Some description about product",
       },
       { title: "Flap Actuator", description: "Some description about product" },
       { title: "Radio Tuning", description: "Some description about product" },
       {
         title: "Anti-Ice Valve",
-        description: "Some description about product"
+        description: "Some description about product",
       },
       {
         title: "Trim Actuator Assembly",
-        description: "Some description about product"
-      }
-    ]
+        description: "Some description about product",
+      },
+    ],
   };
 
-  paginationHandler = e => {
+  paginationHandler = (e) => {
     if (e.target.text) {
       this.setState({ activePage: e.target.text });
-      console.log("done");
     }
   };
   render() {
@@ -76,7 +75,7 @@ class CardsDeck extends Component {
           totalItems={this.state.totalNum}
           itemsPerPage={this.state.productsPerPage}
           activeItem={this.state.activePage}
-          clicked={e => this.paginationHandler(e)}
+          clicked={(e) => this.paginationHandler(e)}
         />
         <div className="cards-wrapper">{cardsDeck}</div>
       </div>
