@@ -5,8 +5,7 @@ import img2 from "../../assets/images/carousel2.jpg";
 import img3 from "../../assets/images/carousel3.jpg";
 import "./Carousel.css";
 
-const carousel = props => {
-  console.log("carousel", props);
+const carousel = (props) => {
   return (
     <Carousel fade="true" interval="2500" height="100px">
       <Carousel.Item>

@@ -15,8 +15,8 @@ class toolbar extends Component {
         { path: "/parts/sell", content: "parts", isActive: false },
         { path: "/lease", content: "Lease", isActive: false },
         { path: "/about", content: "About", isActive: false },
-        { path: "/contactus", content: "Contact Us", isActive: false }
-      ]
+        { path: "/contactus", content: "Contact Us", isActive: false },
+      ],
     };
   }
 
@@ -55,20 +55,19 @@ class toolbar extends Component {
     this.setState({ links: links });
   };
 
-  navLinkHandler = i => {
+  navLinkHandler = (i) => {
     const links = this.state.links.slice();
     links[0].isActive = false;
     links[1].isActive = false;
     links[2].isActive = false;
     links[3].isActive = false;
-    console.log(links);
     for (var j = 4; j < 7; j++) {
       links[j].isActive = i + 4 == j;
     }
     this.setState({ links: links });
   };
 
-  navLinkDropdownHandler = i => {
+  navLinkDropdownHandler = (i) => {
     this.navLinkHandler(5);
     const links = this.state.links.slice();
     links[0].isActive = true;

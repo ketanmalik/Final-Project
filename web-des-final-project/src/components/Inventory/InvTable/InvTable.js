@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Pagination from "../../Navigation/Pagination/Pagination";
 import BootstrapTable from "react-bootstrap-table-next";
+import _ from "lodash";
+import filter from "lodash/filter";
 import Aux from "../../../hoc/Aux/Aux";
 import "../../../../node_modules/react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "./InvTable.css";
@@ -114,6 +116,7 @@ class InvTable extends Component {
     ],
     activePage: 1,
     itemsPerPage: 10,
+    checkoutData: [],
   };
 
   paginationHandler = (e) => {
@@ -123,11 +126,45 @@ class InvTable extends Component {
   };
 
   singleSelectHandler = (row, isSelect) => {
-    console.log(isSelect, row.serialNo);
+    let checkoutData = [];
+    if (this.state.checkoutData) {
+      checkoutData = [...this.state.checkoutData];
+    }
+    let tblData = [...this.state.tblData];
+    if (!isSelect) {
+      checkoutData = checkoutData.filter(function (value) {
+        return value.serialNo !== row.serialNo || value.modelNo !== row.modelNo;
+      });
+    } else {
+      let test = _.filter(tblData, {
+        serialNo: row.serialNo,
+        modelNo: row.modelNo,
+      });
+      if (checkoutData) {
+        checkoutData.push(test[0]);
+      }
+    }
+    this.setState({ checkoutData: checkoutData });
   };
 
   allSelectHandler = (isSelect, rows) => {
-    console.log(isSelect, rows);
+    let checkoutData = [];
+    if (this.state.checkoutData) {
+      checkoutData = [...this.state.checkoutData];
+    }
+    if (isSelect) {
+      rows.map((row) => {
+        checkoutData.push(row);
+      });
+    } else {
+      rows.forEach((row) => {
+        let i = checkoutData.findIndex(
+          (r) => r.serialNo === row.serialNo && r.modelNo === row.modelNo
+        );
+        if (i >= 0) checkoutData.splice(i, 1);
+      });
+    }
+    this.setState({ checkoutData: checkoutData });
   };
 
   render() {
