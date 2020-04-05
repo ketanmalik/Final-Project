@@ -1,0 +1,27 @@
+.inv-tbl-wrapper {
+  padding: 2em;
+}
+.page-item.active .page-link {
+  background-color: #581845;
+  border-color: #581845;
+  color: #fcfcfc;
+}
+
+.page-link {
+  color: #212529;
+}
+
+#inv-tbl-btn {
+  background-color: #581845;
+  border-color: #581845;
+}
+
+#inv-tbl-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+#inv-tbl-btn:hover {
+  background-color: rgb(48, 13, 38);
+  border-color: rgb(48, 13, 38);
+}

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import InvTable from "./InvTable/InvTable";
 import img1 from "../../assets/images/inventory1.jpg";
 import img2 from "../../assets/images/inventory2.jpg";
 import img3 from "../../assets/images/inventory3.jpg";
@@ -18,31 +19,32 @@ const inventoryImages = [
   { src: img4, text: "Wheel Base" },
   { src: img5, text: "APU Frames" },
   { src: img6, text: "Joint Bearings" },
-  { src: img7, text: "Turboprop Parts" }
+  { src: img7, text: "Turboprop Parts" },
 ];
 
-const Inventory = props => {
+const Inventory = (props) => {
   const [style, set] = useSpring(() => ({
     transform: "perspective(500px) rotateY(0deg)",
-    opacity: 1
+    opacity: 1,
   }));
 
-  const bind = useScroll(event => {
+  const bind = useScroll((event) => {
     set({
       transform: `perspective(700px)rotateY(${
         event.scrolling ? event.delta[0] : 0
       }deg)`,
-      opacity: event.scrolling ? 0.8 : 1
+      opacity: event.scrolling ? 0.8 : 1,
     });
   });
 
   return (
     <div className="inv-wrapper">
-      <h1 id="inv-p">Our Inventory Offers</h1>
+      <h2 id="inv-p">Our Inventory Offers</h2>
       <div className="inv-cd-wrapper" {...bind()}>
-        {inventoryImages.map(key => {
+        {inventoryImages.map((key, i) => {
           return (
             <animated.div
+              key={i}
               className="inv-cd"
               style={{ ...style, backgroundImage: `url(${key.src})` }}
             >
@@ -53,6 +55,8 @@ const Inventory = props => {
           );
         })}
       </div>
+      <h3 id="inv-tbl-h">View Full List</h3>
+      <InvTable />
     </div>
   );
 };
