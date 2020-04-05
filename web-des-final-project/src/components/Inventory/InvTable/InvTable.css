@@ -25,3 +25,11 @@
   background-color: rgb(48, 13, 38);
   border-color: rgb(48, 13, 38);
 }
+
+.react-bootstrap-table th[data-row-selection] {
+  width: 37px;
+}
+
+tr {
+  cursor: pointer;
+}
