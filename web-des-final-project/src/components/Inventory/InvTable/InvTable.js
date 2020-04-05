@@ -1,101 +1,17 @@
 import React, { Component } from "react";
+import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Pagination from "../../Navigation/Pagination/Pagination";
 import BootstrapTable from "react-bootstrap-table-next";
 import _ from "lodash";
-import filter from "lodash/filter";
 import Aux from "../../../hoc/Aux/Aux";
+import Spinner from "react-bootstrap/Spinner";
 import "../../../../node_modules/react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "./InvTable.css";
 
 class InvTable extends Component {
   state = {
-    tblData: [
-      {
-        serialNo: "1437687022",
-        modelNo: "UW5NTM1",
-        text: "Engine Air Intake",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "1507222015",
-        modelNo: "KVCN61I",
-        text: "Subsonic Inlet",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "2637326418",
-        modelNo: "7T3KTVP",
-        text: "Supersonic Inlet",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "5042444538",
-        modelNo: "7H6RTGS",
-        text: "Inlet Cone",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "3299083876",
-        modelNo: "N2BMGJN",
-        text: "Inlet Ramp",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "8602409965",
-        modelNo: "1KMM4PX",
-        text: "Divertless Supersonic Inlet",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "9075451408",
-        modelNo: "OOB137F",
-        text: "Axial Compressor",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "8796411775",
-        modelNo: "IS24Z1Q",
-        text: "17-Stage Electric Compressor",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "8342077739",
-        modelNo: "U5S98TL",
-        text: "Combustor Flame Holder",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "0687139356",
-        modelNo: "R97Q0BU",
-        text: "3-Stage Turbine",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "6831656048",
-        modelNo: "U5CKL1C",
-        text: "Turbofan Afterburner",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "8632516642",
-        modelNo: "KDARB8U",
-        text: "Propelling Nozzle",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "3439178746",
-        modelNo: "KDARB8U",
-        text: "Thrust Reverser",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "4421088926",
-        modelNo: "U5S98TL",
-        text: "Labyrinth Cooling System",
-        category: "Engine Part",
-      },
-    ],
+    tblData: [],
     columns: [
       {
         dataField: "serialNo",
@@ -117,6 +33,29 @@ class InvTable extends Component {
     activePage: 1,
     itemsPerPage: 10,
     checkoutData: [],
+    loading: true,
+    error: null,
+  };
+
+  componentDidMount() {
+    this.getInventory();
+  }
+
+  getInventory = () => {
+    axios
+      .get("/getinventory")
+      .then(
+        (resp) => (
+          this.setState({ tblData: resp.data }),
+          this.setState({ loading: false }),
+          this.setState({ error: null })
+        )
+      )
+      .catch(
+        (error) => (
+          this.setState({ loading: false }), this.setState({ error: error })
+        )
+      );
   };
 
   paginationHandler = (e) => {
@@ -168,33 +107,50 @@ class InvTable extends Component {
   };
 
   render() {
-    const indexOfLastItem = this.state.activePage * this.state.itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - this.state.itemsPerPage;
-    const data = [...this.state.tblData];
-    const currentTblRows = data.slice(indexOfFirstItem, indexOfLastItem);
-    const selectRow = {
-      mode: "checkbox",
-      clickToSelect: true,
-      onSelect: this.singleSelectHandler,
-      onSelectAll: this.allSelectHandler,
-    };
+    let currentTblRows = null;
+    let selectRow = null;
+    if (!this.state.loading) {
+      const indexOfLastItem = this.state.activePage * this.state.itemsPerPage;
+      const indexOfFirstItem = indexOfLastItem - this.state.itemsPerPage;
+      const data = [...this.state.tblData];
+      currentTblRows = data.slice(indexOfFirstItem, indexOfLastItem);
+      selectRow = {
+        mode: "checkbox",
+        clickToSelect: true,
+        onSelect: this.singleSelectHandler,
+        onSelectAll: this.allSelectHandler,
+      };
+    }
 
     return (
       <Aux>
         <div className="inv-tbl-wrapper">
-          <Pagination
-            totalItems={this.state.tblData.length}
-            itemsPerPage={this.state.itemsPerPage}
-            activeItem={this.state.activePage}
-            clicked={(e) => this.paginationHandler(e)}
-          />
-          <BootstrapTable
-            keyField="serialNo"
-            data={currentTblRows}
-            columns={this.state.columns}
-            selectRow={selectRow}
-            hover
-          />
+          {this.state.loading ? (
+            <div style={{ margin: "5em 0em 5em 45em", color: "#581845" }}>
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <Aux>
+              <Pagination
+                totalItems={this.state.tblData.length}
+                itemsPerPage={this.state.itemsPerPage}
+                activeItem={this.state.activePage}
+                clicked={(e) => this.paginationHandler(e)}
+              />
+              <BootstrapTable
+                keyField="serialNo"
+                data={currentTblRows}
+                columns={this.state.columns}
+                selectRow={selectRow}
+                hover
+                striped
+                bordered={false}
+                wrapperClasses="table-responsive"
+              />
+            </Aux>
+          )}
         </div>
         <div style={{ textAlign: "center" }}>
           <Button id="inv-tbl-btn">Requst Quote</Button>

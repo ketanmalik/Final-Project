@@ -5,33 +5,36 @@ import {
   lease as Lease,
   about as About,
   contactus as ContactUs,
-  inventory as Inventory
+  inventory as Inventory,
 } from "../../components/Pages/Pages";
 
 class MainContent extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/" render={routeProps => <Home {...routeProps} />} />
+        <Route
+          exact
+          path="/"
+          render={(routeProps) => <Home {...routeProps} />}
+        />
         <Route
           exact
           path="/lease"
-          render={routeProps => <Lease {...routeProps} />}
+          render={(routeProps) => <Lease {...routeProps} />}
         />
         <Route
           exact
           path="/about"
-          render={routeProps => <About {...routeProps} />}
+          render={(routeProps) => <About {...routeProps} />}
         />
         <Route
           exact
           path="/contactus"
-          render={routeProps => <ContactUs {...routeProps} />}
+          render={(routeProps) => <ContactUs {...routeProps} />}
         />
         <Route
-          exact
           path="/parts/inventory"
-          render={routeProps => <Inventory {...routeProps} />}
+          render={(routeProps) => <Inventory {...routeProps} />}
         />
       </Switch>
     );
