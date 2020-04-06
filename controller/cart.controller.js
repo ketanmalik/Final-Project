@@ -1,8 +1,9 @@
 const Cart = require("../models/cart.model");
 
-exports.request_quote = async function (req, res) {
+exports.checkout = async function (req, res) {
   let cart = new Cart({
     items: req.body.items,
+    price: req.body.price,
   });
   try {
     await cart.save();

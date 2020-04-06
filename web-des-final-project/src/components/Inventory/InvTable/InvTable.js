@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
+import Badge from "react-bootstrap/Badge";
 import Pagination from "../../Navigation/Pagination/Pagination";
 import BootstrapTable from "react-bootstrap-table-next";
 import _ from "lodash";
@@ -22,8 +23,12 @@ class InvTable extends Component {
         text: "Model Number",
       },
       {
-        dataField: "text",
+        dataField: "description",
         text: "Description",
+      },
+      {
+        dataField: "price",
+        text: "Price (USD)",
       },
       {
         dataField: "category",
@@ -35,6 +40,7 @@ class InvTable extends Component {
     checkoutData: [],
     loading: true,
     error: null,
+    specification: "Please select a part to view specifications",
   };
 
   componentDidMount() {
@@ -106,9 +112,29 @@ class InvTable extends Component {
     this.setState({ checkoutData: checkoutData });
   };
 
+  buttonClickHandler = () => {
+    const checkoutData = [...this.state.checkoutData];
+    let price = _.sumBy(checkoutData, function (item) {
+      return item.price;
+    });
+    const payload = {
+      items: checkoutData,
+      price: price,
+    };
+
+    axios({
+      url: "/checkout",
+      method: "POST",
+      data: payload,
+    })
+      .then(console.log("data send"))
+      .catch(console.log("not send"));
+  };
+
   render() {
     let currentTblRows = null;
     let selectRow = null;
+    let expandRow = null;
     if (!this.state.loading) {
       const indexOfLastItem = this.state.activePage * this.state.itemsPerPage;
       const indexOfFirstItem = indexOfLastItem - this.state.itemsPerPage;
@@ -116,9 +142,26 @@ class InvTable extends Component {
       currentTblRows = data.slice(indexOfFirstItem, indexOfLastItem);
       selectRow = {
         mode: "checkbox",
-        clickToSelect: true,
+        clickToExpand: true,
+        clickToSelect: false,
         onSelect: this.singleSelectHandler,
         onSelectAll: this.allSelectHandler,
+      };
+      expandRow = {
+        onlyOneExpanding: true,
+        renderer: (row, rowIndex) => {
+          return (
+            <div style={{ marginLeft: "1em" }}>
+              <p className="inv-specs">Specifications:</p>
+              {Object.keys(row.specification).map((key) => (
+                <p className="inv-specs-text" key={key}>
+                  <b>{key}:</b>&nbsp;&nbsp;
+                  {row.specification[key]}
+                </p>
+              ))}
+            </div>
+          );
+        },
       };
     }
 
@@ -133,27 +176,41 @@ class InvTable extends Component {
             </div>
           ) : (
             <Aux>
-              <Pagination
-                totalItems={this.state.tblData.length}
-                itemsPerPage={this.state.itemsPerPage}
-                activeItem={this.state.activePage}
-                clicked={(e) => this.paginationHandler(e)}
-              />
-              <BootstrapTable
-                keyField="serialNo"
-                data={currentTblRows}
-                columns={this.state.columns}
-                selectRow={selectRow}
-                hover
-                striped
-                bordered={false}
-                wrapperClasses="table-responsive"
-              />
+              <div>
+                <div className="inv-tbl-wrapper">
+                  <Pagination
+                    totalItems={this.state.tblData.length}
+                    itemsPerPage={this.state.itemsPerPage}
+                    activeItem={this.state.activePage}
+                    clicked={(e) => this.paginationHandler(e)}
+                  />
+                  <BootstrapTable
+                    keyField="serialNo"
+                    data={currentTblRows}
+                    columns={this.state.columns}
+                    hover
+                    striped
+                    wrapperClasses="table-responsive"
+                    expandRow={expandRow}
+                    selectRow={selectRow}
+                    // rowEvents={rowEvents}
+                  />
+                </div>
+              </div>
             </Aux>
           )}
         </div>
         <div style={{ textAlign: "center" }}>
-          <Button id="inv-tbl-btn">Requst Quote</Button>
+          <Button
+            id="inv-tbl-btn"
+            onClick={this.buttonClickHandler}
+            disabled={this.state.checkoutData.length ? false : true}
+          >
+            <span id="inv-tbl-btn-txt">Checkout</span>
+            <Badge id="inv-tbl-btn-badge">
+              {this.state.checkoutData.length}
+            </Badge>
+          </Button>
         </div>
       </Aux>
     );

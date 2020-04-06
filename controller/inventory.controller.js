@@ -3,7 +3,6 @@ const Inventory = require("../models/inventory.model");
 exports.get_inventory = async function (req, res) {
   Inventory.find({})
     .then((data) => {
-      console.log(data);
       res.send(data);
     })
     .catch((err) => {

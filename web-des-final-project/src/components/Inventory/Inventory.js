@@ -55,7 +55,7 @@ const Inventory = (props) => {
           );
         })}
       </div>
-      <h3 id="inv-tbl-h">View Full Inventory</h3>
+      <h3 className="inv-tbl-h">View Full Inventory</h3>
       <InvTable />
     </div>
   );
