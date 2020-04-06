@@ -46,7 +46,7 @@
   background-position: center center;
 }
 
-#inv-tbl-h {
+.inv-tbl-h {
   margin-top: 1%;
   padding: 0em 1em;
   font-weight: 800;
@@ -54,30 +54,35 @@
 }
 
 @media (max-width: 380px) {
+  .inv-tbl-h,
   #inv-p {
     font-size: 18px;
   }
 }
 
 @media (min-width: 565px) and (max-width: 660px) {
+  #inv-p,
   #inv-p {
     font-size: 40px;
   }
 }
 
 @media (min-width: 415px) and (max-width: 564px) {
+  #inv-p,
   #inv-p {
     font-size: 30px;
   }
 }
 
 @media (min-width: 381px) and (max-width: 414px) {
+  #inv-p,
   #inv-p {
     font-size: 20px;
   }
 }
 
 @media (min-width: 310px) and (max-width: 355px) {
+  #inv-p,
   #inv-p {
     font-size: 15px;
   }

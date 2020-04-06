@@ -1,101 +1,18 @@
 import React, { Component } from "react";
+import axios from "axios";
 import Button from "react-bootstrap/Button";
+import Badge from "react-bootstrap/Badge";
 import Pagination from "../../Navigation/Pagination/Pagination";
 import BootstrapTable from "react-bootstrap-table-next";
 import _ from "lodash";
-import filter from "lodash/filter";
 import Aux from "../../../hoc/Aux/Aux";
+import Spinner from "react-bootstrap/Spinner";
 import "../../../../node_modules/react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "./InvTable.css";
 
 class InvTable extends Component {
   state = {
-    tblData: [
-      {
-        serialNo: "1437687022",
-        modelNo: "UW5NTM1",
-        text: "Engine Air Intake",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "1507222015",
-        modelNo: "KVCN61I",
-        text: "Subsonic Inlet",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "2637326418",
-        modelNo: "7T3KTVP",
-        text: "Supersonic Inlet",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "5042444538",
-        modelNo: "7H6RTGS",
-        text: "Inlet Cone",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "3299083876",
-        modelNo: "N2BMGJN",
-        text: "Inlet Ramp",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "8602409965",
-        modelNo: "1KMM4PX",
-        text: "Divertless Supersonic Inlet",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "9075451408",
-        modelNo: "OOB137F",
-        text: "Axial Compressor",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "8796411775",
-        modelNo: "IS24Z1Q",
-        text: "17-Stage Electric Compressor",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "8342077739",
-        modelNo: "U5S98TL",
-        text: "Combustor Flame Holder",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "0687139356",
-        modelNo: "R97Q0BU",
-        text: "3-Stage Turbine",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "6831656048",
-        modelNo: "U5CKL1C",
-        text: "Turbofan Afterburner",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "8632516642",
-        modelNo: "KDARB8U",
-        text: "Propelling Nozzle",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "3439178746",
-        modelNo: "KDARB8U",
-        text: "Thrust Reverser",
-        category: "Engine Part",
-      },
-      {
-        serialNo: "4421088926",
-        modelNo: "U5S98TL",
-        text: "Labyrinth Cooling System",
-        category: "Engine Part",
-      },
-    ],
+    tblData: [],
     columns: [
       {
         dataField: "serialNo",
@@ -106,8 +23,12 @@ class InvTable extends Component {
         text: "Model Number",
       },
       {
-        dataField: "text",
+        dataField: "description",
         text: "Description",
+      },
+      {
+        dataField: "price",
+        text: "Price (USD)",
       },
       {
         dataField: "category",
@@ -117,6 +38,30 @@ class InvTable extends Component {
     activePage: 1,
     itemsPerPage: 10,
     checkoutData: [],
+    loading: true,
+    error: null,
+    specification: "Please select a part to view specifications",
+  };
+
+  componentDidMount() {
+    this.getInventory();
+  }
+
+  getInventory = () => {
+    axios
+      .get("/getinventory")
+      .then(
+        (resp) => (
+          this.setState({ tblData: resp.data }),
+          this.setState({ loading: false }),
+          this.setState({ error: null })
+        )
+      )
+      .catch(
+        (error) => (
+          this.setState({ loading: false }), this.setState({ error: error })
+        )
+      );
   };
 
   paginationHandler = (e) => {
@@ -167,37 +112,105 @@ class InvTable extends Component {
     this.setState({ checkoutData: checkoutData });
   };
 
-  render() {
-    const indexOfLastItem = this.state.activePage * this.state.itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - this.state.itemsPerPage;
-    const data = [...this.state.tblData];
-    const currentTblRows = data.slice(indexOfFirstItem, indexOfLastItem);
-    const selectRow = {
-      mode: "checkbox",
-      clickToSelect: true,
-      onSelect: this.singleSelectHandler,
-      onSelectAll: this.allSelectHandler,
+  buttonClickHandler = () => {
+    const checkoutData = [...this.state.checkoutData];
+    let price = _.sumBy(checkoutData, function (item) {
+      return item.price;
+    });
+    const payload = {
+      items: checkoutData,
+      price: price,
     };
+
+    axios({
+      url: "/checkout",
+      method: "POST",
+      data: payload,
+    })
+      .then(console.log("data send"))
+      .catch(console.log("not send"));
+  };
+
+  render() {
+    let currentTblRows = null;
+    let selectRow = null;
+    let expandRow = null;
+    if (!this.state.loading) {
+      const indexOfLastItem = this.state.activePage * this.state.itemsPerPage;
+      const indexOfFirstItem = indexOfLastItem - this.state.itemsPerPage;
+      const data = [...this.state.tblData];
+      currentTblRows = data.slice(indexOfFirstItem, indexOfLastItem);
+      selectRow = {
+        mode: "checkbox",
+        clickToExpand: true,
+        clickToSelect: false,
+        onSelect: this.singleSelectHandler,
+        onSelectAll: this.allSelectHandler,
+      };
+      expandRow = {
+        onlyOneExpanding: true,
+        renderer: (row, rowIndex) => {
+          return (
+            <div style={{ marginLeft: "1em" }}>
+              <p className="inv-specs">Specifications:</p>
+              {Object.keys(row.specification).map((key) => (
+                <p className="inv-specs-text" key={key}>
+                  <b>{key}:</b>&nbsp;&nbsp;
+                  {row.specification[key]}
+                </p>
+              ))}
+            </div>
+          );
+        },
+      };
+    }
 
     return (
       <Aux>
         <div className="inv-tbl-wrapper">
-          <Pagination
-            totalItems={this.state.tblData.length}
-            itemsPerPage={this.state.itemsPerPage}
-            activeItem={this.state.activePage}
-            clicked={(e) => this.paginationHandler(e)}
-          />
-          <BootstrapTable
-            keyField="serialNo"
-            data={currentTblRows}
-            columns={this.state.columns}
-            selectRow={selectRow}
-            hover
-          />
+          {this.state.loading ? (
+            <div style={{ margin: "5em 0em 5em 45em", color: "#581845" }}>
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <Aux>
+              <div>
+                <div className="inv-tbl-wrapper">
+                  <Pagination
+                    totalItems={this.state.tblData.length}
+                    itemsPerPage={this.state.itemsPerPage}
+                    activeItem={this.state.activePage}
+                    clicked={(e) => this.paginationHandler(e)}
+                  />
+                  <BootstrapTable
+                    keyField="serialNo"
+                    data={currentTblRows}
+                    columns={this.state.columns}
+                    hover
+                    striped
+                    wrapperClasses="table-responsive"
+                    expandRow={expandRow}
+                    selectRow={selectRow}
+                    // rowEvents={rowEvents}
+                  />
+                </div>
+              </div>
+            </Aux>
+          )}
         </div>
         <div style={{ textAlign: "center" }}>
-          <Button id="inv-tbl-btn">Requst Quote</Button>
+          <Button
+            id="inv-tbl-btn"
+            onClick={this.buttonClickHandler}
+            disabled={this.state.checkoutData.length ? false : true}
+          >
+            <span id="inv-tbl-btn-txt">Checkout</span>
+            <Badge id="inv-tbl-btn-badge">
+              {this.state.checkoutData.length}
+            </Badge>
+          </Button>
         </div>
       </Aux>
     );
