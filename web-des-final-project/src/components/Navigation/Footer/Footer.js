@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import asaLogo from "../../../assets/images/asa-logo.png";
+// import logo from "../../../assets/images/logo_size.jpg";
 import "./Footer.scss";
 
-const footer = props => {
+const footer = (props) => {
   return (
     <footer
       className="page-footer font-small"
-      style={{ backgroundColor: "#581845", color: "white" }}
+      style={{ backgroundColor: "#581845", color: "#fcfcfc" }}
     >
       <div
         className="row"
@@ -15,7 +16,7 @@ const footer = props => {
         // style={{ backgroundColor: "#581845", padding: "30px 0px 0px 30px" }}
       >
         <div className="col-6 col-md-3">
-          <h6 className="font-weight-bold text-uppercase mb-4">Contact Us</h6>
+          <h4 className="font-weight-bold text-uppercase mb-4">Contact Us</h4>
           <ul className="list-unstyled text-small">
             <li>
               <p>
@@ -43,13 +44,16 @@ const footer = props => {
         {/* <hr class="clearfix w-100 d-md-none" /> */}
 
         <div className="col-6 col-md-3">
-          <h6 className="font-weight-bold text-uppercase mb-4">
+          <h4 className="font-weight-bold text-uppercase mb-4">
             Certifications
-          </h6>
+          </h4>
           <ul className="list-unstyled text-small">
             <li>
               <p>
-                <a style={{ textDecoration: "none", color: "white" }} href="#">
+                <a
+                  style={{ textDecoration: "none", color: "#fcfcfc" }}
+                  href="#"
+                >
                   ASA Certificate
                   <img src={asaLogo} height="100px" alt="ASA Logo" />
                 </a>
@@ -61,20 +65,26 @@ const footer = props => {
         {/* <hr class="clearfix w-100 d-md-none" /> */}
 
         <div className="col-6 col-md-3">
-          <h6 className="font-weight-bold text-uppercase mb-4">
+          <h4 className="font-weight-bold text-uppercase mb-4">
             Terms & Conditions
-          </h6>
+          </h4>
           <ul className="list-unstyled text-small">
             <li>
               <p>
-                <a style={{ textDecoration: "none", color: "white" }} href="#">
+                <a
+                  style={{ textDecoration: "none", color: "#fcfcfc" }}
+                  href="#"
+                >
                   Purchase Order Terms and Conditions
                 </a>
               </p>
             </li>
             <li>
               <p>
-                <a style={{ textDecoration: "none", color: "white" }} href="#">
+                <a
+                  style={{ textDecoration: "none", color: "#fcfcfc" }}
+                  href="#"
+                >
                   Standard Commercial Terms & Conditions of Sale
                 </a>
               </p>
@@ -85,7 +95,7 @@ const footer = props => {
         {/* <hr class="clearfix w-100 d-md-none" /> */}
 
         <div className="col-6 col-md-3">
-          <h6 className="font-weight-bold text-uppercase mb-4">Connect</h6>
+          <h4 className="font-weight-bold text-uppercase mb-4">Connect</h4>
           <ul className="list-unstyled">
             <li className="list-inline-item">
               <Link to="" className="btn-floating btn-fb mx-1">
@@ -113,7 +123,7 @@ const footer = props => {
               </Link>
             </li>
           </ul>
-          <h3>LOGO IMAGE</h3>
+          {/* <img src={logo} alt="logo" /> */}
         </div>
       </div>
       <div
@@ -121,7 +131,7 @@ const footer = props => {
         style={{
           textAlign: "center",
           padding: "25px 0px 15px 0px",
-          backgroundColor: "#300D26"
+          backgroundColor: "#300D26",
         }}
       >
         <div className="col-12 col-md">

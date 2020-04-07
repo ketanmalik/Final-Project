@@ -1,14 +1,22 @@
 .navbar-dark .navbar-nav li.active > a {
+  border-radius: 40px;
   background-color: #18582b;
   color: #fff;
 }
 .navbar-dark .navbar-nav .nav-link {
   color: #fcfcfc;
   padding: 15px;
+  font-weight: 700;
+  font-size: 20px;
 }
 .dropdown-item.active {
   background-color: #18582b;
 }
 .dropdown-item:active {
   background-color: #18582b;
+}
+
+.navbar-dark .navbar-toggler {
+  outline: none;
+  border: none;
 }

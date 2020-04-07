@@ -13,10 +13,14 @@
 #featured-product-card {
   width: 12rem;
   margin: 1em;
+  padding: 1%;
 }
 
-#featured-product-card:hover {
-  /* color: red; */
+@media (min-width: 1424px) {
+  #featured-product-card {
+    width: 17% !important;
+    padding: 1% !important;
+  }
 }
 
 @media (min-width: 1424px) {
@@ -42,7 +46,7 @@
 }
 @media (min-width: 1024px) and (max-width: 1103px) {
   #featured-product-card {
-    width: 10rem;
+    width: 11rem;
   }
 }
 @media (min-width: 944px) and (max-width: 1023px) {
@@ -58,7 +62,7 @@
 }
 @media (min-width: 864px) and (max-width: 943px) {
   #featured-product-card {
-    width: 8rem;
+    width: 9rem;
   }
   .card-title {
     font-size: medium;
@@ -69,7 +73,7 @@
 }
 @media (min-width: 784px) and (max-width: 863px) {
   #featured-product-card {
-    width: 7rem;
+    width: 8rem;
   }
   .card-title {
     font-size: small;
