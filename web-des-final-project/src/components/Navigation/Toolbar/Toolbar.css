@@ -1,0 +1,10 @@
+#signin-text {
+  display: inline;
+  margin-left: 1em;
+}
+
+@media (min-width: 575px) and (max-width: 780px) {
+  #signin-text {
+    display: none !important;
+  }
+}
