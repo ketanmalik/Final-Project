@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import NavLink from "./NavLink";
-import "./Toolbar.css";
 import NavLinkDropdown from "./NavLinkDropdown";
+import logo from "../../../assets/images/logo.png";
+import "./Toolbar.css";
 
 class toolbar extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class toolbar extends Component {
         { path: "/lease", content: "Lease", isActive: false },
         { path: "/about", content: "About", isActive: false },
         { path: "/contactus", content: "Contact Us", isActive: false },
+        { path: "/user", content: "User", isActive: false },
       ],
     };
   }
@@ -61,6 +63,7 @@ class toolbar extends Component {
     links[1].isActive = false;
     links[2].isActive = false;
     links[3].isActive = false;
+    links[7].isActive = false;
     for (var j = 4; j < 7; j++) {
       links[j].isActive = i + 4 == j;
     }
@@ -68,8 +71,9 @@ class toolbar extends Component {
   };
 
   navLinkDropdownHandler = (i) => {
-    this.navLinkHandler(5);
     const links = this.state.links.slice();
+    this.navLinkHandler(-1);
+    links[7].isActive = false;
     links[0].isActive = true;
     for (var j = 1; j < 4; j++) {
       links[j].isActive = i == j;
@@ -82,6 +86,16 @@ class toolbar extends Component {
       links[j].isActive = false;
     }
     this.setState({ links: links });
+  };
+
+  userHandler = () => {
+    this.navLinkHandler(-1);
+    const links = this.state.links.slice();
+    links[0].isActive = false;
+    links[1].isActive = false;
+    links[2].isActive = false;
+    links[3].isActive = false;
+    links[7].isActive = true;
   };
 
   render() {
@@ -107,7 +121,7 @@ class toolbar extends Component {
             to="/"
             onClick={this.homeButtonHandler}
           >
-            Logo
+            <img src={logo} alt="/logo" width="45px" />
           </Link>
           <button
             className="navbar-toggler"
@@ -129,6 +143,41 @@ class toolbar extends Component {
                 item3={this.state.links[3].isActive}
               />
               {navLinks}
+            </ul>
+            <ul class="navbar-nav ml-auto">
+              <li
+                class={
+                  "nav-item " + (this.state.links[7].isActive ? "active" : "")
+                }
+              >
+                <Link
+                  className="nav-link"
+                  to={this.state.links[7].path}
+                  onClick={this.userHandler}
+                >
+                  <svg
+                    class="bi bi-people-circle"
+                    width="1.5em"
+                    height="1.5em"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z" />
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 9a3 3 0 100-6 3 3 0 000 6z"
+                      clip-rule="evenodd"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <span id="signin-text">Sign In/Register</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </nav>

@@ -7,7 +7,7 @@ import "./Carousel.css";
 
 const carousel = (props) => {
   return (
-    <Carousel fade="true" interval="2500" height="100px">
+    <Carousel fade="true" interval="250000" height="100px">
       <Carousel.Item>
         <img className="d-block w-100" src={img1} alt="First slide" />
         <Carousel.Caption>
