@@ -50,18 +50,10 @@ class InvTable extends Component {
   getInventory = () => {
     axios
       .get("/getinventory")
-      .then(
-        (resp) => (
-          this.setState({ tblData: resp.data }),
-          this.setState({ loading: false }),
-          this.setState({ error: null })
-        )
+      .then((resp) =>
+        this.setState({ tblData: resp.data, loading: false, error: null })
       )
-      .catch(
-        (error) => (
-          this.setState({ loading: false }), this.setState({ error: error })
-        )
-      );
+      .catch((error) => this.setState({ loading: false, error: error }));
   };
 
   paginationHandler = (e) => {
@@ -99,7 +91,7 @@ class InvTable extends Component {
     }
     if (isSelect) {
       rows.map((row) => {
-        checkoutData.push(row);
+        return checkoutData.push(row);
       });
     } else {
       rows.forEach((row) => {

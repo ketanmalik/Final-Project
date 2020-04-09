@@ -9,8 +9,7 @@ import Col from "react-bootstrap/Col";
 
 import "./Testimonials.css";
 
-const testimonials = props => {
-  let testimonial = null;
+const testimonials = (props) => {
   return (
     <div className="testinonials-wrapper">
       <h2>Testimonials</h2>
