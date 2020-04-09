@@ -82,3 +82,9 @@
 .fa {
   margin-right: 1em;
 }
+
+.errorMessage {
+  color: red;
+  font-size: 12px;
+  margin-left: 2em;
+}

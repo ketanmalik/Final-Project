@@ -10,6 +10,7 @@ let UserSchema = new Schema({
   add2: { type: String, required: false, max: 20 },
   city: { type: String, required: true, max: 20 },
   state: { type: String, required: true, max: 20 },
+  country: { type: String, required: true, max: 30 },
   date: { type: String, default: Date.now() },
 });
 

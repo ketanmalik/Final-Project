@@ -8,8 +8,6 @@ import Button from "react-bootstrap/Button";
 import logo from "../../assets/images/logo.png";
 import google from "../../assets/images/google.png";
 import FacebookLogin from "react-facebook-login";
-// import TiSocialFacebookCircular from '../../../node_modules/react-f' ;
-// ("react-icons/lib/ti/social-facebook-circular");
 import "./UserSignIn.css";
 
 class UserSignIn extends Component {
@@ -17,9 +15,7 @@ class UserSignIn extends Component {
     console.log(response);
   };
 
-  componentDidMount() {
-    console.log("user modal");
-  }
+  componentDidMount() {}
   render() {
     return (
       <Aux>

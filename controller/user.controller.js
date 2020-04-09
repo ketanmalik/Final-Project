@@ -13,6 +13,7 @@ exports.user_register = async function (req, res) {
     city: req.body.city,
     state: req.body.state,
     zip: req.body.state,
+    country: req.body.country,
   });
 
   try {
