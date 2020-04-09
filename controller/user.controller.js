@@ -1,13 +1,19 @@
 const User = require("../models/user.model");
-const Part = require("../models/part.model");
-const Cart = require("../models/cart.model");
 const emailReg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 const passReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
 
-exports.user_create = async function (req, res) {
+exports.user_register = async function (req, res) {
   let user = new User({
+    fName: req.body.fName,
+    lName: req.body.lName,
     email: req.body.email,
     password: req.body.password,
+    add1: req.body.add1,
+    add2: req.body.add2,
+    city: req.body.city,
+    state: req.body.state,
+    zip: req.body.state,
+    country: req.body.country,
   });
 
   try {
@@ -17,5 +23,3 @@ exports.user_create = async function (req, res) {
     res.status(400).send(err);
   }
 };
-
-exports.request_quote = async function (req, res) {};

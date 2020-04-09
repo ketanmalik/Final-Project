@@ -108,7 +108,6 @@ class toolbar extends Component {
   };
 
   signinHandler = (bool) => {
-    console.log(bool);
     this.setState({ showModal: bool });
     setTimeout(() => {
       this.setState({ newUser: false });
@@ -116,7 +115,6 @@ class toolbar extends Component {
   };
 
   render() {
-    console.log(this.props);
     let navLinks = null;
     let topLinks = [...this.state.links].slice(4, 7);
     let loggedInUserOption = null;
