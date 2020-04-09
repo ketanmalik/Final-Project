@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import InvTable from "./InvTable/InvTable";
 import img1 from "../../assets/images/inventory1.jpg";
 import img2 from "../../assets/images/inventory2.jpg";

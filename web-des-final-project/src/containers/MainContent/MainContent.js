@@ -37,10 +37,10 @@ class MainContent extends Component {
           path="/parts/inventory"
           render={(routeProps) => <Inventory {...routeProps} />}
         />
-        <Route
+        {/* <Route
           path="/user"
           render={(routeProps) => <UserSignIn {...routeProps} />}
-        />
+        /> */}
       </Switch>
     );
   }

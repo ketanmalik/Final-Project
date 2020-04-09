@@ -1,6 +1,6 @@
 import React from "react";
 
-const lease = props => {
+const lease = (props) => {
   console.log("lease", props);
   return <div>Lease</div>;
 };

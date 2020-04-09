@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import NavLink from "./NavLink";
 import NavLinkDropdown from "./NavLinkDropdown";
+import UserSignIn from "../../UserSignIn/UserSignIn";
 import logo from "../../../assets/images/logo.png";
 import "./Toolbar.css";
 
@@ -19,12 +20,19 @@ class toolbar extends Component {
         { path: "/contactus", content: "Contact Us", isActive: false },
         { path: "/user", content: "User", isActive: false },
       ],
+      loggedIn: false,
+      showModal: false,
+      newUser: false,
     };
   }
 
   componentDidMount() {
     this.setActiveLink();
   }
+
+  newUserRegisterHandler = () => {
+    this.setState({ newUser: true });
+  };
 
   setActiveLink = () => {
     const links = [...this.state.links];
@@ -96,11 +104,22 @@ class toolbar extends Component {
     links[2].isActive = false;
     links[3].isActive = false;
     links[7].isActive = true;
+    this.signinHandler(true);
+  };
+
+  signinHandler = (bool) => {
+    console.log(bool);
+    this.setState({ showModal: bool });
+    setTimeout(() => {
+      this.setState({ newUser: false });
+    }, 10);
   };
 
   render() {
+    console.log(this.props);
     let navLinks = null;
     let topLinks = [...this.state.links].slice(4, 7);
+    let loggedInUserOption = null;
     navLinks = topLinks.map((link, i) => (
       <NavLink
         path={link.path}
@@ -144,19 +163,20 @@ class toolbar extends Component {
               />
               {navLinks}
             </ul>
-            <ul class="navbar-nav ml-auto">
+            <ul className="navbar-nav ml-auto">
               <li
-                class={
+                className={
                   "nav-item " + (this.state.links[7].isActive ? "active" : "")
                 }
               >
                 <Link
                   className="nav-link"
-                  to={this.state.links[7].path}
+                  // to={this.state.links[7].path}
+                  to={this.props.location.pathname}
                   onClick={this.userHandler}
                 >
                   <svg
-                    class="bi bi-people-circle"
+                    className="bi bi-people-circle"
                     width="1.5em"
                     height="1.5em"
                     viewBox="0 0 16 16"
@@ -165,22 +185,33 @@ class toolbar extends Component {
                   >
                     <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z" />
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M8 9a3 3 0 100-6 3 3 0 000 6z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                   </svg>
-                  <span id="signin-text">Sign In/Register</span>
+                  {this.state.loggedIn ? (
+                    { loggedInUserOption }
+                  ) : (
+                    <span id="signin-text">Sign In / Register</span>
+                  )}
                 </Link>
               </li>
             </ul>
           </div>
         </nav>
+        <UserSignIn
+          {...this.props}
+          show={this.state.showModal}
+          onHide={() => this.signinHandler(false)}
+          newUser={this.state.newUser}
+          newUserClicked={this.newUserRegisterHandler}
+        />
       </div>
     );
   }
