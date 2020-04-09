@@ -22,12 +22,17 @@ class toolbar extends Component {
       ],
       loggedIn: false,
       showModal: false,
+      newUser: false,
     };
   }
 
   componentDidMount() {
     this.setActiveLink();
   }
+
+  newUserRegisterHandler = () => {
+    this.setState({ newUser: true });
+  };
 
   setActiveLink = () => {
     const links = [...this.state.links];
@@ -105,6 +110,9 @@ class toolbar extends Component {
   signinHandler = (bool) => {
     console.log(bool);
     this.setState({ showModal: bool });
+    setTimeout(() => {
+      this.setState({ newUser: false });
+    }, 10);
   };
 
   render() {
@@ -198,8 +206,11 @@ class toolbar extends Component {
           </div>
         </nav>
         <UserSignIn
+          {...this.props}
           show={this.state.showModal}
           onHide={() => this.signinHandler(false)}
+          newUser={this.state.newUser}
+          newUserClicked={this.newUserRegisterHandler}
         />
       </div>
     );

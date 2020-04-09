@@ -17,14 +17,17 @@
   padding: 0px 0px 0px 15px;
   display: inline-block;
 }
-#sign-in-btn,
+.sign-in-btn,
 #modal-close-btn {
   font-size: 20px;
   background-color: rgb(88, 24, 69);
   border-color: transparent;
 }
-#sign-in-btn:focus,
-#sign-in-btn:active,
+.sign-in-btn {
+  margin-top: 1em;
+}
+.sign-in-btn:focus,
+.sign-in-btn:active,
 #modal-close-btn:focus,
 #modal-close-btn:active,
 .close {
@@ -32,7 +35,7 @@
   box-shadow: none;
 }
 
-#sign-in-btn:hover {
+.sign-in-btn:hover {
   background-color: rgb(48, 13, 38);
 }
 
@@ -46,8 +49,36 @@
   text-align: center;
   margin-left: 25%;
   color: #495057;
+  margin-top: 3%;
+  margin-bottom: 4%;
 }
 .separator-text {
   background-color: white;
   padding: 0 10px;
+}
+
+#google-img {
+  width: 250px;
+  margin-right: 1em;
+}
+
+.my-facebook-button-class {
+  font-weight: 500;
+  color: #fcfcfc;
+  width: 242px;
+  height: 57px;
+  background-color: #3b5999;
+}
+
+.google-facbook {
+  margin-top: 5%;
+}
+
+.my-facebook-button-class:active,
+.my-facebook-button-class:focus {
+  outline: none !important;
+  box-shadow: none;
+}
+.fa {
+  margin-right: 1em;
 }

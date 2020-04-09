@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
+import "./UserSignIn.css";
 
 class SignInForm extends Component {
   state = {
@@ -30,11 +31,13 @@ class SignInForm extends Component {
             <Form.Label>Username</Form.Label>
             <InputGroup>
               <InputGroup.Prepend>
-                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                <InputGroup.Text id="inputGroupPrepend">
+                  <i className="fas fa-at"></i>
+                </InputGroup.Text>
               </InputGroup.Prepend>
               <Form.Control
                 type="text"
-                placeholder="Username"
+                placeholder="Email"
                 aria-describedby="inputGroupPrepend"
                 required
               />
@@ -50,7 +53,9 @@ class SignInForm extends Component {
             <Form.Label>Password</Form.Label>
             <InputGroup>
               <InputGroup.Prepend>
-                <InputGroup.Text id="inputGroupPrepend">*</InputGroup.Text>
+                <InputGroup.Text id="inputGroupPrepend">
+                  <i className="fas fa-key" />
+                </InputGroup.Text>
               </InputGroup.Prepend>
               <Form.Control
                 type="text"
@@ -64,7 +69,7 @@ class SignInForm extends Component {
             </InputGroup>
           </Form.Group>
         </Form.Row>
-        <Button type="submit" id="sign-in-btn">
+        <Button type="submit" className="sign-in-btn">
           Sign In
         </Button>
       </Form>

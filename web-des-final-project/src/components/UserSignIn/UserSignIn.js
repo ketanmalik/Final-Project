@@ -1,28 +1,25 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Aux from "../../hoc/Aux/Aux";
 import SignInForm from "./SignInForm";
+import NewUser from "./NewUser";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import logo from "../../assets/images/logo.png";
 import google from "../../assets/images/google.png";
+import FacebookLogin from "react-facebook-login";
+// import TiSocialFacebookCircular from '../../../node_modules/react-f' ;
+// ("react-icons/lib/ti/social-facebook-circular");
 import "./UserSignIn.css";
 
 class UserSignIn extends Component {
-  //   state = {
-  //     validated: false,
-  //   };
-  //   // const [validated, setValidated] = useState(false);
+  responseFacebook = (response) => {
+    console.log(response);
+  };
 
-  //   signInHandler = (event) => {
-  //     event.preventDefault();
-  //     const form = event.currentTarget;
-  //     console.log(form);
-  //     if (form.checkValidity() === false) {
-  //       event.stopPropagation();
-  //     }
-
-  //     //   setValidated(true);
-  //   };
+  componentDidMount() {
+    console.log("user modal");
+  }
   render() {
     return (
       <Aux>
@@ -46,20 +43,37 @@ class UserSignIn extends Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <SignInForm {...this.props} />
-            <div className="separator">
-              <span className="separator-text">or</span>
-            </div>
-            <div
-              class="fb-login-button"
-              data-width=""
-              data-size="large"
-              data-button-type="continue_with"
-              data-layout="default"
-              data-auto-logout-link="false"
-              data-use-continue-as="false"
-            ></div>
-            <img src={google} alt="google" />
+            {this.props.newUser ? (
+              <NewUser {...this.props} />
+            ) : (
+              <Aux>
+                <SignInForm {...this.props} />
+                <div className="separator">
+                  <span className="separator-text">or</span>
+                </div>
+                <div className="google-facbook">
+                  <img id="google-img" src={google} alt="google" />
+                  <FacebookLogin
+                    appId="1088597931155576"
+                    autoLoad={false}
+                    fields="name,email,picture"
+                    callback={this.responseFacebook}
+                    cssClass="my-facebook-button-class"
+                    icon="fa-facebook"
+                  />
+                </div>
+                <div className="separator">
+                  <span className="separator-text">or</span>
+                </div>
+                <Link
+                  className="nav-link"
+                  to={this.props.location.pathname}
+                  onClick={this.props.newUserClicked}
+                >
+                  Register as <i>new user</i>
+                </Link>
+              </Aux>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.props.onHide} id="modal-close-btn">
