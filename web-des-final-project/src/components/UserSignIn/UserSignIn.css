@@ -2,7 +2,7 @@
   border-radius: 20px;
 }
 .modal-body {
-  text-align: center;
+  /* text-align: center; */
   font-weight: 600;
   font-size: 20px;
 }
@@ -30,6 +30,8 @@
 .sign-in-btn:active,
 #modal-close-btn:focus,
 #modal-close-btn:active,
+.show-password-btn:focus,
+.show-password-btn:active,
 .close {
   outline: none !important;
   box-shadow: none;
@@ -87,4 +89,12 @@
   color: red;
   font-size: 12px;
   margin-left: 2em;
+}
+
+.show-password {
+  font-size: 13px;
+}
+
+a {
+  text-decoration: none !important;
 }

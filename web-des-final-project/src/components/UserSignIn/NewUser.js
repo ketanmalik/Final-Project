@@ -1,8 +1,11 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
+import CountryList from "./CountryList";
 import "./UserSignIn.css";
 
 class User extends Component {
@@ -17,7 +20,7 @@ class User extends Component {
       city: null,
       state: null,
       zip: null,
-      country: null,
+      country: "United States",
     },
     errors: {
       fName: "",
@@ -31,6 +34,7 @@ class User extends Component {
       country: "",
     },
     error: true,
+    showPassword: false,
     validated: false,
   };
 
@@ -63,7 +67,7 @@ class User extends Component {
       errors.city = "Please enter a valid city.";
     }
     if (payload.state === null || payload.state === "") {
-      errors.state = "Please choose a valid state.";
+      errors.state = "Please select a valid state.";
     }
     if (payload.zip === null || payload.zip === "") {
       errors.zip = "Please enter a valid zip code.";
@@ -127,7 +131,7 @@ class User extends Component {
       case "state":
         errors.state =
           value.trim() === null || value.trim() === ""
-            ? "Please choose a valid state."
+            ? "Please select a valid state."
             : "";
         break;
       case "zip":
@@ -162,7 +166,17 @@ class User extends Component {
     return !reg.test(zip);
   };
 
+  showPasswordHandler = () => {
+    console.log("sss");
+    this.setState((prevState) => {
+      return { showPassword: !prevState.showPassword };
+    });
+  };
+
   render() {
+    const showPasswordText = this.state.showPassword
+      ? "(hide password)"
+      : "(show password)";
     return (
       <Form noValidate onSubmit={this.handleSubmit}>
         <Form.Row>
@@ -195,7 +209,7 @@ class User extends Component {
           </Form.Group>
         </Form.Row>
         <Form.Row>
-          <Form.Group as={Col} controlId="formGridEmail">
+          <Form.Group as={Col} lg="6" xs="12" controlId="formGridEmail">
             <Form.Label>Username</Form.Label>
             <InputGroup>
               <InputGroup.Prepend>
@@ -217,9 +231,18 @@ class User extends Component {
               {this.state.errors.email ? this.state.errors.email : ""}
             </span>
           </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridPassword">
-            <Form.Label>Password</Form.Label>
+          <Form.Group as={Col} lg="6" xs="12" controlId="formGridPassword">
+            <Form.Label>
+              Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Link to={this.props.location.pathname}>
+                <span
+                  className="show-password"
+                  onClick={this.showPasswordHandler}
+                >
+                  <i>{showPasswordText}</i>
+                </span>
+              </Link>
+            </Form.Label>
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text id="inputGroupPrepend">
@@ -227,7 +250,7 @@ class User extends Component {
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <Form.Control
-                type="text"
+                type={this.state.showPassword ? "text" : "password"}
                 placeholder="Password"
                 aria-describedby="inputGroupPrepend"
                 onChange={this.formChangeHandler}
@@ -236,12 +259,12 @@ class User extends Component {
                 isInvalid={this.state.errors.password}
               />
             </InputGroup>
+
             <span className="errorMessage">
               {this.state.errors.password ? this.state.errors.password : ""}
             </span>
           </Form.Group>
         </Form.Row>
-
         <Form.Group controlId="formGridAddress1">
           <Form.Label>Address 1</Form.Label>
           <Form.Control
@@ -283,16 +306,12 @@ class User extends Component {
           <Form.Group as={Col} controlId="formGridState">
             <Form.Label>State</Form.Label>
             <Form.Control
-              as="select"
-              placeholder="Choose..."
+              placeholder="State"
               onChange={this.formChangeHandler}
               name="state"
               required
               isInvalid={this.state.errors.state}
-            >
-              <option>Choose...</option>
-              <option>...</option>
-            </Form.Control>
+            />
             <span className="errorMessage">
               {this.state.errors.state ? this.state.errors.state : ""}
             </span>
@@ -321,17 +340,18 @@ class User extends Component {
               required
               isInvalid={this.state.errors.country}
             >
-              <option>Choose...</option>
-              <option>...</option>
+              <CountryList />
             </Form.Control>
             <span className="errorMessage">
               {this.state.errors.country ? this.state.errors.country : ""}
             </span>
           </Form.Group>
         </Form.Row>
-        <Button className="sign-in-btn" type="submit">
-          Register
-        </Button>
+        <div style={{ textAlign: "center" }}>
+          <Button className="sign-in-btn" type="submit">
+            Register
+          </Button>
+        </div>
       </Form>
     );
   }
