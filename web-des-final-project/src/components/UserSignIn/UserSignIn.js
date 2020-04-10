@@ -8,14 +8,23 @@ import Button from "react-bootstrap/Button";
 import logo from "../../assets/images/logo.png";
 import google from "../../assets/images/google.png";
 import FacebookLogin from "react-facebook-login";
+import GoogleLogin from "react-google-login";
 import "./UserSignIn.css";
 
 class UserSignIn extends Component {
+  responseGoogle = (response) => {
+    console.log(response);
+  };
+
   responseFacebook = (response) => {
     console.log(response);
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    // FB.getLoginStatus(function (response) {
+    //   this.responseFacebook(response);
+    // });
+  }
   render() {
     return (
       <Aux>
@@ -48,13 +57,20 @@ class UserSignIn extends Component {
                   <span className="separator-text">or</span>
                 </div>
                 <div className="google-facbook" style={{ textAlign: "center" }}>
-                  <img id="google-img" src={google} alt="google" />
+                  {/* <img id="google-img" src={google} alt="google" />
+                   */}
+                  <GoogleLogin
+                    clientId="539321968716-5qc3jvvvr03u5p2hafphurl6bvlgvbsf.apps.googleusercontent.com"
+                    buttonText="LOGIN WITH GOOGLE"
+                    onSuccess={this.responseGoogle}
+                    onFailure={this.responseGoogle}
+                  />
                   <FacebookLogin
-                    appId="1088597931155576"
+                    appId="685074948929353"
                     autoLoad={false}
                     fields="name,email,picture"
                     callback={this.responseFacebook}
-                    cssClass="my-facebook-button-class"
+                    // cssClass="my-facebook-button-class"
                     icon="fa-facebook"
                   />
                 </div>
