@@ -25,6 +25,13 @@
 }
 .sign-in-btn {
   margin-top: 1em;
+  width: 100px;
+  height: 45px;
+}
+
+.spinner-border {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 .sign-in-btn:focus,
 .sign-in-btn:active,
@@ -34,11 +41,19 @@
 .show-password-btn:active,
 .close {
   outline: none !important;
-  box-shadow: none;
+  box-shadow: none !important;
+  border: 0px !important;
 }
 
 .sign-in-btn:hover {
-  background-color: rgb(48, 13, 38);
+  background-color: rgb(48, 13, 38) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: 0px !important;
+}
+.sign-in-btn:active,
+.sign-in-btn:focus {
+  background-color: rgb(88, 24, 69) !important;
 }
 
 #modal-close-btn:hover {

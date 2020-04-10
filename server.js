@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cart = require("./routes/cart.route");
 const inventory = require("./routes/inventory.route");
 const user = require("./routes/user.route");
+const test = require("./routes/test.route");
 const path = require("path");
 
 const app = express();
@@ -27,5 +28,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", cart);
 app.use("/", inventory);
 app.use("/", user);
+app.use("/", test);
 
 app.listen(PORT, console.log(`Server is running at ${PORT}`));
