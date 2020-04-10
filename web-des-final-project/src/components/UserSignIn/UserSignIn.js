@@ -19,8 +19,70 @@ class UserSignIn extends Component {
     isLoggedIn: false,
     userCreated: false,
     userFailure: false,
+    userObj: null,
   };
-  responseFacebook = (resp) => {
+
+  userAlreadyPresent = async (email, userId, mode) => {
+    const payload = { email: email, socialId: userId, mode: mode };
+    let feedback = false;
+    await axios
+      .get("/login", {
+        params: {
+          email: email,
+          socialId: userId,
+          mode: mode,
+        },
+      })
+      .then((resp) => {
+        console.log("hi", resp);
+        const userObj = resp.data.userObj;
+        feedback = true;
+        this.setState({ userObj: userObj, isLoggedIn: true });
+        return true;
+      })
+      .catch((err) => {
+        console.log("userAlreadyPresent err", err.response, payload);
+        this.setState({ userObj: null, isLoggedIn: false });
+      });
+    return feedback;
+  };
+
+  registerNewUser = async (fName, lName, email, userId) => {
+    let feedback = false;
+
+    const payload = {
+      fName: fName,
+      lName: lName,
+      email: email,
+      password: null,
+      add1: null,
+      add2: null,
+      city: null,
+      state: null,
+      zip: null,
+      country: null,
+      socialId: userId,
+    };
+    await axios({
+      url: "/register",
+      method: "POST",
+      data: payload,
+    })
+      .then((resp) => {
+        const userObj = resp.data.userObj;
+        this.setState({ userObj: userObj, isLoggedIn: true });
+        feedback = true;
+        return true;
+      })
+      .catch((err) => {
+        console.log(err.response);
+        this.setState({ userObj: null, isLoggedIn: false });
+        return false;
+      });
+    return feedback;
+  };
+
+  responseFacebook = async (resp) => {
     console.log("fb", resp);
     this.setState({ fLoading: true, isLoggedIn: false });
 
@@ -30,36 +92,25 @@ class UserSignIn extends Component {
     } else {
       const fName = resp.name.split(" ")[0];
       const lName = resp.name.split(" ")[1];
+      const email = resp.email;
+      const userId = resp.userID;
 
-      let payload = {
-        fName: fName,
-        lName: lName,
-        email: resp.email,
-        password: null,
-        add1: null,
-        add2: null,
-        city: null,
-        state: null,
-        zip: null,
-        country: null,
-        socialId: resp.userID,
-      };
+      let feedback = await this.userAlreadyPresent(email, userId, "social");
 
-      axios({
-        url: "/register",
-        method: "POST",
-        data: payload,
-      })
-        .then(() => {
-          this.setState({ fLoading: false, isLoggedIn: true });
-        })
-        .catch(() => {
+      if (!feedback) {
+        feedback = await this.registerNewUser(fName, lName, email, userId);
+        if (!feedback) {
           this.setState({ fLoading: false, isLoggedIn: false });
-        });
+        } else {
+          this.setState({ fLoading: false, isLoggedIn: true });
+        }
+      } else {
+        this.setState({ fLoading: false, isLoggedIn: true });
+      }
     }
   };
 
-  responseGoogle = (resp) => {
+  responseGoogle = async (resp) => {
     this.setState({ gLoading: true, isLoggedIn: false });
     console.log("google", resp);
 
@@ -68,32 +119,35 @@ class UserSignIn extends Component {
       this.setState({ gLoading: false, isLoggedIn: false });
     } else {
       const { googleId, email, givenName, familyName } = resp.profileObj;
-      let payload = {
-        fName: givenName,
-        lName: familyName,
-        email: email,
-        password: null,
-        add1: null,
-        add2: null,
-        city: null,
-        state: null,
-        zip: null,
-        country: null,
-        socialId: googleId,
-      };
 
-      axios({
-        url: "/register",
-        method: "POST",
-        data: payload,
-      })
-        .then(() => {
-          this.setState({ gLoading: false, isLoggedIn: true });
-        })
-        .catch(() => {
+      let feedback = await this.userAlreadyPresent(email, googleId, "social");
+      if (!feedback) {
+        feedback = await this.registerNewUser(
+          givenName,
+          familyName,
+          email,
+          googleId
+        );
+        if (!feedback) {
           this.setState({ gLoading: false, isLoggedIn: false });
-        });
+        } else {
+          this.setState({ gLoading: false, isLoggedIn: true });
+        }
+      } else {
+        this.setState({ gLoading: false, isLoggedIn: true });
+      }
     }
+  };
+
+  handleSubmit = (event) => {
+    console.log("ss", event.target);
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this.setState({ validated: true });
   };
 
   componentDidMount() {}
@@ -127,7 +181,10 @@ class UserSignIn extends Component {
               <NewUser {...this.props} />
             ) : (
               <Aux>
-                <SignInForm {...this.props} />
+                <SignInForm
+                  {...this.props}
+                  handleSubmit={(e) => this.handleSubmit(e)}
+                />
                 <div className="separator">
                   <span className="separator-text">or</span>
                 </div>

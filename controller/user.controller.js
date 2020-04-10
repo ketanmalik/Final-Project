@@ -27,27 +27,42 @@ exports.user_register = async function (req, res) {
       res.status(500).send("Cannot process your request at this moment.");
     }
   } else {
-    console.log("user present");
-    res.status(500).send("The user has already been registered.");
+    res.status(401).send("The user has already been registered.");
   }
 };
 
 exports.user_login = async function (req, res) {
-  const email = req.body.email;
-  const pass = req.body.password;
+  const email = req.query.email;
+  const mode = req.query.mode;
 
-  if (!email || !pass) {
-    res.status(400).send("no email / pass");
-    return;
-  }
-
-  const found = await User.find({ email: email, password: pass });
-
-  if (!found || !found[0]) {
-    res.status(401).send("incorrect info");
+  if (mode === "social") {
+    const socialId = req.query.socialId;
+    try {
+      const found = await User.find({ email: email, socialId: socialId });
+      if (!found || !found[0]) {
+        res.status(401).send("User's Social-ID not registered");
+        return;
+      } else {
+        res.send({ data: true, userObj: found[0] });
+        return;
+      }
+    } catch (error) {
+      res.status(500).send(error);
+    }
   } else {
-    res.send(found);
+    const pass = req.query.password;
+    if (!email || !pass) {
+      res.status(400).send("Please enter username / password");
+      return;
+    }
+    const found = await User.find({ email: email, password: pass });
+
+    if (!found || !found[0]) {
+      res.status(401).send("Invalid username / password");
+    } else {
+      res.send({ data: true, userObj: found[0] });
+    }
   }
 
-  res.status(500).send("bad req");
+  res.status(500).send("Internal Server Error");
 };
