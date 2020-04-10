@@ -2,7 +2,7 @@
   border-radius: 20px;
 }
 .modal-body {
-  text-align: center;
+  /* text-align: center; */
   font-weight: 600;
   font-size: 20px;
 }
@@ -25,18 +25,35 @@
 }
 .sign-in-btn {
   margin-top: 1em;
+  width: 100px;
+  height: 45px;
+}
+
+.spinner-border {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 .sign-in-btn:focus,
 .sign-in-btn:active,
 #modal-close-btn:focus,
 #modal-close-btn:active,
+.show-password-btn:focus,
+.show-password-btn:active,
 .close {
   outline: none !important;
-  box-shadow: none;
+  box-shadow: none !important;
+  border: 0px !important;
 }
 
 .sign-in-btn:hover {
-  background-color: rgb(48, 13, 38);
+  background-color: rgb(48, 13, 38) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: 0px !important;
+}
+.sign-in-btn:active,
+.sign-in-btn:focus {
+  background-color: rgb(88, 24, 69) !important;
 }
 
 #modal-close-btn:hover {
@@ -87,4 +104,12 @@
   color: red;
   font-size: 12px;
   margin-left: 2em;
+}
+
+.show-password {
+  font-size: 13px;
+}
+
+a {
+  text-decoration: none !important;
 }

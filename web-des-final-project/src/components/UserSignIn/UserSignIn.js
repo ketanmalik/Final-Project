@@ -47,7 +47,7 @@ class UserSignIn extends Component {
                 <div className="separator">
                   <span className="separator-text">or</span>
                 </div>
-                <div className="google-facbook">
+                <div className="google-facbook" style={{ textAlign: "center" }}>
                   <img id="google-img" src={google} alt="google" />
                   <FacebookLogin
                     appId="1088597931155576"
@@ -61,13 +61,15 @@ class UserSignIn extends Component {
                 <div className="separator">
                   <span className="separator-text">or</span>
                 </div>
-                <Link
-                  className="nav-link"
-                  to={this.props.location.pathname}
-                  onClick={this.props.newUserClicked}
-                >
-                  Register as <i>new user</i>
-                </Link>
+                <div style={{ textAlign: "center" }}>
+                  <Link
+                    className="nav-link"
+                    to={this.props.location.pathname}
+                    onClick={this.props.newUserClicked}
+                  >
+                    Register as <i>new user</i>
+                  </Link>
+                </div>
               </Aux>
             )}
           </Modal.Body>

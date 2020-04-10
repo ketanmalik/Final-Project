@@ -58,7 +58,7 @@ class SignInForm extends Component {
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <Form.Control
-                type="text"
+                type="password"
                 placeholder="Password"
                 aria-describedby="inputGroupPrepend"
                 required
@@ -69,9 +69,11 @@ class SignInForm extends Component {
             </InputGroup>
           </Form.Group>
         </Form.Row>
-        <Button type="submit" className="sign-in-btn">
-          Sign In
-        </Button>
+        <div style={{ textAlign: "center" }}>
+          <Button type="submit" className="sign-in-btn">
+            Sign In
+          </Button>
+        </div>
       </Form>
     );
   }
