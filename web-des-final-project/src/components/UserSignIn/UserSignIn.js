@@ -6,16 +6,28 @@ import NewUser from "./NewUser";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import logo from "../../assets/images/logo.png";
+import GoogleLogin from "react-google-login";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 // import google from "../../assets/images/google.png";
 // import FacebookLogin from "react-facebook-login";
 import "./UserSignIn.css";
 
 class UserSignIn extends Component {
   responseFacebook = (response) => {
-    console.log(response);
+    console.log("fb", response);
   };
 
-  componentDidMount() {}
+  responseGoogle = (resp) => {
+    console.log("google", resp);
+  };
+
+  responseFacebook = (resp) => {
+    console.log(resp);
+  };
+
+  componentDidMount() {
+    console.log(window);
+  }
   render() {
     return (
       <Aux>
@@ -48,15 +60,33 @@ class UserSignIn extends Component {
                   <span className="separator-text">or</span>
                 </div>
                 <div className="google-facbook" style={{ textAlign: "center" }}>
-                  {/* <img id="google-img" src={google} alt="google" />
+                  <GoogleLogin
+                    clientId="1038547540392-tfs3qj7b7qnlj7cqhm6o97k27tq7lvl4.apps.googleusercontent.com"
+                    render={(renderProps) => (
+                      <button
+                        onClick={renderProps.onClick}
+                        className="google-btn"
+                      >
+                        <i class="fab fa-google"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Login with Google
+                      </button>
+                    )}
+                    buttonText="Login with Google"
+                    onSuccess={this.responseGoogle}
+                    onFailure={this.responseGoogle}
+                    cookiePolicy={"single_host_origin"}
+                  />
                   <FacebookLogin
-                    appId="1088597931155576"
-                    autoLoad={false}
-                    fields="name,email,picture"
+                    appId="549713162345863"
                     callback={this.responseFacebook}
-                    cssClass="my-facebook-button-class"
-                    icon="fa-facebook"
-                  /> */}
+                    fields="name,email,picture"
+                    render={(renderProps) => (
+                      <button onClick={renderProps.onClick} className="fb-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Login with Facebook
+                      </button>
+                    )}
+                  />
                 </div>
                 <div className="separator">
                   <span className="separator-text">or</span>
