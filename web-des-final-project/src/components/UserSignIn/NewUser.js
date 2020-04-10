@@ -39,25 +39,39 @@ class User extends Component {
     error: true,
     showPassword: false,
     userCreated: false,
+    response: "",
     userFailure: false,
     loading: false,
   };
 
   registerNewUser = () => {
     let payload = { ...this.state.payload };
-
     this.setState({ loading: true });
     axios({
       url: "/register",
       method: "POST",
       data: payload,
     })
-      .then(() => {
-        this.setState({ loading: false, userCreated: true });
+      .then((resp) => {
+        console.log(resp);
+        this.setState({
+          loading: false,
+          userCreated: true,
+          response: resp.data,
+        });
         this.clearForm();
       })
-      .catch(() => {
-        this.setState({ loading: false, userFailure: true });
+      .catch((err) => {
+        console.log(err.response);
+        const resp =
+          err.response.status === 404
+            ? "Cannot process your request at this moment."
+            : err.response.data;
+        this.setState({
+          loading: false,
+          userFailure: true,
+          response: resp,
+        });
       });
   };
 
@@ -218,11 +232,12 @@ class User extends Component {
       ? "Success"
       : "";
 
-    const toastBody = this.state.userFailure
-      ? "Cannot process your request at this moment."
-      : this.state.userCreated
-      ? "New user has been registered."
-      : "";
+    // const toastBody =
+    //   this.state.userFailure
+    //   ? "Cannot process your request at this moment."
+    //   : this.state.userCreated
+    //   ? "New user has been registered."
+    //   : "";
 
     return (
       <Aux>
@@ -512,7 +527,7 @@ class User extends Component {
                   }`,
                 }}
               >
-                {toastBody}
+                {this.state.response}
               </Toast.Body>
             </Toast>
           </div>
