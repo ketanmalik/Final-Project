@@ -10,8 +10,10 @@ let UserSchema = new Schema({
   add2: { type: String, required: false, max: 20 },
   city: { type: String, required: true, max: 20 },
   state: { type: String, required: true, max: 20 },
+  zip: { type: Number, required: true },
   country: { type: String, required: true, max: 30 },
   date: { type: String, default: Date.now() },
+  socialId: { type: String, default: "newUser" },
 });
 
 module.exports = mongoose.model("Users", UserSchema);

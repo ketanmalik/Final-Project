@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Aux from "../../hoc/Aux/Aux";
 import SignInForm from "./SignInForm";
 import NewUser from "./NewUser";
@@ -8,21 +9,89 @@ import Button from "react-bootstrap/Button";
 import logo from "../../assets/images/logo.png";
 import GoogleLogin from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-// import google from "../../assets/images/google.png";
-// import FacebookLogin from "react-facebook-login";
+import Spinner from "react-bootstrap/Spinner";
 import "./UserSignIn.css";
 
 class UserSignIn extends Component {
-  responseFacebook = (response) => {
-    console.log("fb", response);
+  state = {
+    gLoading: false,
+    fLoading: false,
+    isLoggedIn: false,
+  };
+  responseFacebook = (resp) => {
+    console.log("fb", resp);
+    this.setState({ fLoading: true, isLoggedIn: false });
+
+    if (!resp.name || !resp.email || !resp.userID) {
+      console.log("fb error");
+      this.setState({ fLoading: false, isLoggedIn: false });
+    } else {
+      const fName = resp.name.split(" ")[0];
+      const lName = resp.name.split(" ")[1];
+
+      let payload = {
+        fName: fName,
+        lName: lName,
+        email: resp.email,
+        password: null,
+        add1: null,
+        add2: null,
+        city: null,
+        state: null,
+        zip: null,
+        country: null,
+        socialId: resp.userID,
+      };
+
+      axios({
+        url: "/register",
+        method: "POST",
+        data: payload,
+      })
+        .then(() => {
+          this.setState({ fLoading: false, isLoggedIn: true });
+        })
+        .catch(() => {
+          this.setState({ fLoading: false, isLoggedIn: false });
+        });
+    }
   };
 
   responseGoogle = (resp) => {
+    this.setState({ gLoading: true, isLoggedIn: false });
     console.log("google", resp);
-  };
 
-  responseFacebook = (resp) => {
-    console.log(resp);
+    if (resp.error || resp.details) {
+      console.log("google error");
+      this.setState({ gLoading: false, isLoggedIn: false });
+    } else {
+      const { googleId, email, givenName, familyName } = resp.profileObj;
+      let payload = {
+        fName: givenName,
+        lName: familyName,
+        email: email,
+        password: null,
+        add1: null,
+        add2: null,
+        city: null,
+        state: null,
+        zip: null,
+        country: null,
+        socialId: googleId,
+      };
+
+      axios({
+        url: "/register",
+        method: "POST",
+        data: payload,
+      })
+        .then(() => {
+          this.setState({ gLoading: false, isLoggedIn: true });
+        })
+        .catch(() => {
+          this.setState({ gLoading: false, isLoggedIn: false });
+        });
+    }
   };
 
   componentDidMount() {
@@ -67,8 +136,16 @@ class UserSignIn extends Component {
                         onClick={renderProps.onClick}
                         className="google-btn"
                       >
-                        <i class="fab fa-google"></i>
-                        &nbsp;&nbsp;&nbsp;&nbsp;Login with Google
+                        {this.state.gLoading ? (
+                          <Spinner animation="border" role="status">
+                            <span className="sr-only">Loading...</span>
+                          </Spinner>
+                        ) : (
+                          <Aux>
+                            <i class="fab fa-google"></i>
+                            &nbsp;&nbsp;&nbsp;&nbsp;Login with Google
+                          </Aux>
+                        )}
                       </button>
                     )}
                     buttonText="Login with Google"

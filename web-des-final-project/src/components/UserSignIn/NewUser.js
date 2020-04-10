@@ -45,7 +45,6 @@ class User extends Component {
 
   registerNewUser = () => {
     let payload = { ...this.state.payload };
-
     this.setState({ loading: true });
     axios({
       url: "/register",

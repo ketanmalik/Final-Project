@@ -7,13 +7,14 @@ exports.user_register = async function (req, res) {
     fName: req.body.fName,
     lName: req.body.lName,
     email: req.body.email,
-    password: req.body.password,
-    add1: req.body.add1,
+    password: req.body.password ? req.body.password : "-1",
+    add1: req.body.add1 ? req.body.add1 : "-1",
     add2: req.body.add2,
-    city: req.body.city,
-    state: req.body.state,
-    zip: req.body.state,
-    country: req.body.country,
+    city: req.body.city ? req.body.city : "-1",
+    state: req.body.state ? req.body.state : "-1",
+    zip: req.body.zip ? req.body.zip : "-1",
+    country: req.body.country ? req.body.country : "-1",
+    socialId: req.body.socialId ? req.body.socialId : "-1",
   });
 
   try {

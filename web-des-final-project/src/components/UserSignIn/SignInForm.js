@@ -26,8 +26,8 @@ class SignInForm extends Component {
         onSubmit={this.handleSubmit}
       >
         <Form.Row>
-          <Form.Group as={Col} md="4" />
-          <Form.Group as={Col} md="4" controlId="validationUsername">
+          <Form.Group as={Col} md="3" />
+          <Form.Group as={Col} md="6" controlId="validationUsername">
             <Form.Label>Username</Form.Label>
             <InputGroup>
               <InputGroup.Prepend>
@@ -48,8 +48,8 @@ class SignInForm extends Component {
           </Form.Group>
         </Form.Row>
         <Form.Row>
-          <Form.Group as={Col} md="4" />
-          <Form.Group as={Col} md="4" controlId="validationPassword">
+          <Form.Group as={Col} md="3" />
+          <Form.Group as={Col} md="6" controlId="validationPassword">
             <Form.Label>Password</Form.Label>
             <InputGroup>
               <InputGroup.Prepend>
