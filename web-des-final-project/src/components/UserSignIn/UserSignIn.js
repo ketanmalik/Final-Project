@@ -17,6 +17,8 @@ class UserSignIn extends Component {
     gLoading: false,
     fLoading: false,
     isLoggedIn: false,
+    userCreated: false,
+    userFailure: false,
   };
   responseFacebook = (resp) => {
     console.log("fb", resp);
@@ -94,8 +96,9 @@ class UserSignIn extends Component {
     }
   };
 
-  componentDidMount() {
-    console.log(window);
+  componentDidMount() {}
+  componentWillUnmount() {
+    console.log("unmount");
   }
   render() {
     return (
