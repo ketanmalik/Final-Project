@@ -221,6 +221,7 @@ class User extends Component {
   toastMessageHandler = (bool) => {
     this.setState({ userCreated: bool, userFailure: bool });
   };
+
   render() {
     const showPasswordText = this.state.showPassword
       ? "(hide password)"
@@ -231,13 +232,6 @@ class User extends Component {
       : this.state.userCreated
       ? "Success"
       : "";
-
-    // const toastBody =
-    //   this.state.userFailure
-    //   ? "Cannot process your request at this moment."
-    //   : this.state.userCreated
-    //   ? "New user has been registered."
-    //   : "";
 
     return (
       <Aux>
@@ -429,9 +423,6 @@ class User extends Component {
               ) : (
                 "Register"
               )}
-              {/* <Spinner animation="border" role="status">
-              <span className="sr-only">Loading...</span>
-            </Spinner> */}
             </Button>
           </div>
         </Form>
