@@ -6,8 +6,8 @@ import NewUser from "./NewUser";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import logo from "../../assets/images/logo.png";
-import google from "../../assets/images/google.png";
-import FacebookLogin from "react-facebook-login";
+// import google from "../../assets/images/google.png";
+// import FacebookLogin from "react-facebook-login";
 import "./UserSignIn.css";
 
 class UserSignIn extends Component {
@@ -48,7 +48,7 @@ class UserSignIn extends Component {
                   <span className="separator-text">or</span>
                 </div>
                 <div className="google-facbook" style={{ textAlign: "center" }}>
-                  <img id="google-img" src={google} alt="google" />
+                  {/* <img id="google-img" src={google} alt="google" />
                   <FacebookLogin
                     appId="1088597931155576"
                     autoLoad={false}
@@ -56,7 +56,7 @@ class UserSignIn extends Component {
                     callback={this.responseFacebook}
                     cssClass="my-facebook-button-class"
                     icon="fa-facebook"
-                  />
+                  /> */}
                 </div>
                 <div className="separator">
                   <span className="separator-text">or</span>

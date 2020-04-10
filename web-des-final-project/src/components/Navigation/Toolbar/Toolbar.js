@@ -86,6 +86,7 @@ class toolbar extends Component {
     for (var j = 1; j < 4; j++) {
       links[j].isActive = i == j;
     }
+    this.setState({ links: links });
   };
 
   homeButtonHandler = () => {
@@ -97,13 +98,14 @@ class toolbar extends Component {
   };
 
   userHandler = () => {
-    this.navLinkHandler(-1);
+    // this.navLinkHandler(-1);
     const links = this.state.links.slice();
-    links[0].isActive = false;
-    links[1].isActive = false;
-    links[2].isActive = false;
-    links[3].isActive = false;
+    // links[0].isActive = false;
+    // links[1].isActive = false;
+    // links[2].isActive = false;
+    // links[3].isActive = false;
     links[7].isActive = true;
+    this.setState({ links: links });
     this.signinHandler(true);
   };
 
@@ -112,6 +114,11 @@ class toolbar extends Component {
     setTimeout(() => {
       this.setState({ newUser: false });
     }, 10);
+    if (!bool) {
+      const links = this.state.links.slice();
+      links[7].isActive = false;
+      this.setState({ links: links });
+    }
   };
 
   render() {
