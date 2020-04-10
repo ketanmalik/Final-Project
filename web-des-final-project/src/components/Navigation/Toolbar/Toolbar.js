@@ -23,6 +23,7 @@ class toolbar extends Component {
       loggedIn: false,
       showModal: false,
       newUser: false,
+      userObj: null,
     };
   }
 
@@ -32,6 +33,11 @@ class toolbar extends Component {
 
   newUserRegisterHandler = () => {
     this.setState({ newUser: true });
+  };
+
+  userObjHandler = (obj) => {
+    console.log("ss");
+    this.setState({ userObj: obj });
   };
 
   setActiveLink = () => {

@@ -21,7 +21,10 @@ exports.user_register = async function (req, res) {
 
     try {
       await user.save();
-      res.send("New user has been registered.");
+      res.send({
+        userObj: user,
+        successMessage: "Your account has been created",
+      });
     } catch (err) {
       console.log(err);
       res.status(500).send("Cannot process your request at this moment.");

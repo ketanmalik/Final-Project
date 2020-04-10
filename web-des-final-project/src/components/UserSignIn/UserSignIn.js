@@ -23,7 +23,6 @@ class UserSignIn extends Component {
   };
 
   userAlreadyPresent = async (email, userId, mode) => {
-    const payload = { email: email, socialId: userId, mode: mode };
     let feedback = false;
     await axios
       .get("/login", {
@@ -41,7 +40,7 @@ class UserSignIn extends Component {
         return true;
       })
       .catch((err) => {
-        console.log("userAlreadyPresent err", err.response, payload);
+        console.log("userAlreadyPresent err", err.response);
         this.setState({ userObj: null, isLoggedIn: false });
       });
     return feedback;
@@ -69,6 +68,7 @@ class UserSignIn extends Component {
       data: payload,
     })
       .then((resp) => {
+        console.log(resp);
         const userObj = resp.data.userObj;
         this.setState({ userObj: userObj, isLoggedIn: true });
         feedback = true;
@@ -83,11 +83,9 @@ class UserSignIn extends Component {
   };
 
   responseFacebook = async (resp) => {
-    console.log("fb", resp);
     this.setState({ fLoading: true, isLoggedIn: false });
 
     if (!resp.name || !resp.email || !resp.userID) {
-      console.log("fb error");
       this.setState({ fLoading: false, isLoggedIn: false });
     } else {
       const fName = resp.name.split(" ")[0];
@@ -96,6 +94,7 @@ class UserSignIn extends Component {
       const userId = resp.userID;
 
       let feedback = await this.userAlreadyPresent(email, userId, "social");
+      console.log("fb ", feedback);
 
       if (!feedback) {
         feedback = await this.registerNewUser(fName, lName, email, userId);
@@ -108,11 +107,11 @@ class UserSignIn extends Component {
         this.setState({ fLoading: false, isLoggedIn: true });
       }
     }
+    console.log("fb ", this.state.userObj);
   };
 
   responseGoogle = async (resp) => {
     this.setState({ gLoading: true, isLoggedIn: false });
-    console.log("google", resp);
 
     if (resp.error || resp.details) {
       console.log("google error");
@@ -137,17 +136,7 @@ class UserSignIn extends Component {
         this.setState({ gLoading: false, isLoggedIn: true });
       }
     }
-  };
-
-  handleSubmit = (event) => {
-    console.log("ss", event.target);
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    this.setState({ validated: true });
+    console.log("go ", this.state.userObj);
   };
 
   componentDidMount() {}
@@ -181,10 +170,7 @@ class UserSignIn extends Component {
               <NewUser {...this.props} />
             ) : (
               <Aux>
-                <SignInForm
-                  {...this.props}
-                  handleSubmit={(e) => this.handleSubmit(e)}
-                />
+                <SignInForm {...this.props} />
                 <div className="separator">
                   <span className="separator-text">or</span>
                 </div>
