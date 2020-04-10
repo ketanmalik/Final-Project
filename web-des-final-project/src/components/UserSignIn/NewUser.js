@@ -57,7 +57,7 @@ class User extends Component {
         this.setState({
           loading: false,
           userCreated: true,
-          response: resp.data,
+          response: resp.data.successMessage,
         });
         this.clearForm();
       })
