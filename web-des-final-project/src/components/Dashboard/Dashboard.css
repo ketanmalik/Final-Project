@@ -22,3 +22,12 @@
   font-weight: 600;
   font-size: 25px;
 }
+
+.dashboard-form-label {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.dashboard-card-text {
+  margin: 2em;
+}

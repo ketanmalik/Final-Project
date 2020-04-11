@@ -38,7 +38,6 @@ class toolbar extends Component {
   async componentDidMount() {
     this.setActiveLink();
     await this.getActiveUserInfo();
-    console.log("toolbar didMount ", UserInfo.getUserInfoObj());
     this.setState({ safeToProceed: true });
   }
 
@@ -46,7 +45,6 @@ class toolbar extends Component {
     await axios
       .get("/getsaveuser")
       .then((resp) => {
-        console.log("resp", resp);
         const obj = resp.data.userObj;
         if (!obj.fName) {
           this.setState({ userObj: null, loggedIn: false, userName: "" });
@@ -67,7 +65,6 @@ class toolbar extends Component {
         UserInfo.setUserInfoObj(null);
         return false;
       });
-    console.log("done");
   };
 
   newUserRegisterHandler = () => {
