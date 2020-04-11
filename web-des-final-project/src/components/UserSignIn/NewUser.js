@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import UserInfo from "../../UserInfo/UserInfo";
 import Aux from "../../hoc/Aux/Aux";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
@@ -116,7 +117,7 @@ class User extends Component {
       errors.state = "Please select a valid state.";
     }
     if (payload.zip === null || payload.zip === "") {
-      errors.zip = "Please enter a valid zip code.";
+      errors.zip = "Please enter a valid zip.";
     }
     if (payload.country === null || payload.country === "") {
       errors.country = "Please choose a valid country.";
@@ -181,9 +182,7 @@ class User extends Component {
             : "";
         break;
       case "zip":
-        errors.zip = this.invalidZip(value)
-          ? "Please enter a valid zip code."
-          : "";
+        errors.zip = this.invalidZip(value) ? "Please enter a valid zip." : "";
         break;
       case "country":
         errors.country =
@@ -237,7 +236,7 @@ class User extends Component {
       <Aux>
         <Form noValidate onSubmit={this.handleSubmit}>
           <Form.Row>
-            <Form.Group as={Col} controlId="formGridFirstName">
+            <Form.Group as={Col} lg="6" xs="12" controlId="formGridFirstName">
               <Form.Label>First Name</Form.Label>
               <Form.Control
                 placeholder="First Name"
@@ -252,7 +251,7 @@ class User extends Component {
               </span>
             </Form.Group>
 
-            <Form.Group as={Col} controlId="formGridLastName">
+            <Form.Group as={Col} lg="6" xs="12" controlId="formGridLastName">
               <Form.Label>Last Name</Form.Label>
               <Form.Control
                 placeholder="Last Name"
@@ -367,7 +366,7 @@ class User extends Component {
           </Form.Row>
 
           <Form.Row>
-            <Form.Group as={Col} controlId="formGridState">
+            <Form.Group as={Col} lg="4" xs="6" controlId="formGridState">
               <Form.Label>State</Form.Label>
               <Form.Control
                 placeholder="State"
@@ -382,7 +381,7 @@ class User extends Component {
               </span>
             </Form.Group>
 
-            <Form.Group as={Col} controlId="formGridZip">
+            <Form.Group as={Col} lg="4" xs="6" controlId="formGridZip">
               <Form.Label>Zip</Form.Label>
               <Form.Control
                 placeholder="12345"
@@ -396,7 +395,7 @@ class User extends Component {
                 {this.state.errors.zip ? this.state.errors.zip : ""}
               </span>
             </Form.Group>
-            <Form.Group as={Col} controlId="formGridCountry">
+            <Form.Group as={Col} lg="4" xs="12" controlId="formGridCountry">
               <Form.Label>Country</Form.Label>
               <Form.Control
                 as="select"

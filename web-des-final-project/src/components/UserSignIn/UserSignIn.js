@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import UserInfo from "../../UserInfo/UserInfo";
 import axios from "axios";
 import Aux from "../../hoc/Aux/Aux";
 import SignInForm from "./SignInForm";
@@ -33,15 +34,17 @@ class UserSignIn extends Component {
         },
       })
       .then((resp) => {
-        console.log("hi", resp);
+        console.log("userAlreadyPresent .then resp ", resp);
         const userObj = resp.data.userObj;
         feedback = true;
         this.setState({ userObj: userObj, isLoggedIn: true });
+        UserInfo.setUserInfoObj(userObj);
         return true;
       })
       .catch((err) => {
-        console.log("userAlreadyPresent err", err.response);
+        console.log("userAlreadyPresent .catch err ", err.response);
         this.setState({ userObj: null, isLoggedIn: false });
+        UserInfo.setUserInfoObj(null);
       });
     return feedback;
   };
@@ -68,15 +71,17 @@ class UserSignIn extends Component {
       data: payload,
     })
       .then((resp) => {
-        console.log(resp);
+        console.log("registerNewUser .then resp ", resp);
         const userObj = resp.data.userObj;
         this.setState({ userObj: userObj, isLoggedIn: true });
         feedback = true;
+        UserInfo.setUserInfoObj(userObj);
         return true;
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log("registerNewUser .then resp ", err.response);
         this.setState({ userObj: null, isLoggedIn: false });
+        UserInfo.setUserInfoObj(null);
         return false;
       });
     return feedback;
@@ -94,7 +99,6 @@ class UserSignIn extends Component {
       const userId = resp.userID;
 
       let feedback = await this.userAlreadyPresent(email, userId, "social");
-      console.log("fb ", feedback);
 
       if (!feedback) {
         feedback = await this.registerNewUser(fName, lName, email, userId);
@@ -107,14 +111,24 @@ class UserSignIn extends Component {
         this.setState({ fLoading: false, isLoggedIn: true });
       }
     }
-    console.log("fb ", this.state.userObj);
+    console.log("fb ", this.state.userObj, this.state.isLoggedIn);
+
+    const payload = {
+      userObj: { ...this.state.userObj },
+    };
+    axios({
+      url: "/updatesaveuser",
+      method: "PUT",
+      data: payload,
+    })
+      .then((resp) => console.log(resp))
+      .catch((err) => console.log(err));
   };
 
   responseGoogle = async (resp) => {
     this.setState({ gLoading: true, isLoggedIn: false });
 
     if (resp.error || resp.details) {
-      console.log("google error");
       this.setState({ gLoading: false, isLoggedIn: false });
     } else {
       const { googleId, email, givenName, familyName } = resp.profileObj;
@@ -136,7 +150,18 @@ class UserSignIn extends Component {
         this.setState({ gLoading: false, isLoggedIn: true });
       }
     }
-    console.log("go ", this.state.userObj);
+    console.log("google ", this.state.userObj, this.state.isLoggedIn);
+
+    const payload = {
+      userObj: { ...this.state.userObj },
+    };
+    axios({
+      url: "/updatesaveuser",
+      method: "PUT",
+      data: payload,
+    })
+      .then((resp) => console.log(resp))
+      .catch((err) => console.log(err));
   };
 
   componentDidMount() {}

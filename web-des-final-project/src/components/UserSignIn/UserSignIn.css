@@ -140,3 +140,9 @@ a {
 .fb-btn:hover {
   background-color: #2d4373;
 }
+
+@media (max-width: 550px) {
+  .errorMessage {
+    font-size: 10px;
+  }
+}

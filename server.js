@@ -5,6 +5,7 @@ const cart = require("./routes/cart.route");
 const inventory = require("./routes/inventory.route");
 const user = require("./routes/user.route");
 const test = require("./routes/test.route");
+const saveUser = require("./routes/saveUser.route");
 const path = require("path");
 
 const app = express();
@@ -29,5 +30,6 @@ app.use("/", cart);
 app.use("/", inventory);
 app.use("/", user);
 app.use("/", test);
+app.use("/", saveUser);
 
 app.listen(PORT, console.log(`Server is running at ${PORT}`));

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import UserInfo from "../../UserInfo/UserInfo";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -51,6 +52,8 @@ class SignInForm extends Component {
           password: "",
           response: "You have been logged in",
         });
+        UserInfo.setUserInfoObj(userObj);
+        console.log(userObj);
         return true;
       })
       .catch((err) => {
@@ -64,8 +67,21 @@ class SignInForm extends Component {
           error: err.response,
           response: "Please check username or password",
         });
+        UserInfo.setUserInfoObj(null);
         return false;
       });
+    if (userObj) {
+      const payload = {
+        userObj: { ...this.state.userObj },
+      };
+      axios({
+        url: "/updatesaveuser",
+        method: "PUT",
+        data: payload,
+      })
+        .then((resp) => console.log(resp))
+        .catch((err) => console.log(err));
+    }
   };
 
   showPasswordHandler = () => {

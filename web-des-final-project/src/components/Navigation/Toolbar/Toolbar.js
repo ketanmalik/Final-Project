@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import UserInfo from "../../../UserInfo/UserInfo";
 import NavLink from "./NavLink";
 import NavLinkDropdown from "./NavLinkDropdown";
 import UserSignIn from "../../UserSignIn/UserSignIn";
@@ -27,9 +29,25 @@ class toolbar extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setActiveLink();
+    await this.getActiveUserInfo();
+    console.log("toolbar didMount ", UserInfo.getUserInfoObj());
   }
+
+  getActiveUserInfo = async () => {
+    await axios
+      .get("/getsaveuser")
+      .then((resp) => {
+        this.setState({ userObj: resp.data.userObj });
+        UserInfo.setUserInfoObj(resp.data.userObj);
+      })
+      .catch((err) => {
+        this.setState({ userObj: null });
+        UserInfo.setUserInfoObj(null);
+      });
+    console.log("done");
+  };
 
   newUserRegisterHandler = () => {
     this.setState({ newUser: true });
