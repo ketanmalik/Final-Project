@@ -7,6 +7,7 @@ import {
   contactus as ContactUs,
   inventory as Inventory,
   userSignIn as UserSignIn,
+  dashboard as Dashboard,
 } from "../../components/Pages/Pages";
 
 class MainContent extends Component {
@@ -37,10 +38,11 @@ class MainContent extends Component {
           path="/parts/inventory"
           render={(routeProps) => <Inventory {...routeProps} />}
         />
-        {/* <Route
-          path="/user"
-          render={(routeProps) => <UserSignIn {...routeProps} />}
-        /> */}
+
+        <Route
+          path="/dashboard"
+          render={(routeProps) => <Dashboard {...routeProps} />}
+        />
       </Switch>
     );
   }

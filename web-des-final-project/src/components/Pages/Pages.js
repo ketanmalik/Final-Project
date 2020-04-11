@@ -6,6 +6,7 @@ import About from "../About/About";
 import ContactUs from "../ContactUs/ContactUs";
 import Inventory from "../Inventory/Inventory";
 import UserSignIn from "../UserSignIn/UserSignIn";
+import Dashboard from "../Dashboard/Dashboard";
 
 export const home = (props) => <Home {...props} />;
 
@@ -20,3 +21,5 @@ export const inventory = (props) => <Inventory {...props} />;
 export const userSignIn = (props) => <UserSignIn {...props} />;
 
 export const layout = (props) => <Layout {...props} />;
+
+export const dashboard = (props) => <Dashboard {...props} />;

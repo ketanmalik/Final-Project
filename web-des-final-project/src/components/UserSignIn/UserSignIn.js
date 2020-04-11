@@ -121,7 +121,10 @@ class UserSignIn extends Component {
       method: "PUT",
       data: payload,
     })
-      .then((resp) => console.log(resp))
+      .then((resp) => {
+        window.location.reload();
+        console.log(resp);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -160,7 +163,10 @@ class UserSignIn extends Component {
       method: "PUT",
       data: payload,
     })
-      .then((resp) => console.log(resp))
+      .then((resp) => {
+        window.location.reload();
+        console.log(resp);
+      })
       .catch((err) => console.log(err));
   };
 
