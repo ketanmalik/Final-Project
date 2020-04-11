@@ -8,7 +8,6 @@ function App() {
   return (
     <Aux>
       <Route path="/" render={(routeProps) => <Layout {...routeProps} />} />
-      {/* <MainContent /> */}
     </Aux>
   );
 }

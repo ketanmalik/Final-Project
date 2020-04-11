@@ -10,7 +10,6 @@ const layout = (props) => {
     <div>
       <Toolbar {...props} />
       <Container fluid style={{ padding: "0px", marginTop: "4.6em" }}>
-        {/* {props.children} */}
         <MainContent />
       </Container>
       <Footer {...props} />
