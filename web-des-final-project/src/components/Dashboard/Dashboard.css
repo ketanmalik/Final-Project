@@ -1,0 +1,24 @@
+.jumbotron-fluid {
+  background-color: #dcdcdc;
+  background-repeat: no-repeat;
+}
+
+.jumbotron-text {
+  margin-top: 13%;
+  /* font-weight: 700; */
+}
+.jumbotron-text h1 {
+  font-weight: 500;
+  font-size: 55px;
+}
+
+.dashboard-info {
+  margin: 3rem;
+}
+
+.dashboard-pi-header {
+  background-color: #581845;
+  color: #fcfcfc;
+  font-weight: 600;
+  font-size: 25px;
+}

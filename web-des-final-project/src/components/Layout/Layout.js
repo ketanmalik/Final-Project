@@ -1,20 +1,55 @@
-import React from "react";
+import React, { Component } from "react";
 import Toolbar from "../Navigation/Toolbar/Toolbar";
 import MainContent from "../../containers/MainContent/MainContent";
 import Footer from "../Navigation/Footer/Footer";
 import Container from "react-bootstrap/Container";
+import Spinner from "react-bootstrap/Spinner";
+import UserInfo from "../../UserInfo/UserInfo";
+import axios from "axios";
+
 import "./Layout.css";
 
-const layout = (props) => {
-  return (
-    <div>
-      <Toolbar {...props} />
-      <Container fluid style={{ padding: "0px", marginTop: "4.6em" }}>
-        <MainContent />
-      </Container>
-      <Footer {...props} />
-    </div>
-  );
-};
+class Layout extends Component {
+  state = {
+    userObj: null,
+    safeToProceed: false,
+  };
 
-export default layout;
+  async componentDidMount() {
+    await axios
+      .get("/getsaveuser")
+      .then((resp) => {
+        const obj = resp.data.userObj;
+        if (!obj.fName) {
+          UserInfo.setUserInfoObj(null);
+        } else {
+          UserInfo.setUserInfoObj(obj);
+        }
+        console.log("check");
+        return true;
+      })
+      .catch((err) => {
+        UserInfo.setUserInfoObj(null);
+        return false;
+      });
+    this.setState({ safeToProceed: true });
+  }
+
+  render() {
+    return this.state.safeToProceed ? (
+      <div>
+        <Toolbar {...this.props} />
+        <Container fluid style={{ padding: "0px", marginTop: "4.6em" }}>
+          <MainContent />
+        </Container>
+        <Footer {...this.props} />
+      </div>
+    ) : (
+      <div style={{ marginLeft: "50%", marginTop: "20%", color: "#581845" }}>
+        <Spinner animation="border" role="status"></Spinner>
+      </div>
+    );
+  }
+}
+
+export default Layout;
