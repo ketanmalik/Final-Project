@@ -7,6 +7,7 @@ import NavLinkDropdown from "./NavLinkDropdown";
 import DashboardDropwdown from "./DashboardDropwdown";
 import UserSignIn from "../../UserSignIn/UserSignIn";
 import logo from "../../../assets/images/logo.png";
+import Spinner from "react-bootstrap/Spinner";
 import "./Toolbar.css";
 
 class toolbar extends Component {
@@ -30,6 +31,7 @@ class toolbar extends Component {
       newUser: false,
       userObj: null,
       userName: "",
+      safeToProceed: false,
     };
   }
 
@@ -37,6 +39,7 @@ class toolbar extends Component {
     this.setActiveLink();
     await this.getActiveUserInfo();
     console.log("toolbar didMount ", UserInfo.getUserInfoObj());
+    this.setState({ safeToProceed: true });
   }
 
   getActiveUserInfo = async () => {
@@ -57,10 +60,12 @@ class toolbar extends Component {
           });
           UserInfo.setUserInfoObj(obj);
         }
+        return true;
       })
       .catch((err) => {
         this.setState({ userObj: null, loggedIn: false, userName: "" });
         UserInfo.setUserInfoObj(null);
+        return false;
       });
     console.log("done");
   };
@@ -94,6 +99,9 @@ class toolbar extends Component {
       case "contactus":
         links[6].isActive = true;
         break;
+      case "dashboard":
+        links[7].isActive = true;
+        links[8].isActive = true;
       default:
         break;
     }
@@ -184,6 +192,7 @@ class toolbar extends Component {
   };
 
   render() {
+    // this.state.safeToProceed ? () :
     let navLinks = null;
     let topLinks = [...this.state.links].slice(4, 7);
     let loggedInUserOption = null;
@@ -196,7 +205,7 @@ class toolbar extends Component {
         onClick={() => this.navLinkHandler(i)}
       />
     ));
-    return (
+    return this.state.safeToProceed ? (
       <div>
         <nav
           className="navbar navbar-expand-sm navbar-dark fixed-top"
@@ -288,6 +297,10 @@ class toolbar extends Component {
           newUserClicked={this.newUserRegisterHandler}
         />
       </div>
+    ) : (
+      <Spinner animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
     );
   }
 }
