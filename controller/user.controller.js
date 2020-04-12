@@ -69,3 +69,38 @@ exports.user_login = async function (req, res) {
 
   res.status(500).send("Internal Server Error");
 };
+
+exports.user_update = async function (req, res) {
+  const id = req.body._id;
+
+  try {
+    await User.findById(id, async function (err, docs) {
+      docs.fName = req.body.fName;
+      docs.lName = req.body.lName;
+      docs.add1 = req.body.add1;
+      docs.add2 = req.body.add2;
+      docs.city = req.body.city;
+      docs.state = req.body.state;
+      docs.zip = req.body.zip;
+      docs.country = req.body.country;
+
+      console.log(docs);
+      try {
+        await docs.save();
+        console.log(docs);
+        res.send({
+          userObj: docs,
+          successMessage: "Your information has been updated",
+        });
+        return;
+      } catch (error) {
+        console.log(error);
+        res.status(400).send(error);
+        return;
+      }
+    });
+  } catch (err) {
+    res.send(500).send(err);
+    return;
+  }
+};

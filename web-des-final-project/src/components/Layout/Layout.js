@@ -39,7 +39,10 @@ class Layout extends Component {
     return this.state.safeToProceed ? (
       <div>
         <Toolbar {...this.props} />
-        <Container fluid style={{ padding: "0px", marginTop: "4.6em" }}>
+        <Container
+          fluid
+          style={{ padding: "0px", marginTop: "4.6em", minHeight: "50vh" }}
+        >
           <MainContent />
         </Container>
         <Footer {...this.props} />

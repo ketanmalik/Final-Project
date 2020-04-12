@@ -7,6 +7,7 @@ import NavLinkDropdown from "./NavLinkDropdown";
 import DashboardDropwdown from "./DashboardDropwdown";
 import UserSignIn from "../../UserSignIn/UserSignIn";
 import logo from "../../../assets/images/logo.png";
+import test from "../../../assets/images/test.png";
 import Spinner from "react-bootstrap/Spinner";
 import "./Toolbar.css";
 
@@ -38,7 +39,6 @@ class toolbar extends Component {
   async componentDidMount() {
     this.setActiveLink();
     await this.getActiveUserInfo();
-    console.log("toolbar didMount ", UserInfo.getUserInfoObj());
     this.setState({ safeToProceed: true });
   }
 
@@ -46,7 +46,6 @@ class toolbar extends Component {
     await axios
       .get("/getsaveuser")
       .then((resp) => {
-        console.log("resp", resp);
         const obj = resp.data.userObj;
         if (!obj.fName) {
           this.setState({ userObj: null, loggedIn: false, userName: "" });
@@ -67,7 +66,6 @@ class toolbar extends Component {
         UserInfo.setUserInfoObj(null);
         return false;
       });
-    console.log("done");
   };
 
   newUserRegisterHandler = () => {
@@ -192,7 +190,6 @@ class toolbar extends Component {
   };
 
   render() {
-    // this.state.safeToProceed ? () :
     let navLinks = null;
     let topLinks = [...this.state.links].slice(4, 7);
     let loggedInUserOption = null;

@@ -16,9 +16,89 @@
   margin: 3rem;
 }
 
+@media (max-width: 1024px) {
+  .dashboard-info {
+    margin: 1rem;
+  }
+}
+
 .dashboard-pi-header {
   background-color: #581845;
   color: #fcfcfc;
   font-weight: 600;
   font-size: 25px;
+}
+
+.dashboard-form-label {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.dashboard-card-text {
+  margin: 1em;
+}
+
+.nav-tabs {
+  font-weight: 600;
+  font-size: 25px;
+  padding-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+  .nav-tabs {
+    font-size: 8px;
+  }
+}
+
+.nav-tabs .nav-link.active {
+  color: #fcfcfc;
+  background-color: #18582b;
+  border-radius: 37px;
+}
+
+.account-info-card {
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 1rem;
+}
+
+@media (max-width: 1100px) {
+  .account-info-card {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+  border-color: transparent;
+}
+
+.card-body {
+  background-color: #e9ecef;
+}
+
+.dashboard-edit-btn {
+  background-color: transparent;
+  border: none;
+}
+
+.dashboard-edit-btn:hover {
+  border: none;
+  color: #dcdcdc;
+  background-color: transparent;
+}
+
+.dashboard-edit-btn:focus,
+.dashboard-edit-btn:active {
+  box-shadow: none !important;
+  background-color: transparent !important;
+  color: #dcdcdc !important;
+  border: none !important;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 12px;
+  margin-left: 2em;
 }
