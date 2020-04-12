@@ -43,7 +43,7 @@ exports.update_save_user = async function (req, res) {
         });
         return;
       } catch (error) {
-        res.status(400).send(error);
+        res.status(400).send("Your information cannot be saved");
         return;
       }
     });

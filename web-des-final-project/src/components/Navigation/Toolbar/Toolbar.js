@@ -7,6 +7,7 @@ import NavLinkDropdown from "./NavLinkDropdown";
 import DashboardDropwdown from "./DashboardDropwdown";
 import UserSignIn from "../../UserSignIn/UserSignIn";
 import logo from "../../../assets/images/logo.png";
+import test from "../../../assets/images/test.png";
 import Spinner from "react-bootstrap/Spinner";
 import "./Toolbar.css";
 
@@ -189,7 +190,6 @@ class toolbar extends Component {
   };
 
   render() {
-    // this.state.safeToProceed ? () :
     let navLinks = null;
     let topLinks = [...this.state.links].slice(4, 7);
     let loggedInUserOption = null;
