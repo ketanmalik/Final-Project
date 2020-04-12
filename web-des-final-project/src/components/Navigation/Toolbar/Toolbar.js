@@ -192,7 +192,6 @@ class toolbar extends Component {
   render() {
     let navLinks = null;
     let topLinks = [...this.state.links].slice(4, 7);
-    let loggedInUserOption = null;
     navLinks = topLinks.map((link, i) => (
       <NavLink
         path={link.path}
