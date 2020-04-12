@@ -48,7 +48,7 @@ class Layout extends Component {
         <Footer {...this.props} />
       </div>
     ) : (
-      <div style={{ marginLeft: "50%", marginTop: "20%", color: "#581845" }}>
+      <div style={{ marginLeft: "50%", marginTop: "30%", color: "#581845" }}>
         <Spinner animation="border" role="status"></Spinner>
       </div>
     );

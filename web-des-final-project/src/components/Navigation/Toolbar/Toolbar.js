@@ -294,9 +294,11 @@ class toolbar extends Component {
         />
       </div>
     ) : (
-      <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
+      <div style={{ marginLeft: "50%", marginTop: "30%", color: "#581845" }}>
+        <Spinner animation="border" role="status">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      </div>
     );
   }
 }

@@ -9,6 +9,7 @@ import Aux from "../../../hoc/Aux/Aux";
 import Spinner from "react-bootstrap/Spinner";
 import UserInfo from "../../../UserInfo/UserInfo";
 import Modal from "react-bootstrap/Modal";
+import CartInfo from "../../../CartInfo/CartInfo";
 import "../../../../node_modules/react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "./InvTable.css";
 
@@ -45,6 +46,7 @@ class InvTable extends Component {
     specification: "Please select a part to view specifications",
     userObj: null,
     showModal: false,
+    partSelected: null,
   };
 
   componentDidMount() {
@@ -68,6 +70,7 @@ class InvTable extends Component {
   };
 
   singleSelectHandler = (row, isSelect) => {
+    this.setState({ partSelected: row.specification });
     let checkoutData = [];
     if (this.state.checkoutData) {
       checkoutData = [...this.state.checkoutData];
@@ -123,14 +126,8 @@ class InvTable extends Component {
         items: checkoutData,
         price: price,
       };
-
-      axios({
-        url: "/checkout",
-        method: "POST",
-        data: payload,
-      })
-        .then(console.log("data send"))
-        .catch(console.log("not send"));
+      CartInfo.setCartObjs(payload);
+      this.props.history.push("/checkout");
     }
   };
 
@@ -139,7 +136,6 @@ class InvTable extends Component {
   };
 
   render() {
-    console.log(this.state.showModal);
     let currentTblRows = null;
     let selectRow = null;
     let expandRow = null;
@@ -154,6 +150,7 @@ class InvTable extends Component {
         clickToSelect: false,
         onSelect: this.singleSelectHandler,
         onSelectAll: this.allSelectHandler,
+        style: { background: "#d7f0d3" },
       };
       expandRow = {
         onlyOneExpanding: true,
