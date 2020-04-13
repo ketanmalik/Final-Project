@@ -26,12 +26,13 @@ class Checkout extends Component {
   async componentDidMount() {
     let cartInfo = await CartInfo.getCartObjs();
     let userInfo = await UserInfo.getUserInfoObj();
-    userInfo.cartInfo = cartInfo;
     UserInfo.setUserInfoObj(userInfo);
     if (!userInfo || !userInfo.fName) {
       this.props.history.push("/");
       return;
     }
+    userInfo.cartInfo = cartInfo;
+
     let price = cartInfo.price;
     console.log("user", userInfo);
 
@@ -119,6 +120,8 @@ class Checkout extends Component {
             safeToProceed: true,
           });
           UserInfo.setUserInfoObj(userInfo);
+          const history = this.props.history.entries;
+          this.props.history.replace("/confirmation", "/checkout");
         })
         .catch((err) => {
           console.log(err.response);

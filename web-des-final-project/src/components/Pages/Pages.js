@@ -8,6 +8,7 @@ import Inventory from "../Inventory/Inventory";
 import UserSignIn from "../UserSignIn/UserSignIn";
 import Dashboard from "../Dashboard/Dashboard";
 import Checkout from "../Checkout/Checkout";
+import ConfirmationPage from "../Checkout/ConfirmationPage";
 
 export const home = (props) => <Home {...props} />;
 
@@ -26,3 +27,5 @@ export const layout = (props) => <Layout {...props} />;
 export const dashboard = (props) => <Dashboard {...props} />;
 
 export const checkout = (props) => <Checkout {...props} />;
+
+export const confirmationPage = (props) => <ConfirmationPage {...props} />;
