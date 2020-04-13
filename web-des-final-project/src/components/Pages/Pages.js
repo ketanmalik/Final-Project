@@ -7,6 +7,7 @@ import ContactUs from "../ContactUs/ContactUs";
 import Inventory from "../Inventory/Inventory";
 import UserSignIn from "../UserSignIn/UserSignIn";
 import Dashboard from "../Dashboard/Dashboard";
+import Checkout from "../Checkout/Checkout";
 
 export const home = (props) => <Home {...props} />;
 
@@ -23,3 +24,5 @@ export const userSignIn = (props) => <UserSignIn {...props} />;
 export const layout = (props) => <Layout {...props} />;
 
 export const dashboard = (props) => <Dashboard {...props} />;
+
+export const checkout = (props) => <Checkout {...props} />;

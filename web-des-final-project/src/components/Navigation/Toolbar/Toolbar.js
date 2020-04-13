@@ -192,7 +192,6 @@ class toolbar extends Component {
   render() {
     let navLinks = null;
     let topLinks = [...this.state.links].slice(4, 7);
-    let loggedInUserOption = null;
     navLinks = topLinks.map((link, i) => (
       <NavLink
         path={link.path}
@@ -295,9 +294,11 @@ class toolbar extends Component {
         />
       </div>
     ) : (
-      <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
+      <div style={{ marginLeft: "50%", marginTop: "30%", color: "#581845" }}>
+        <Spinner animation="border" role="status">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      </div>
     );
   }
 }

@@ -285,7 +285,7 @@ class Dashboard extends Component {
                     </Button>
                   </OverlayTrigger>
                 </Card.Header>
-                <Card.Body>
+                <Card.Body className="dashboard-card">
                   <Card.Title>Contact</Card.Title>
                   <Card.Text className="dashboard-card-text">
                     <Form>

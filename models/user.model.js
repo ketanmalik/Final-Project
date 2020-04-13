@@ -14,6 +14,16 @@ let UserSchema = new Schema({
   country: { type: String, required: true, max: 30 },
   date: { type: String, default: Date.now() },
   socialId: { type: String, default: "newUser" },
+  cartInfo: {
+    type: Object,
+    required: true,
+    default: { items: null, price: 0 },
+  },
+  orderInfo: {
+    type: Object,
+    required: true,
+    default: { date: null, fName: null, lName: null, orderId: null, amount: 0 },
+  },
 });
 
 module.exports = mongoose.model("Users", UserSchema);

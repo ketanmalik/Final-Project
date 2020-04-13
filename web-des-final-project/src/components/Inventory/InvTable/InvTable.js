@@ -7,6 +7,9 @@ import BootstrapTable from "react-bootstrap-table-next";
 import _ from "lodash";
 import Aux from "../../../hoc/Aux/Aux";
 import Spinner from "react-bootstrap/Spinner";
+import UserInfo from "../../../UserInfo/UserInfo";
+import Modal from "react-bootstrap/Modal";
+import CartInfo from "../../../CartInfo/CartInfo";
 import "../../../../node_modules/react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "./InvTable.css";
 
@@ -41,10 +44,14 @@ class InvTable extends Component {
     loading: true,
     error: null,
     specification: "Please select a part to view specifications",
+    userObj: null,
+    showModal: false,
+    partSelected: null,
   };
 
   componentDidMount() {
     this.getInventory();
+    this.setState({ userObj: UserInfo.getUserInfoObj() });
   }
 
   getInventory = () => {
@@ -63,6 +70,7 @@ class InvTable extends Component {
   };
 
   singleSelectHandler = (row, isSelect) => {
+    this.setState({ partSelected: row.specification });
     let checkoutData = [];
     if (this.state.checkoutData) {
       checkoutData = [...this.state.checkoutData];
@@ -105,22 +113,26 @@ class InvTable extends Component {
   };
 
   buttonClickHandler = () => {
-    const checkoutData = [...this.state.checkoutData];
-    let price = _.sumBy(checkoutData, function (item) {
-      return item.price;
-    });
-    const payload = {
-      items: checkoutData,
-      price: price,
-    };
+    let userObj = { ...this.state.userObj };
+    if (!userObj.fName) {
+      this.setState({ showModal: true });
+    } else {
+      this.setState({ showModal: false });
+      const checkoutData = [...this.state.checkoutData];
+      let price = _.sumBy(checkoutData, function (item) {
+        return item.price;
+      });
+      const payload = {
+        items: checkoutData,
+        price: price,
+      };
+      CartInfo.setCartObjs(payload);
+      this.props.history.push("/checkout");
+    }
+  };
 
-    axios({
-      url: "/checkout",
-      method: "POST",
-      data: payload,
-    })
-      .then(console.log("data send"))
-      .catch(console.log("not send"));
+  modalHide = () => {
+    this.setState({ showModal: false });
   };
 
   render() {
@@ -138,6 +150,7 @@ class InvTable extends Component {
         clickToSelect: false,
         onSelect: this.singleSelectHandler,
         onSelectAll: this.allSelectHandler,
+        style: { background: "#d7f0d3" },
       };
       expandRow = {
         onlyOneExpanding: true,
@@ -176,6 +189,11 @@ class InvTable extends Component {
                     activeItem={this.state.activePage}
                     clicked={(e) => this.paginationHandler(e)}
                   />
+                  <p style={{ color: "#737373" }}>
+                    <b>
+                      <i>(Click on a product to view specifications)</i>
+                    </b>
+                  </p>
                   <BootstrapTable
                     keyField="serialNo"
                     data={currentTblRows}
@@ -188,6 +206,48 @@ class InvTable extends Component {
                     // rowEvents={rowEvents}
                   />
                 </div>
+                <Modal
+                  {...this.props}
+                  show={this.state.showModal}
+                  onHide={() => this.modalHide()}
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                      <i
+                        style={{
+                          display: "inline-block",
+                          color: "#c41f14",
+                          marginRight: "20px",
+                        }}
+                        className="fas fa-exclamation-triangle fa-lg"
+                      ></i>
+                      <span className="inv-modal-title">
+                        <h4
+                          style={{ display: "inline-block", color: "#c41f14" }}
+                        >
+                          Error
+                        </h4>
+                      </span>
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <div className="inv-tbl-body">
+                      <p style={{ color: "#424242" }}>
+                        You are currently not <i>signed in</i>.
+                      </p>
+                      <p style={{ color: "#424242" }}>
+                        Please sign in or register to checkout.
+                      </p>
+                    </div>
+                  </Modal.Body>
+                  {/* <Modal.Footer>
+                    <Button onClick={this.props.onHide} id="modal-close-btn">
+                      Close
+                    </Button>
+                  </Modal.Footer> */}
+                </Modal>
               </div>
             </Aux>
           )}

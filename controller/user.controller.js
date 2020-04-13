@@ -100,7 +100,56 @@ exports.user_update = async function (req, res) {
       }
     });
   } catch (err) {
-    res.send(500).send(err);
+    res.status(500).send(err);
+    return;
+  }
+};
+
+exports.user_update_cart = async function (req, res) {
+  const id = req.body._id;
+  try {
+    await User.findById(id, async function (err, docs) {
+      docs.cartInfo = req.body.cartInfo;
+      try {
+        await docs.save();
+        res.send({
+          userObj: docs,
+          successMessage: "Your cart has been saved",
+        });
+        return;
+      } catch (error) {
+        res.status(400).send(error);
+        return;
+      }
+    });
+  } catch (err) {
+    res.status(500).send(err);
+    return;
+  }
+};
+
+exports.user_update_order = async function (req, res) {
+  const id = req.body._id;
+  console.log(req.body);
+  try {
+    await User.findById(id, async function (err, docs) {
+      console.log("docs");
+      console.log(docs);
+      docs.orderInfo = req.body.orderInfo;
+      try {
+        await docs.save();
+        res.send({
+          userObj: docs,
+          successMessage: "Your order has been placed",
+        });
+        return;
+      } catch (error) {
+        res.status(400).send(error);
+        return;
+      }
+    });
+  } catch (err) {
+    res.status(500).send(err);
     return;
   }
 };
