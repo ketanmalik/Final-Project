@@ -20,7 +20,7 @@ class Checkout extends Component {
     safeToProceed: false,
     price: 0,
     processingPayment: false,
-    orderInfo: null,
+    orderInfo: [],
   };
 
   async componentDidMount() {
@@ -32,6 +32,7 @@ class Checkout extends Component {
       return;
     }
     userInfo.cartInfo = cartInfo;
+    this.setState({ orderInfo: userInfo.orderInfo });
 
     let price = cartInfo.price;
     console.log("user", userInfo);
@@ -53,6 +54,7 @@ class Checkout extends Component {
       price: price,
       safeToProceed: true,
     });
+    CartInfo.setOrderPlaced(false);
   }
 
   updateCartInfo = async (e) => {
@@ -88,7 +90,7 @@ class Checkout extends Component {
     this.setState({ processingPayment: true, safeToProceed: false });
     if (details.status === "COMPLETED") {
       let userInfo = { ...this.state.userInfo };
-      let orderInfo = { ...this.state.orderInfo };
+      let orderInfo = [...this.state.orderInfo];
 
       const date = new Date();
       const payerFname = details.payer.name.given_name;
@@ -96,7 +98,7 @@ class Checkout extends Component {
       const orderId = details.id;
       const amount = details.purchase_units[0].amount.value;
 
-      orderInfo = {
+      const order = {
         date: date,
         fName: payerFname,
         lName: payerLname,
@@ -104,6 +106,7 @@ class Checkout extends Component {
         amount: amount,
       };
 
+      orderInfo.push(order);
       userInfo.orderInfo = orderInfo;
 
       axios({
@@ -112,27 +115,34 @@ class Checkout extends Component {
         data: userInfo,
       })
         .then((resp) => {
-          console.log(resp);
-          this.setState({
-            userInfo: userInfo,
-            orderInfo: orderInfo,
-            processingPayment: false,
-            safeToProceed: true,
-          });
-          UserInfo.setUserInfoObj(userInfo);
-          const history = this.props.history.entries;
-          this.props.history.replace("/confirmation", "/checkout");
+          axios({
+            url: "/updatesaveuser",
+            method: "PUT",
+            data: { userObj: userInfo },
+          })
+            .then(() => {
+              console.log(resp);
+              this.setState({
+                userInfo: userInfo,
+                orderInfo: orderInfo,
+                processingPayment: false,
+                safeToProceed: true,
+              });
+              UserInfo.setUserInfoObj(userInfo);
+              CartInfo.setOrderPlaced(true);
+              this.props.history.replace("/", "/checkout");
+            })
+            .catch((err) => {
+              console.log("user save error", err.response);
+              this.setState({ processingPayment: false, safeToProceed: true });
+            });
         })
         .catch((err) => {
-          console.log(err.response);
           this.setState({ processingPayment: false, safeToProceed: true });
         });
     } else {
-      console.log("payment error");
       this.setState({ processingPayment: false, safeToProceed: true });
     }
-    console.log(details);
-    console.log(data);
   };
 
   render() {
@@ -215,7 +225,10 @@ class Checkout extends Component {
                       {numberFormat(this.state.cartInfo.price)}
                     </Accordion.Toggle>
                   </Card.Header>
-                  <Accordion.Collapse eventKey="0">
+                  <Accordion.Collapse
+                    className="checkout-accordion-collapse"
+                    eventKey="0"
+                  >
                     <Aux>{productDescription}</Aux>
                   </Accordion.Collapse>
                 </Card>
@@ -230,7 +243,10 @@ class Checkout extends Component {
                       Shipping Information
                     </Accordion.Toggle>
                   </Card.Header>
-                  <Accordion.Collapse eventKey="1">
+                  <Accordion.Collapse
+                    className="checkout-accordion-collapse"
+                    eventKey="1"
+                  >
                     <Card.Body>
                       <Row>
                         <Col lg="6" sm="12">
@@ -287,7 +303,10 @@ class Checkout extends Component {
                       Payment
                     </Accordion.Toggle>
                   </Card.Header>
-                  <Accordion.Collapse eventKey="2">
+                  <Accordion.Collapse
+                    className="checkout-accordion-collapse"
+                    eventKey="2"
+                  >
                     <Card.Body>
                       <div className="payPalWrapper">
                         <PayPalBtn

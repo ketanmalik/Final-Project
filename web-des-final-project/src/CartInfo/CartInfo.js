@@ -1,5 +1,6 @@
 var CartInfo = (function () {
   var cartObjs = null;
+  var orderPlaced = false;
 
   var getCartObjs = function () {
     return cartObjs;
@@ -9,9 +10,19 @@ var CartInfo = (function () {
     cartObjs = obj;
   };
 
+  var getOrderPlaced = function () {
+    return orderPlaced;
+  };
+
+  var setOrderPlaced = function (bool) {
+    orderPlaced = bool;
+  };
+
   return {
     getCartObjs: getCartObjs,
     setCartObjs: setCartObjs,
+    getOrderPlaced: getOrderPlaced,
+    setOrderPlaced: setOrderPlaced,
   };
 })();
 
