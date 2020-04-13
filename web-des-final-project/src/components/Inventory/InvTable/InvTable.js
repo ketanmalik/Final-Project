@@ -242,11 +242,11 @@ class InvTable extends Component {
                       </p>
                     </div>
                   </Modal.Body>
-                  <Modal.Footer>
+                  {/* <Modal.Footer>
                     <Button onClick={this.props.onHide} id="modal-close-btn">
                       Close
                     </Button>
-                  </Modal.Footer>
+                  </Modal.Footer> */}
                 </Modal>
               </div>
             </Aux>
