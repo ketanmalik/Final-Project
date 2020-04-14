@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import UserInfo from "../../UserInfo/UserInfo";
-import Aux from "../../hoc/Aux/Aux";
+import { aux1 as Aux } from "../../hoc/Aux1/Aux1";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";

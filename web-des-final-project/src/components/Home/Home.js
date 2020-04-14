@@ -10,7 +10,9 @@ const Home = (props) => {
     <div>
       <Carousel {...props} />
       <Description />
-      <FeaturedParts />
+      <div id="featuredParts">
+        <FeaturedParts />
+      </div>
       <Testimonials />
       <ConfirmationModal />
     </div>

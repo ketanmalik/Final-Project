@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import img from "../../assets/images/lease1.png";
-import Aux from "../../hoc/Aux/Aux";
+import { aux1 as Aux } from "../../hoc/Aux1/Aux1";
 import LeaseCards from "./LeaseCards";
 import CardDeck from "react-bootstrap/CardDeck";
 import Button from "react-bootstrap/Button";

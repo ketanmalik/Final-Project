@@ -5,7 +5,7 @@ import Badge from "react-bootstrap/Badge";
 import Pagination from "../../Navigation/Pagination/Pagination";
 import BootstrapTable from "react-bootstrap-table-next";
 import _ from "lodash";
-import Aux from "../../../hoc/Aux/Aux";
+import { aux1 as Aux } from "../../../hoc/Aux1/Aux1";
 import Spinner from "react-bootstrap/Spinner";
 import UserInfo from "../../../UserInfo/UserInfo";
 import Modal from "react-bootstrap/Modal";

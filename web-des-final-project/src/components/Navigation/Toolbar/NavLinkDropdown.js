@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 
 class NavLinkDropdown extends Component {
   render() {
+    const featuredParts = () => {
+      this.props.clicked(1);
+      if (document.querySelector("#featuredParts")) {
+        const anchor = document.querySelector("#featuredParts");
+        anchor.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    };
     return (
       <li
         className={
@@ -20,8 +27,8 @@ class NavLinkDropdown extends Component {
         <div className="dropdown-menu">
           <Link
             className={"dropdown-item" + (this.props.item1 ? " active" : "")}
-            to="/"
-            onClick={() => this.props.clicked(1)}
+            to="/parts/featured"
+            onClick={featuredParts}
           >
             Featured Parts
           </Link>
