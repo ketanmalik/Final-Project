@@ -2,22 +2,23 @@ import React from "react";
 import { cards as Cards } from "./Cards";
 import "./Description.css";
 
-export const description = props => {
+export const description = (props) => {
   const cards = [
     {
       heading: "Distribution & Logistics",
-      text: "We have the ability to provide domestic and international delivery"
+      text:
+        "We have the ability to provide domestic and international delivery",
     },
     {
       heading: "Safety",
       text:
-        "We are PMA certified manufacturers and offer nothing less than the highest quality parts and consumables in the market"
+        "We are PMA certified manufacturers and offer nothing less than the highest quality parts and consumables in the market",
     },
     {
       heading: "Level of Service",
       text:
-        "We operate multiple warehouse locations with our logistics centers for reliable and quick delivery of your parts"
-    }
+        "We operate multiple warehouse locations with our logistics centers for reliable and quick delivery of your parts",
+    },
   ];
 
   let cardLayout = null;
@@ -27,7 +28,9 @@ export const description = props => {
   return (
     <div className="description">
       <div className="desc-left-wrapper">
-        <h2>Your Premier Provider of Aircraft</h2>
+        <h2>
+          <i>Falcon Aviation</i> is a Premier Provider of Aircraft
+        </h2>
         <h2>Parts and Engine Leasing Services</h2>
         <p id="description-paragraph">
           From a single bolt to a complete engine, we offer an extensive

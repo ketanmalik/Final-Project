@@ -15,7 +15,7 @@ const footer = (props) => {
         id="custom-row"
         // style={{ backgroundColor: "#581845", padding: "30px 0px 0px 30px" }}
       >
-        <div className="col-6 col-md-3">
+        <div className="col-6 col-md-3" id="contact-us">
           <h4 className="font-weight-bold text-uppercase mb-4">Contact Us</h4>
           <ul className="list-unstyled text-small">
             <li>
@@ -135,7 +135,7 @@ const footer = (props) => {
         }}
       >
         <div className="col-12 col-md">
-          &copy;&nbsp;Copyright Company Name - {new Date().getFullYear()}
+          &copy;&nbsp;Copyright Falcon Aviation - {new Date().getFullYear()}
         </div>
       </div>
     </footer>

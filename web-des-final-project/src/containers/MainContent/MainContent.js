@@ -9,6 +9,7 @@ import {
   userSignIn as UserSignIn,
   dashboard as Dashboard,
   checkout as Checkout,
+  confirmationPage as ConfirmationPage,
 } from "../../components/Pages/Pages";
 
 class MainContent extends Component {
@@ -47,6 +48,10 @@ class MainContent extends Component {
         <Route
           path="/checkout"
           render={(routeProps) => <Checkout {...routeProps} />}
+        />
+        <Route
+          path="/confirmation"
+          render={(routeProps) => <ConfirmationPage {...routeProps} />}
         />
       </Switch>
     );

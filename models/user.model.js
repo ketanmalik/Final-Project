@@ -20,9 +20,9 @@ let UserSchema = new Schema({
     default: { items: null, price: 0 },
   },
   orderInfo: {
-    type: Object,
+    type: Array,
     required: true,
-    default: { date: null, fName: null, lName: null, orderId: null, amount: 0 },
+    default: [],
   },
 });
 

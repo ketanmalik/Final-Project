@@ -1,0 +1,31 @@
+.confirmation-modal-header .modal-title {
+  font-weight: 700;
+  color: #581845;
+}
+
+.confirmation-modal-title h3 {
+  font-weight: 600;
+}
+
+.confirmation-modal-close-btn:hover {
+  background-color: rgb(48, 13, 38);
+}
+
+.confirmation-modal-close-btn {
+  font-size: 20px;
+  background-color: rgb(88, 24, 69);
+  border-color: transparent;
+}
+
+.confirmation-modal-close-btn:focus,
+.confirmation-modal-close-btn:active,
+.confirmation-modal-close-btn:active:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 0px !important;
+  background-color: #581845 !important;
+}
+
+.confirmation-modal-text {
+  padding: 3% 0% 0% 3%;
+}

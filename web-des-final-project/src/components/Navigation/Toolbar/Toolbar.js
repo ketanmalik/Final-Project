@@ -24,8 +24,8 @@ class toolbar extends Component {
         { path: "/about", content: "About", isActive: false },
         { path: "/contactus", content: "Contact Us", isActive: false },
         { path: "/user", content: "User", isActive: false },
-        { path: "/dashboard", contetn: "User Dashboard", isActive: false },
-        { path: "/user/signout", contetn: "User Sign Out", isActive: false },
+        { path: "/dashboard", content: "User Dashboard", isActive: false },
+        { path: "/user/signout", content: "User Sign Out", isActive: false },
       ],
       loggedIn: false,
       showModal: false,
@@ -159,7 +159,7 @@ class toolbar extends Component {
         UserInfo.setUserInfoObj(null);
         window.location.reload();
       })
-      .catch();
+      .catch((err) => console.log("toolbar so", err));
   };
 
   homeButtonHandler = () => {
@@ -213,6 +213,15 @@ class toolbar extends Component {
             onClick={this.homeButtonHandler}
           >
             <img src={logo} alt="/logo" width="45px" />
+            {/* <span
+              style={{
+                fontWeight: "700",
+                fontSize: "20px",
+                marginLeft: "1rem",
+              }}
+            >
+              FALCON AVIATION
+            </span> */}
           </Link>
           <button
             className="navbar-toggler"

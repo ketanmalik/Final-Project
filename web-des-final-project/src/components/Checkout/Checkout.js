@@ -7,10 +7,10 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Aux from "../../hoc/Aux/Aux";
 import PayPalBtn from "./PayPalBtn";
 import axios from "axios";
 import { numberFormat } from "../../assets/NumberFormat/NumberFormat";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import "./Checkout.css";
 
 class Checkout extends Component {
@@ -20,38 +20,48 @@ class Checkout extends Component {
     safeToProceed: false,
     price: 0,
     processingPayment: false,
-    orderInfo: null,
+    orderInfo: [],
   };
 
   async componentDidMount() {
     let cartInfo = await CartInfo.getCartObjs();
-    let userInfo = await UserInfo.getUserInfoObj();
-    userInfo.cartInfo = cartInfo;
-    UserInfo.setUserInfoObj(userInfo);
-    if (!userInfo || !userInfo.fName) {
+    console.log("cart", cartInfo);
+    if (cartInfo === null) {
+      console.log("ss");
       this.props.history.push("/");
-      return;
-    }
-    let price = cartInfo.price;
-    console.log("user", userInfo);
+      // this.props.history.replace("/", "/checkout");
+    } else {
+      let userInfo = await UserInfo.getUserInfoObj();
+      UserInfo.setUserInfoObj(userInfo);
+      if (!userInfo || !userInfo.fName) {
+        this.props.history.push("/");
+        return;
+      }
+      userInfo.cartInfo = cartInfo;
+      this.setState({ orderInfo: userInfo.orderInfo });
 
-    axios({
-      url: "/checkout/cartinfo",
-      method: "PUT",
-      data: userInfo,
-    })
-      .then((resp) => {
-        console.log(resp);
+      let price = cartInfo.price;
+      console.log("user", userInfo);
+
+      axios({
+        url: "/checkout/cartinfo",
+        method: "PUT",
+        data: userInfo,
       })
-      .catch((err) => {
-        console.log(err.response);
+        .then((resp) => {
+          console.log(resp);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+      this.setState({
+        cartInfo: cartInfo,
+        userInfo: userInfo,
+        price: price,
+        safeToProceed: true,
       });
-    this.setState({
-      cartInfo: cartInfo,
-      userInfo: userInfo,
-      price: price,
-      safeToProceed: true,
-    });
+      CartInfo.setOrderPlaced(false);
+    }
   }
 
   updateCartInfo = async (e) => {
@@ -73,10 +83,14 @@ class Checkout extends Component {
       data: userInfo,
     })
       .then((resp) => {
+        var self = this;
         console.log(resp);
         this.setState({ cartInfo: cartInfo, userInfo: userInfo });
         UserInfo.setUserInfoObj(userInfo);
         CartInfo.setCartObjs(cartInfo);
+        if (cartInfo.items.length === 0) {
+          self.props.history.replace("/parts/inventory", "/checkout");
+        }
       })
       .catch((err) => {
         console.log(err.response);
@@ -87,7 +101,7 @@ class Checkout extends Component {
     this.setState({ processingPayment: true, safeToProceed: false });
     if (details.status === "COMPLETED") {
       let userInfo = { ...this.state.userInfo };
-      let orderInfo = { ...this.state.orderInfo };
+      let orderInfo = [...this.state.orderInfo];
 
       const date = new Date();
       const payerFname = details.payer.name.given_name;
@@ -95,7 +109,7 @@ class Checkout extends Component {
       const orderId = details.id;
       const amount = details.purchase_units[0].amount.value;
 
-      orderInfo = {
+      const order = {
         date: date,
         fName: payerFname,
         lName: payerLname,
@@ -103,6 +117,7 @@ class Checkout extends Component {
         amount: amount,
       };
 
+      orderInfo.push(order);
       userInfo.orderInfo = orderInfo;
 
       axios({
@@ -111,25 +126,34 @@ class Checkout extends Component {
         data: userInfo,
       })
         .then((resp) => {
-          console.log(resp);
-          this.setState({
-            userInfo: userInfo,
-            orderInfo: orderInfo,
-            processingPayment: false,
-            safeToProceed: true,
-          });
-          UserInfo.setUserInfoObj(userInfo);
+          axios({
+            url: "/updatesaveuser",
+            method: "PUT",
+            data: { userObj: userInfo },
+          })
+            .then(() => {
+              console.log(resp);
+              this.setState({
+                userInfo: userInfo,
+                orderInfo: orderInfo,
+                processingPayment: false,
+                safeToProceed: true,
+              });
+              UserInfo.setUserInfoObj(userInfo);
+              CartInfo.setOrderPlaced(true);
+              this.props.history.replace("/", "/checkout");
+            })
+            .catch((err) => {
+              console.log("user save error", err.response);
+              this.setState({ processingPayment: false, safeToProceed: true });
+            });
         })
         .catch((err) => {
-          console.log(err.response);
           this.setState({ processingPayment: false, safeToProceed: true });
         });
     } else {
-      console.log("payment error");
       this.setState({ processingPayment: false, safeToProceed: true });
     }
-    console.log(details);
-    console.log(data);
   };
 
   render() {
@@ -140,7 +164,7 @@ class Checkout extends Component {
       var j = 0;
       items.map((item) => {
         tempProductDescription.push(
-          <div className="checkout-item-card">
+          <div className="checkout-item-card" key={item.serialNo}>
             <h4>
               <i>{item.description}</i>
               <Button
@@ -176,17 +200,20 @@ class Checkout extends Component {
           </div>
         );
       });
+      var ss = 0;
+      console.log("temp", tempProductDescription);
       for (var i = 0; i < tempProductDescription.length; i += 2) {
         productDescription.push(
-          <Row>
-            <Col lg="6" sm="12" id={i}>
+          <Row key={ss} id="checkout-prod-row">
+            <Col lg="6" sm="12" id={i} id="checkout-prod-col1" key={ss}>
               {tempProductDescription[i]}
             </Col>
-            <Col lg="6" sm="12">
+            <Col lg="6" sm="12" key={ss + 1} id="checkout-prod-col2">
               {tempProductDescription[i + 1]}
             </Col>
           </Row>
         );
+        ss = ss + 2;
       }
     }
 
@@ -212,8 +239,17 @@ class Checkout extends Component {
                       {numberFormat(this.state.cartInfo.price)}
                     </Accordion.Toggle>
                   </Card.Header>
-                  <Accordion.Collapse eventKey="0">
-                    <Aux>{productDescription}</Aux>
+                  <Accordion.Collapse
+                    className="checkout-accordion-collapse"
+                    eventKey="0"
+                  >
+                    <ReactCSSTransitionGroup
+                      transitionName="example"
+                      transitionEnterTimeout={700}
+                      transitionLeaveTimeout={700}
+                    >
+                      {productDescription}
+                    </ReactCSSTransitionGroup>
                   </Accordion.Collapse>
                 </Card>
                 <Card className="checkout-card">
@@ -227,7 +263,10 @@ class Checkout extends Component {
                       Shipping Information
                     </Accordion.Toggle>
                   </Card.Header>
-                  <Accordion.Collapse eventKey="1">
+                  <Accordion.Collapse
+                    className="checkout-accordion-collapse"
+                    eventKey="1"
+                  >
                     <Card.Body>
                       <Row>
                         <Col lg="6" sm="12">
@@ -284,7 +323,10 @@ class Checkout extends Component {
                       Payment
                     </Accordion.Toggle>
                   </Card.Header>
-                  <Accordion.Collapse eventKey="2">
+                  <Accordion.Collapse
+                    className="checkout-accordion-collapse"
+                    eventKey="2"
+                  >
                     <Card.Body>
                       <div className="payPalWrapper">
                         <PayPalBtn

@@ -20,7 +20,7 @@ class NavLinkDropdown extends Component {
         <div className="dropdown-menu">
           <Link
             className={"dropdown-item" + (this.props.item1 ? " active" : "")}
-            to="#section41"
+            to="/"
             onClick={() => this.props.clicked(1)}
           >
             Featured Parts

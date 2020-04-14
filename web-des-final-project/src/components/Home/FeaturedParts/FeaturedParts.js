@@ -3,9 +3,9 @@ import CardsDeck from "./CardsDeck";
 import ScrollToTop from "../../Navigation/ScrollToTop/ScrollToTop";
 import "./FeaturedParts.css";
 
-const featuredParts = props => {
+const featuredParts = (props) => {
   return (
-    <div className="featured-parts-wrapper">
+    <div className="featured-parts-wrapper" id="featured-parts">
       <h2>Featured Parts</h2>
       <ScrollToTop yOffSet={2000} topPos={1390}>
         <CardsDeck />

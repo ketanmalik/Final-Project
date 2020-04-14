@@ -37,12 +37,18 @@
 .sign-in-btn:active,
 #modal-close-btn:focus,
 #modal-close-btn:active,
+#modal-close-btn:active:focus,
 .show-password-btn:focus,
 .show-password-btn:active,
 .close {
   outline: none !important;
   box-shadow: none !important;
   border: 0px !important;
+}
+#modal-close-btn:focus,
+#modal-close-btn:active,
+#modal-close-btn:active:focus {
+  background-color: #581845 !important;
 }
 
 .sign-in-btn:hover {
