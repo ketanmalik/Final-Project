@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import UserInfo from "../../../UserInfo/UserInfo";
-import Aux from "../../../hoc/Aux/Aux";
+import { aux1 as Aux } from "../../../hoc/Aux1/Aux1";
 
 class DashboardDropdown extends Component {
   render() {

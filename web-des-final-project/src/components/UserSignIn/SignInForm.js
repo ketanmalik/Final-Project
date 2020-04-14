@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
-import Aux from "../../hoc/Aux/Aux";
+import { aux1 as Aux } from "../../hoc/Aux1/Aux1";
 import Toast from "react-bootstrap/Toast";
 import "./UserSignIn.css";
 

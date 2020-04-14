@@ -40,7 +40,11 @@ class MainContent extends Component {
           path="/parts/inventory"
           render={(routeProps) => <Inventory {...routeProps} />}
         />
-
+        <Route
+          exact
+          path="/parts/featured"
+          render={(routeProps) => <Home {...routeProps} />}
+        />
         <Route
           path="/dashboard"
           render={(routeProps) => <Dashboard {...routeProps} />}
