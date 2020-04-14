@@ -7,10 +7,10 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Aux from "../../hoc/Aux/Aux";
 import PayPalBtn from "./PayPalBtn";
 import axios from "axios";
 import { numberFormat } from "../../assets/NumberFormat/NumberFormat";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import "./Checkout.css";
 
 class Checkout extends Component {
@@ -25,36 +25,43 @@ class Checkout extends Component {
 
   async componentDidMount() {
     let cartInfo = await CartInfo.getCartObjs();
-    let userInfo = await UserInfo.getUserInfoObj();
-    UserInfo.setUserInfoObj(userInfo);
-    if (!userInfo || !userInfo.fName) {
+    console.log("cart", cartInfo);
+    if (cartInfo === null) {
+      console.log("ss");
       this.props.history.push("/");
-      return;
-    }
-    userInfo.cartInfo = cartInfo;
-    this.setState({ orderInfo: userInfo.orderInfo });
+      // this.props.history.replace("/", "/checkout");
+    } else {
+      let userInfo = await UserInfo.getUserInfoObj();
+      UserInfo.setUserInfoObj(userInfo);
+      if (!userInfo || !userInfo.fName) {
+        this.props.history.push("/");
+        return;
+      }
+      userInfo.cartInfo = cartInfo;
+      this.setState({ orderInfo: userInfo.orderInfo });
 
-    let price = cartInfo.price;
-    console.log("user", userInfo);
+      let price = cartInfo.price;
+      console.log("user", userInfo);
 
-    axios({
-      url: "/checkout/cartinfo",
-      method: "PUT",
-      data: userInfo,
-    })
-      .then((resp) => {
-        console.log(resp);
+      axios({
+        url: "/checkout/cartinfo",
+        method: "PUT",
+        data: userInfo,
       })
-      .catch((err) => {
-        console.log(err.response);
+        .then((resp) => {
+          console.log(resp);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+      this.setState({
+        cartInfo: cartInfo,
+        userInfo: userInfo,
+        price: price,
+        safeToProceed: true,
       });
-    this.setState({
-      cartInfo: cartInfo,
-      userInfo: userInfo,
-      price: price,
-      safeToProceed: true,
-    });
-    CartInfo.setOrderPlaced(false);
+      CartInfo.setOrderPlaced(false);
+    }
   }
 
   updateCartInfo = async (e) => {
@@ -76,10 +83,14 @@ class Checkout extends Component {
       data: userInfo,
     })
       .then((resp) => {
+        var self = this;
         console.log(resp);
         this.setState({ cartInfo: cartInfo, userInfo: userInfo });
         UserInfo.setUserInfoObj(userInfo);
         CartInfo.setCartObjs(cartInfo);
+        if (cartInfo.items.length === 0) {
+          self.props.history.replace("/parts/inventory", "/checkout");
+        }
       })
       .catch((err) => {
         console.log(err.response);
@@ -153,7 +164,7 @@ class Checkout extends Component {
       var j = 0;
       items.map((item) => {
         tempProductDescription.push(
-          <div className="checkout-item-card">
+          <div className="checkout-item-card" key={item.serialNo}>
             <h4>
               <i>{item.description}</i>
               <Button
@@ -189,17 +200,20 @@ class Checkout extends Component {
           </div>
         );
       });
+      var ss = 0;
+      console.log("temp", tempProductDescription);
       for (var i = 0; i < tempProductDescription.length; i += 2) {
         productDescription.push(
-          <Row>
-            <Col lg="6" sm="12" id={i}>
+          <Row key={ss} id="checkout-prod-row">
+            <Col lg="6" sm="12" id={i} id="checkout-prod-col1" key={ss}>
               {tempProductDescription[i]}
             </Col>
-            <Col lg="6" sm="12">
+            <Col lg="6" sm="12" key={ss + 1} id="checkout-prod-col2">
               {tempProductDescription[i + 1]}
             </Col>
           </Row>
         );
+        ss = ss + 2;
       }
     }
 
@@ -229,7 +243,13 @@ class Checkout extends Component {
                     className="checkout-accordion-collapse"
                     eventKey="0"
                   >
-                    <Aux>{productDescription}</Aux>
+                    <ReactCSSTransitionGroup
+                      transitionName="example"
+                      transitionEnterTimeout={700}
+                      transitionLeaveTimeout={700}
+                    >
+                      {productDescription}
+                    </ReactCSSTransitionGroup>
                   </Accordion.Collapse>
                 </Card>
                 <Card className="checkout-card">

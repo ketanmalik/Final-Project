@@ -16,9 +16,11 @@ class ConfirmationModal extends Component {
   async componentDidMount() {
     let res = CartInfo.getOrderPlaced();
     let info = [];
-    info = await UserInfo.getUserInfoObj().orderInfo;
-    info = info[info.length - 1];
-    this.setState({ orderPlaced: res, orderInfo: info });
+    info = await UserInfo.getUserInfoObj();
+    if (info != null) {
+      info = info.orderInfo[info.orderInfo.length - 1];
+      this.setState({ orderPlaced: res, orderInfo: info });
+    }
   }
 
   hideModal = () => {
@@ -28,34 +30,34 @@ class ConfirmationModal extends Component {
 
   render() {
     let modalText = null;
-    console.log("text", modalText);
-    if (this.state.orderInfo.fName && this.state.orderPlaced) {
-      let inf = { ...this.state.orderInfo };
-      console.log(inf);
+    if (this.state.orderInfo != null) {
+      if (this.state.orderInfo.fName && this.state.orderPlaced) {
+        let inf = { ...this.state.orderInfo };
 
-      modalText = (
-        <div className="confirmation-modal-text">
-          <p>
-            <b>First Name:</b>&nbsp;{inf.fName}
-          </p>
-          <p>
-            <b>Last Name:</b>&nbsp;{inf.lName}
-          </p>
-          <p>
-            <b>Order ID:</b>&nbsp;{inf.orderId}
-          </p>
-          <p>
-            <b>Amount:</b>&nbsp;{numberFormat(inf.amount)}
-          </p>
-          <p>
-            <b>Date:</b>&nbsp;{inf.date.toDateString()}
-          </p>
-          {/* <p>
-            <b>Date:</b>&nbsp;{inf.date.split("-")[0]}-{inf.date.split("-")[1]}-
-            {inf.date.split("-")[2].substring(0, 2)}
-          </p> */}
-        </div>
-      );
+        modalText = (
+          <div className="confirmation-modal-text">
+            <p>
+              <b>First Name:</b>&nbsp;{inf.fName}
+            </p>
+            <p>
+              <b>Last Name:</b>&nbsp;{inf.lName}
+            </p>
+            <p>
+              <b>Order ID:</b>&nbsp;{inf.orderId}
+            </p>
+            <p>
+              <b>Amount:</b>&nbsp;{numberFormat(inf.amount)}
+            </p>
+            <p>
+              <b>Date:</b>&nbsp;{inf.date.toDateString()}
+            </p>
+            {/* <p>
+              <b>Date:</b>&nbsp;{inf.date.split("-")[0]}-{inf.date.split("-")[1]}-
+              {inf.date.split("-")[2].substring(0, 2)}
+            </p> */}
+          </div>
+        );
+      }
     }
     return (
       <Modal

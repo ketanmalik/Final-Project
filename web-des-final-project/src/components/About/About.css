@@ -1,0 +1,187 @@
+/* .mybackgroungImg {
+  background-image: url("aircraftbackground.jpg");
+  background-size: auto;
+} */
+
+.wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.wrapper .bg {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url("./aircraftbackground.jpg");
+  opacity: 0.3;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.wrapper h2,
+h1 {
+  font-weight: 800;
+  color: #581842;
+}
+
+.wrapper p {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-weight: 600;
+}
+
+.wrapper li {
+  font-weight: 700;
+  color: #581842;
+}
+
+.aboutdesc-left-wrapper {
+  width: 55%;
+  animation: slide-left 2s;
+  animation-fill-mode: forwards;
+  padding: 5%;
+}
+
+.aboutdesc-right-wrapper {
+  animation: slide-right 2s;
+  animation-fill-mode: forwards;
+  padding: 5%;
+}
+
+@keyframes slide-left {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    margin-left: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes slide-right {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    margin-left: 30px;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .wrapper {
+    flex-direction: column;
+  }
+  .aboutdesc-left-wrapper {
+    width: 85%;
+    /* animation: slide-left 2s;
+    animation-fill-mode: forwards; */
+  }
+
+  .aboutdesc-right-wrapper {
+    width: 100%;
+    /* animation: slide-right 2s;
+    animation-fill-mode: forwards; */
+  }
+}
+
+.figure-div {
+  margin: 3em;
+}
+
+.figure-body {
+  font-weight: 500;
+}
+.figure-title {
+  font-weight: 900;
+}
+
+.figure-wrapper {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-around; */
+  flex-flow: wrap;
+}
+#featured-product-card {
+  width: 12rem;
+  margin: 1em;
+  padding: 1%;
+  border-radius: 20px;
+}
+
+@media (min-width: 1424px) {
+  #featured-product-card {
+    width: 17% !important;
+    padding: 1% !important;
+  }
+}
+
+@media (min-width: 1424px) {
+  #featured-product-card {
+    width: 15rem;
+  }
+}
+
+@media (min-width: 1344px) and (max-width: 1423px) {
+  #featured-product-card {
+    width: 14rem;
+  }
+}
+@media (min-width: 1264px) and (max-width: 1343px) {
+  #featured-product-card {
+    width: 13rem;
+  }
+}
+@media (min-width: 1104px) and (max-width: 1183px) {
+  #featured-product-card {
+    width: 11rem;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1103px) {
+  #featured-product-card {
+    width: 11rem;
+  }
+}
+@media (min-width: 944px) and (max-width: 1023px) {
+  #featured-product-card {
+    width: 9rem;
+  }
+  .card-title {
+    font-size: medium;
+  }
+  .card-text {
+    font-size: small;
+  }
+}
+@media (min-width: 864px) and (max-width: 943px) {
+  #featured-product-card {
+    width: 9rem;
+  }
+  .card-title {
+    font-size: medium;
+  }
+  .card-text {
+    font-size: small;
+  }
+}
+@media (min-width: 784px) and (max-width: 863px) {
+  #featured-product-card {
+    width: 8rem;
+  }
+  .card-title {
+    font-size: small;
+  }
+  .card-text {
+    font-size: small;
+  }
+}

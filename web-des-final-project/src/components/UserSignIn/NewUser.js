@@ -237,7 +237,9 @@ class User extends Component {
         <Form noValidate onSubmit={this.handleSubmit}>
           <Form.Row>
             <Form.Group as={Col} lg="6" xs="12" controlId="formGridFirstName">
-              <Form.Label>First Name</Form.Label>
+              <Form.Label>
+                <span style={{ color: "#6b6b6b" }}>*</span>&nbsp;First Name
+              </Form.Label>
               <Form.Control
                 placeholder="First Name"
                 onChange={this.formChangeHandler}
@@ -252,7 +254,9 @@ class User extends Component {
             </Form.Group>
 
             <Form.Group as={Col} lg="6" xs="12" controlId="formGridLastName">
-              <Form.Label>Last Name</Form.Label>
+              <Form.Label>
+                <span style={{ color: "#6b6b6b" }}>*</span>&nbsp;Last Name
+              </Form.Label>
               <Form.Control
                 placeholder="Last Name"
                 onChange={this.formChangeHandler}
@@ -268,7 +272,9 @@ class User extends Component {
           </Form.Row>
           <Form.Row>
             <Form.Group as={Col} lg="6" xs="12" controlId="formGridEmail">
-              <Form.Label>Username</Form.Label>
+              <Form.Label>
+                <span style={{ color: "#6b6b6b" }}>*</span>&nbsp;Username
+              </Form.Label>
               <InputGroup>
                 <InputGroup.Prepend>
                   <InputGroup.Text id="inputGroupPrepend">
@@ -292,7 +298,8 @@ class User extends Component {
             </Form.Group>
             <Form.Group as={Col} lg="6" xs="12" controlId="formGridPassword">
               <Form.Label>
-                Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style={{ color: "#6b6b6b" }}>*</span>&nbsp; Password
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <Link to={this.props.location.pathname}>
                   <span
                     className="show-password"
@@ -326,7 +333,9 @@ class User extends Component {
             </Form.Group>
           </Form.Row>
           <Form.Group controlId="formGridAddress1">
-            <Form.Label>Address 1</Form.Label>
+            <Form.Label>
+              <span style={{ color: "#6b6b6b" }}>*</span>&nbsp;Address 1
+            </Form.Label>
             <Form.Control
               placeholder="1234 Main St"
               onChange={this.formChangeHandler}
@@ -367,7 +376,9 @@ class User extends Component {
 
           <Form.Row>
             <Form.Group as={Col} lg="4" xs="6" controlId="formGridState">
-              <Form.Label>State</Form.Label>
+              <Form.Label>
+                <span style={{ color: "#6b6b6b" }}>*</span>&nbsp;State
+              </Form.Label>
               <Form.Control
                 placeholder="State"
                 onChange={this.formChangeHandler}
@@ -382,7 +393,9 @@ class User extends Component {
             </Form.Group>
 
             <Form.Group as={Col} lg="4" xs="6" controlId="formGridZip">
-              <Form.Label>Zip</Form.Label>
+              <Form.Label>
+                <span style={{ color: "#6b6b6b" }}>*</span>&nbsp;Zip
+              </Form.Label>
               <Form.Control
                 placeholder="12345"
                 onChange={this.formChangeHandler}
@@ -396,7 +409,9 @@ class User extends Component {
               </span>
             </Form.Group>
             <Form.Group as={Col} lg="4" xs="12" controlId="formGridCountry">
-              <Form.Label>Country</Form.Label>
+              <Form.Label>
+                <span style={{ color: "#6b6b6b" }}>*</span>&nbsp;Country
+              </Form.Label>
               <Form.Control
                 as="select"
                 placeholder="Choose..."

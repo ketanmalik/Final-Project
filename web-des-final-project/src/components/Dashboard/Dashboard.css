@@ -102,3 +102,116 @@
   font-size: 12px;
   margin-left: 2em;
 }
+
+.dashboard-order-card {
+  border: 1px solid #dcdcdc;
+  width: 80%;
+  min-height: 95%;
+  margin-left: 10%;
+  border-radius: 22px;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+}
+
+.dashboard-separator {
+  width: 80%;
+  height: 20px;
+  border-bottom: 1px solid #d6d6d6;
+  margin-left: 10%;
+  color: #d6d6d6;
+  margin-bottom: 32px;
+}
+
+.dashboard-view-order-btn {
+  float: right;
+  background-color: transparent;
+  outline: none !important;
+  border: 0px;
+}
+
+.dashboard-view-order-btn:hover,
+.dashboard-view-order-btn:active,
+.dashboard-view-order-btn:focus,
+.dashboard-view-order-btn:active:focus {
+  background-color: transparent !important;
+  border: 0px;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.dashboard-order-card {
+  border: 1px solid #dcdcdc;
+  width: 90%;
+  min-height: 95%;
+  border-radius: 22px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+  transition: transform 0.5s ease-out;
+  margin-left: 5%;
+  margin-bottom: 3%;
+  z-index: 5000;
+  /* margin-top: 3%; */
+  /* margin: 10%; */
+}
+
+.dashboard-order-card:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.dashboard-order-card h4 {
+  /* margin: 2%; */
+  padding: 4% 0% 0% 4%;
+  font-size: 25px;
+  font-weight: 700;
+  color: #581845;
+}
+
+.dashboard-order-card p {
+  margin: 3%;
+  color: #333333;
+  font-weight: 600;
+  /* padding: 2% 0% 0% 2%; */
+}
+
+@media (max-width: 743px) and (min-width: 500px) {
+  #dashboard-order-info-row {
+    margin-top: 3% !important;
+  }
+  .dashboard-order-card {
+    width: 80%;
+    margin-left: 10%;
+  }
+  .dashboard-order-card h4 {
+    font-size: 28px;
+  }
+  .dashboard-order-card p {
+    font-size: 18px;
+    padding: 0% !important;
+  }
+}
+
+@media (max-width: 499px) {
+  #dashboard-order-info-row {
+    margin-top: 4% !important;
+  }
+  #dashboard-order-info-col1 {
+    margin-top: 4%;
+    margin-bottom: 4%;
+  }
+  #dashboard-order-info-col1 {
+    margin-top: 4%;
+    margin-bottom: 4%;
+  }
+  .dashboard-order-card {
+    width: 90%;
+    margin-left: 5%;
+  }
+  .dashboard-order-card h4 {
+    font-size: 20px;
+  }
+  .dashboard-order-card p {
+    font-size: 14px;
+    padding: 2% 0% 0% 2%;
+  }
+}

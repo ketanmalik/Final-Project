@@ -24,6 +24,7 @@ import "./Dashboard.css";
 class Dashboard extends Component {
   state = {
     userObj: null,
+    userOrderInfo: [],
     editAccountInfo: false,
     safeToProceed: false,
     key: "account-info",
@@ -58,6 +59,7 @@ class Dashboard extends Component {
       this.setState({
         userObj: obj,
         safeToProceed: true,
+        userOrderInfo: obj.orderInfo,
       });
     }
   }
@@ -229,9 +231,87 @@ class Dashboard extends Component {
     this.setState({ showToast: bool });
   };
 
+  getDate = (date) => {
+    let res = null;
+    try {
+      res = date.toDateString();
+    } catch (err) {
+      let year = date.split("-")[0];
+      let month = date.split("-")[1] - 1;
+      let dt = date.split("-")[2].substring(0, 2);
+      res = new Date(year, month, dt).toDateString();
+    }
+    return res;
+  };
+
+  viewOrder = (index) => {
+    console.log(index);
+  };
+
   render() {
     const toastHeader = this.state.apiError ? "Failure" : "Success";
 
+    let temp = [];
+    let userOrderInfo = [];
+    console.log("user", this.state.userObj, this.state.userOrderInfo);
+    if (this.state.safeToProceed) {
+      let info = [...this.state.userOrderInfo];
+      if (info.length > 0) {
+        var j = 0;
+        info.map((key) => {
+          temp.push(
+            <div className="dashboard-order-card" key={key}>
+              <h4>
+                {this.getDate(key.date)}
+                <Button
+                  onClick={this.viewOrder.bind(this)}
+                  data-id={j++}
+                  style={{ float: "right" }}
+                  className="dashboard-view-order-btn"
+                >
+                  <i
+                    class="fas fa-info fa-lg"
+                    style={{
+                      float: "right",
+                      color: "#581845",
+                    }}
+                  ></i>
+                </Button>
+              </h4>
+              <div className="dashboard-separator" />
+              <p>
+                <b>First Name:&nbsp;</b>
+                {key.fName}
+              </p>
+              <p>
+                <b>Last Name:&nbsp;</b>
+                {key.lName}
+              </p>
+              <p>
+                <b>Order ID:&nbsp;</b>
+                {key.orderId}
+              </p>
+              <p>
+                <b>Amount:&nbsp;</b>${key.amount}
+              </p>
+            </div>
+          );
+        });
+        for (var i = 0; i < temp.length; i += 2) {
+          userOrderInfo.push(
+            <Row key={i} id="dashboard-order-info-row">
+              <Col lg="6" sm="12" key={i} id="dashboard-order-info-col1">
+                {temp[i]}
+              </Col>
+              <Col lg="6" sm="12" key={i + 1} id="dashboard-order-info-col2">
+                {temp[i + 1]}
+              </Col>
+            </Row>
+          );
+        }
+        console.log("userOrderInfo", userOrderInfo);
+      }
+    }
     return this.state.safeToProceed ? (
       <Aux>
         <Jumbotron fluid>
@@ -276,7 +356,7 @@ class Dashboard extends Component {
                     >
                       <i
                         style={{ float: "right" }}
-                        class={
+                        className={
                           this.state.editAccountInfo
                             ? "fas fa-check"
                             : "far fa-edit"
@@ -597,7 +677,12 @@ class Dashboard extends Component {
               </Card>
             </Tab>
             <Tab eventKey="orders" title="Orders">
-              <div>Orders</div>
+              <Row>
+                <Col lg="2" xs="12" />
+                <Col lg="8" xs="12">
+                  <Aux>{userOrderInfo}</Aux>
+                </Col>
+              </Row>
             </Tab>
             <Tab eventKey="security" title="Security" disabled>
               <div>Change Pass</div>

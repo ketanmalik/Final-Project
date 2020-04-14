@@ -15,6 +15,16 @@
   margin: 1em;
   padding: 1%;
   border-radius: 20px;
+  transition: transform 0.5s ease-in-out;
+}
+
+#featured-product-card:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+#featured-product-card .card-body p {
+  font-weight: 500;
 }
 
 @media (min-width: 1424px) {

@@ -1,0 +1,133 @@
+.lease-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.lease-left-wrapper {
+  width: 55%;
+  padding: 3% 0% 0% 3%;
+}
+
+.lease-right-wrapper {
+  margin-top: 5%;
+  /* margin-left: 10%; */
+  /* animation-fill-mode: forwards; */
+  /* animation: slide-right 2s; */
+  /* width: 10%; */
+}
+
+@keyframes slide-left {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    /* margin-left: 30px; */
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-right {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    /* margin-left: 30px; */
+    opacity: 1;
+  }
+}
+
+.lease-left-wrapper h2,
+h3 {
+  font-weight: 800;
+  color: #581842;
+}
+
+.lease-wrapper p {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-weight: 600;
+}
+
+.lease-wrapper li {
+  font-weight: 700;
+  color: #333;
+}
+
+.lease-card-wrapper {
+  padding: 5%;
+}
+
+.lease-card {
+  margin: 3%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.lease-card:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.lease-right-wrapper img {
+  width: 70%;
+}
+
+@media (max-width: 574px) {
+  .lease-wrapper {
+    flex-direction: column;
+  }
+  .lease-left-wrapper {
+    width: 85%;
+    /* animation: slide-left 2s;
+    animation-fill-mode: forwards; */
+  }
+
+  .lease-right-wrapper {
+    width: 100%;
+    /* animation: slide-right 2s;
+    animation-fill-mode: forwards; */
+  }
+
+  .lease-right-wrapper img {
+    width: 80%;
+  }
+}
+
+@media (min-width: 850px) and (max-width: 1190px) {
+  .lease-right-wrapper {
+    width: 45%;
+  }
+}
+
+@media (min-width: 575px) and (max-width: 849px) {
+  .lease-right-wrapper {
+    width: 45%;
+  }
+  .lease-right-wrapper img {
+    width: 50%;
+  }
+}
+
+.lease-ca-btn,
+.lease-ca-btn:focus,
+.lease-ca-btn:active,
+.lease-ca-btn:active:focus,
+.ca-btn,
+.ca-btn:focus,
+.ca-btn:active,
+.ca-btn:active:focus {
+  font-size: 20px;
+  background-color: #581842 !important;
+  border-color: transparent;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.lease-ca-btn:hover,
+.ca-btn:hover {
+  background-color: rgb(48, 13, 38) !important;
+  border-color: transparent;
+}

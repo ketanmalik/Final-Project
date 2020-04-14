@@ -33,6 +33,7 @@
 #inv-tbl-btn:hover:enabled {
   border-color: #18582b;
   transform: scale(1.3);
+  cursor: pointer;
   background-position: left bottom;
 }
 
