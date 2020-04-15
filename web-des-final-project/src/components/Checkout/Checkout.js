@@ -98,6 +98,7 @@ class Checkout extends Component {
   };
 
   payPalSuccess = (details, data) => {
+    console.log("cart", this.state.cartInfo);
     this.setState({ processingPayment: true, safeToProceed: false });
     if (details.status === "COMPLETED") {
       let userInfo = { ...this.state.userInfo };
@@ -115,6 +116,7 @@ class Checkout extends Component {
         lName: payerLname,
         orderId: orderId,
         amount: amount,
+        items: this.state.cartInfo.items,
       };
 
       orderInfo.push(order);
@@ -154,6 +156,10 @@ class Checkout extends Component {
     } else {
       this.setState({ processingPayment: false, safeToProceed: true });
     }
+  };
+
+  payPalHandler = () => {
+    console.log("handler");
   };
 
   render() {
@@ -333,6 +339,7 @@ class Checkout extends Component {
                           amount={1}
                           currency={"USD"}
                           onSuccess={this.payPalSuccess}
+                          // onClick={this.payPalHandler}
                         />
                       </div>
                     </Card.Body>
@@ -347,9 +354,7 @@ class Checkout extends Component {
       )
     ) : (
       <div style={{ marginLeft: "50%", marginTop: "30%", color: "#581845" }}>
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
+        <Spinner animation="border" role="status"></Spinner>
       </div>
     );
   }

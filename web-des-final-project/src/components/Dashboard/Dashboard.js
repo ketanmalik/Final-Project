@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { aux1 as Aux } from "../../hoc/Aux1/Aux1";
 import axios from "axios";
+import DashboardModal from "./DashboardModal";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
@@ -25,6 +26,7 @@ class Dashboard extends Component {
   state = {
     userObj: null,
     userOrderInfo: [],
+    userSellParts: [],
     editAccountInfo: false,
     safeToProceed: false,
     key: "account-info",
@@ -43,6 +45,8 @@ class Dashboard extends Component {
     loading: false,
     apiError: false,
     showToast: false,
+    showModal: false,
+    modalInfo: null,
   };
 
   componentDidMount() {
@@ -50,16 +54,17 @@ class Dashboard extends Component {
     if (!obj) {
       window.location.replace("https://localhost:3000/");
     } else {
-      obj.add1 = obj.add1 === "-1" ? null : obj.add1;
-      obj.city = obj.city === "-1" ? null : obj.city;
-      obj.state = obj.state === "-1" ? null : obj.state;
-      obj.zip = obj.zip === -1 ? null : obj.zip;
-      obj.country = obj.country === "-1" ? "United States" : obj.country;
+      // obj.add1 = obj.add1 === "-1" ? null : obj.add1;
+      // obj.city = obj.city === "-1" ? null : obj.city;
+      // obj.state = obj.state === "-1" ? null : obj.state;
+      // obj.zip = obj.zip === -1 ? null : obj.zip;
+      // obj.country = obj.country === "-1" ? "United States" : obj.country;
 
       this.setState({
         userObj: obj,
         safeToProceed: true,
         userOrderInfo: obj.orderInfo,
+        userSellParts: obj.sellParts,
       });
     }
   }
@@ -77,7 +82,6 @@ class Dashboard extends Component {
         if (res) {
           this.setState({ editAccountInfo: false });
         } else {
-          console.log("sssss");
         }
       }
     }
@@ -96,6 +100,7 @@ class Dashboard extends Component {
 
   updateUserInformation = async () => {
     let userObj = { ...this.state.userObj };
+    console.log("new info", userObj);
     let feedback = false;
     await axios({
       url: "/dashboard/update",
@@ -120,7 +125,6 @@ class Dashboard extends Component {
         feedback = false;
       });
     this.setState({ apiError: !feedback, showToast: true });
-    console.log(feedback);
     return feedback;
   };
 
@@ -133,19 +137,27 @@ class Dashboard extends Component {
     if (payload.lName === null || payload.lName === "") {
       errors.lName = "Please enter a valid last name.";
     }
-    if (payload.add1 === null || payload.add1 === "") {
+    if (payload.add1 === null || payload.add1 === "" || payload.add1 === "-1") {
       errors.add1 = "Please enter a valid address.";
     }
-    if (payload.city === null || payload.city === "") {
+    if (payload.city === null || payload.city === "" || payload.city === "-1") {
       errors.city = "Please enter a valid city.";
     }
-    if (payload.state === null || payload.state === "") {
+    if (
+      payload.state === null ||
+      payload.state === "" ||
+      payload.state === "-1"
+    ) {
       errors.state = "Please select a valid state.";
     }
-    if (payload.zip === null || payload.zip === "") {
+    if (payload.zip === null || payload.zip === "" || payload.zip === -1) {
       errors.zip = "Please enter a valid zip.";
     }
-    if (payload.country === null || payload.country === "") {
+    if (
+      payload.country === null ||
+      payload.country === "" ||
+      payload.country === "-1"
+    ) {
       errors.country = "Please choose a valid country.";
     }
     this.setState({ errors: errors });
@@ -244,18 +256,64 @@ class Dashboard extends Component {
     return res;
   };
 
-  viewOrder = (index) => {
-    console.log(index);
+  viewOrder = (e) => {
+    let index = e.currentTarget.dataset.id;
+    this.setState(
+      { modalInfo: this.state.userOrderInfo[index] },
+      this.modalHandler(true)
+    );
+  };
+
+  modalHandler = (bool) => {
+    this.setState({ showModal: bool });
   };
 
   render() {
     const toastHeader = this.state.apiError ? "Failure" : "Success";
 
     let temp = [];
+    let temp1 = [];
     let userOrderInfo = [];
-    console.log("user", this.state.userObj, this.state.userOrderInfo);
+    let userSellParts = [];
+    let user = { ...this.state.userObj };
     if (this.state.safeToProceed) {
       let info = [...this.state.userOrderInfo];
+      let sellInfo = [...this.state.userSellParts];
+      if (sellInfo.length > 0) {
+        var j = 0;
+        sellInfo.map((key) => {
+          temp1.push(
+            <div className="dashboard-order-card" key={key}>
+              <h4>{this.getDate(key.date)}</h4>
+              <div className="dashboard-separator" />
+              <p>
+                <b>First Name:&nbsp;</b>
+                {user.fName}
+              </p>
+              <p>
+                <b>Last Name:&nbsp;</b>
+                {user.lName}
+              </p>
+              <p>
+                <b>Inventory List:&nbsp;</b>
+                {key.message}
+              </p>
+            </div>
+          );
+        });
+        for (var i = 0; i < temp1.length; i += 2) {
+          userSellParts.push(
+            <Row key={i} id="dashboard-order-info-row">
+              <Col lg="6" sm="12" key={i} id="dashboard-order-info-col1">
+                {temp1[i]}
+              </Col>
+              <Col lg="6" sm="12" key={i + 1} id="dashboard-order-info-col2">
+                {temp1[i + 1]}
+              </Col>
+            </Row>
+          );
+        }
+      }
       if (info.length > 0) {
         var j = 0;
         info.map((key) => {
@@ -309,7 +367,6 @@ class Dashboard extends Component {
             </Row>
           );
         }
-        console.log("userOrderInfo", userOrderInfo);
       }
     }
     return this.state.safeToProceed ? (
@@ -325,8 +382,8 @@ class Dashboard extends Component {
                   <div className="jumbotron-text">
                     <h1>{this.state.userObj.fName}'s Dashboard</h1>
                     <p>
-                      This is a modified jumbotron that occupies the entire
-                      horizontal space of its parent.
+                      View and edit your account information, past orders and
+                      sell requests sent to us.
                     </p>
                   </div>
                 </Col>
@@ -458,7 +515,11 @@ class Dashboard extends Component {
                             required
                             name="add1"
                             isInvalid={this.state.errors.add1}
-                            value={this.state.userObj.add1}
+                            value={
+                              this.state.userObj.add1 === "-1"
+                                ? null
+                                : this.state.userObj.add1
+                            }
                             placeholder="1234 Main St"
                           />
                           <span className="errorMessage">
@@ -511,7 +572,11 @@ class Dashboard extends Component {
                             required
                             name="city"
                             isInvalid={this.state.errors.city}
-                            value={this.state.userObj.city}
+                            value={
+                              this.state.userObj.city === "-1"
+                                ? null
+                                : this.state.userObj.city
+                            }
                             placeholder="12345"
                           />
                           <span className="errorMessage">
@@ -536,7 +601,11 @@ class Dashboard extends Component {
                             required
                             name="state"
                             isInvalid={this.state.errors.state}
-                            value={this.state.userObj.state}
+                            value={
+                              this.state.userObj.state === "-1"
+                                ? null
+                                : this.state.userObj.state
+                            }
                             placeholder="State"
                           />
                           <span className="errorMessage">
@@ -564,7 +633,11 @@ class Dashboard extends Component {
                             required
                             name="zip"
                             isInvalid={this.state.errors.zip}
-                            value={this.state.userObj.zip}
+                            value={
+                              this.state.userObj.zip === -1
+                                ? null
+                                : this.state.userObj.zip
+                            }
                             placeholder="12345"
                           />
                           <span className="errorMessage">
@@ -588,6 +661,7 @@ class Dashboard extends Component {
                             required
                             name="country"
                             isInvalid={this.state.errors.country}
+                            default="United States"
                             value={this.state.userObj.country}
                           >
                             <CountryList />
@@ -680,16 +754,57 @@ class Dashboard extends Component {
               <Row>
                 <Col lg="2" xs="12" />
                 <Col lg="8" xs="12">
-                  <Aux>{userOrderInfo}</Aux>
+                  <Aux>
+                    {userOrderInfo.length > 0 ? (
+                      userOrderInfo
+                    ) : (
+                      <div
+                        style={{
+                          marginTop: "15%",
+                          marginBottom: "40%",
+                          marginLeft: "15%",
+                        }}
+                      >
+                        <h3>You have not placed any orders yet.</h3>
+                        <h5>Please see our Inventory to place orders.</h5>
+                      </div>
+                    )}
+                  </Aux>
+                </Col>
+              </Row>
+              <DashboardModal
+                info={this.state.modalInfo ? this.state.modalInfo : ""}
+                show={this.state.showModal}
+                clicked={this.modalHandler}
+              />
+            </Tab>
+            <Tab eventKey="sell-requests" title="Sell Requests">
+              <Row>
+                <Col lg="2" xs="12" />
+                <Col lg="8" xs="12">
+                  <Aux>
+                    {userSellParts.length > 0 ? (
+                      <div style={{ marginBottom: "50%" }}>{userSellParts}</div>
+                    ) : (
+                      <div
+                        style={{
+                          marginTop: "15%",
+                          marginBottom: "40%",
+                          marginLeft: "15%",
+                        }}
+                      >
+                        <h3>You have not placed any sell requests yet.</h3>
+                        <h5>
+                          Please send us a request with your inventory list.
+                        </h5>
+                      </div>
+                    )}
+                  </Aux>
                 </Col>
               </Row>
             </Tab>
-            <Tab eventKey="security" title="Security" disabled>
-              <div>Change Pass</div>
-            </Tab>
           </Tabs>
         </div>
-        ;
       </Aux>
     ) : (
       <div

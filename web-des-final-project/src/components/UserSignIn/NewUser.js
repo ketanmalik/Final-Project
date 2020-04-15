@@ -431,9 +431,7 @@ class User extends Component {
           <div style={{ textAlign: "center" }}>
             <Button className="sign-in-btn" type="submit">
               {this.state.loading ? (
-                <Spinner animation="border" role="status">
-                  <span className="sr-only">Loading...</span>
-                </Spinner>
+                <Spinner animation="border" role="status"></Spinner>
               ) : (
                 "Register"
               )}

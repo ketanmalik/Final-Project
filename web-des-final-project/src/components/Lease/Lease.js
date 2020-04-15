@@ -259,7 +259,7 @@ class Lease extends Component {
               ) : (
                 <Aux>
                   <h4>
-                    Your request has been initiaied! Our team will contact you
+                    Your request has been initiated! Our team will contact you
                     shortly.
                   </h4>
                   <img

@@ -214,9 +214,7 @@ class UserSignIn extends Component {
                         className="google-btn"
                       >
                         {this.state.gLoading ? (
-                          <Spinner animation="border" role="status">
-                            <span className="sr-only">Loading...</span>
-                          </Spinner>
+                          <Spinner animation="border" role="status"></Spinner>
                         ) : (
                           <Aux>
                             <i class="fab fa-google"></i>

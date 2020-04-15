@@ -25,7 +25,6 @@ class Layout extends Component {
         } else {
           UserInfo.setUserInfoObj(obj);
         }
-        console.log("check");
         return true;
       })
       .catch((err) => {
