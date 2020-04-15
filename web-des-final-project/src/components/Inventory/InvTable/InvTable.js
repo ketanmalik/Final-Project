@@ -51,7 +51,7 @@ class InvTable extends Component {
 
   componentDidMount() {
     this.getInventory();
-    this.setState({ userObj: UserInfo.getUserInfoObj() });
+    this.setState({ userObj: UserInfo.getUserInfoObj(), showModal: false });
   }
 
   getInventory = () => {
@@ -117,17 +117,21 @@ class InvTable extends Component {
     if (!userObj.fName) {
       this.setState({ showModal: true });
     } else {
-      this.setState({ showModal: false });
-      const checkoutData = [...this.state.checkoutData];
-      let price = _.sumBy(checkoutData, function (item) {
-        return item.price;
-      });
-      const payload = {
-        items: checkoutData,
-        price: price,
-      };
-      CartInfo.setCartObjs(payload);
-      this.props.history.push("/checkout");
+      if (userObj.add1 === "-1") {
+        this.setState({ showModal: true });
+      } else {
+        this.setState({ showModal: false });
+        const checkoutData = [...this.state.checkoutData];
+        let price = _.sumBy(checkoutData, function (item) {
+          return item.price;
+        });
+        const payload = {
+          items: checkoutData,
+          price: price,
+        };
+        CartInfo.setCartObjs(payload);
+        this.props.history.push("/checkout");
+      }
     }
   };
 
@@ -175,9 +179,7 @@ class InvTable extends Component {
         <div className="inv-tbl-wrapper">
           {this.state.loading ? (
             <div style={{ margin: "5em 0em 5em 45em", color: "#581845" }}>
-              <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-              </Spinner>
+              <Spinner animation="border" role="status"></Spinner>
             </div>
           ) : (
             <Aux>
@@ -234,12 +236,36 @@ class InvTable extends Component {
                   </Modal.Header>
                   <Modal.Body>
                     <div className="inv-tbl-body">
-                      <p style={{ color: "#424242" }}>
-                        You are currently not <i>signed in</i>.
-                      </p>
-                      <p style={{ color: "#424242" }}>
-                        Please sign in or register to checkout.
-                      </p>
+                      {this.state.showModal && this.state.userObj ? (
+                        this.state.userObj.add1 === "-1" ? (
+                          <Aux>
+                            <p style={{ color: "#424242" }}>
+                              We do not have your <i>address</i>.
+                            </p>
+                            <p style={{ color: "#424242" }}>
+                              Please update your address in dashboard.
+                            </p>
+                          </Aux>
+                        ) : (
+                          <Aux>
+                            <p style={{ color: "#424242" }}>
+                              You are currently not <i>signed in</i>.
+                            </p>
+                            <p style={{ color: "#424242" }}>
+                              Please sign in or register to checkout.
+                            </p>
+                          </Aux>
+                        )
+                      ) : (
+                        <Aux>
+                          <p style={{ color: "#424242" }}>
+                            You are currently not <i>signed in</i>.
+                          </p>
+                          <p style={{ color: "#424242" }}>
+                            Please sign in or register to checkout.
+                          </p>
+                        </Aux>
+                      )}
                     </div>
                   </Modal.Body>
                   {/* <Modal.Footer>

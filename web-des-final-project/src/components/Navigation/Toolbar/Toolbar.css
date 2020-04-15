@@ -13,3 +13,12 @@
   border: 0px;
   outline: none;
 }
+
+.dashboard-separator {
+  width: 80%;
+  height: 20px;
+  border-bottom: 1px solid #d6d6d6;
+  margin-left: 10%;
+  color: #d6d6d6;
+  margin-bottom: 32px;
+}

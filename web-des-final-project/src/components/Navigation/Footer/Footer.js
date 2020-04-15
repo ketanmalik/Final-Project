@@ -25,7 +25,13 @@ const footer = (props) => {
             </li>
             <li>
               <p>
-                <i className="fas fa-envelope mr-3"></i> info@example.com
+                <i className="fas fa-envelope mr-3"></i>{" "}
+                <a
+                  href="mailto:manufacturers@falconaviation.com"
+                  style={{ color: "white" }}
+                >
+                  manufacturers@falconaviation.com
+                </a>
               </p>
             </li>
             <li>

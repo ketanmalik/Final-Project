@@ -7,7 +7,7 @@ import NavLinkDropdown from "./NavLinkDropdown";
 import DashboardDropwdown from "./DashboardDropwdown";
 import UserSignIn from "../../UserSignIn/UserSignIn";
 import logo from "../../../assets/images/logo.png";
-import test from "../../../assets/images/test.png";
+import SellPartsModal from "./SellPartsModal";
 import Spinner from "react-bootstrap/Spinner";
 import "./Toolbar.css";
 
@@ -33,6 +33,10 @@ class toolbar extends Component {
       userObj: null,
       userName: "",
       safeToProceed: false,
+      sellPartsModal: false,
+      sellPartsError: false,
+      sellPartsSuccess: false,
+      sellPartsInfo: null,
     };
   }
 
@@ -122,16 +126,65 @@ class toolbar extends Component {
   };
 
   navLinkDropdownHandler = (i) => {
-    const links = this.state.links.slice();
-    this.navLinkHandler(-1);
-    links[7].isActive = false;
-    links[8].isActive = false;
-    links[9].isActive = false;
-    links[0].isActive = true;
-    for (var j = 1; j < 4; j++) {
-      links[j].isActive = i == j;
+    if (i === 3) {
+      this.sellPartsModalHandler(true);
+    } else {
+      const links = this.state.links.slice();
+      this.navLinkHandler(-1);
+      links[7].isActive = false;
+      links[8].isActive = false;
+      links[9].isActive = false;
+      links[0].isActive = true;
+      for (var j = 1; j < 4; j++) {
+        links[j].isActive = i == j;
+      }
+      this.setState({ links: links });
     }
-    this.setState({ links: links });
+  };
+
+  sellParts = () => {
+    let userObj = { ...this.state.userObj };
+  };
+
+  sellPartsConfirmHandler = async (msg) => {
+    let payload = { ...this.state.userObj };
+    let sellInfo = {
+      date: new Date(),
+      message: msg,
+    };
+    payload.sellParts.push(sellInfo);
+    await axios({
+      url: "/sellpart",
+      method: "PUT",
+      data: payload,
+    })
+      .then(async (resp) => {
+        await axios({
+          url: "/updatesaveuser",
+          method: "PUT",
+          data: { userObj: payload },
+        })
+          .then((res) => {
+            this.setState({ sellPartsSuccess: true, userObj: payload });
+            UserInfo.setUserInfoObj(payload);
+          })
+          .catch((err) => {
+            this.setState({ sellPartsSuccess: false });
+          });
+      })
+      .catch((error) => {
+        this.setState({ sellPartsSuccess: false });
+      });
+    return this.state.sellPartsSuccess;
+  };
+
+  sellPartsModalHandler = (bool) => {
+    let updatedUserInfo = UserInfo.getUserInfoObj();
+    this.setState({
+      sellPartsModal: bool,
+      sellPartsSuccess: false,
+      userObj: updatedUserInfo,
+    });
   };
 
   dashboardHandler = (i) => {
@@ -301,12 +354,17 @@ class toolbar extends Component {
           newUser={this.state.newUser}
           newUserClicked={this.newUserRegisterHandler}
         />
+        <SellPartsModal
+          show={this.state.sellPartsModal}
+          clicked={this.sellPartsModalHandler}
+          info={this.state.userObj}
+          confirm={(msg) => this.sellPartsConfirmHandler(msg)}
+          success={this.state.sellPartsSuccess}
+        />
       </div>
     ) : (
       <div style={{ marginLeft: "50%", marginTop: "30%", color: "#581845" }}>
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
+        <Spinner animation="border" role="status"></Spinner>
       </div>
     );
   }

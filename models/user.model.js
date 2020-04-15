@@ -24,6 +24,7 @@ let UserSchema = new Schema({
     required: true,
     default: [],
   },
+  sellParts: { type: Array, required: true, default: [] },
 });
 
 module.exports = mongoose.model("Users", UserSchema);

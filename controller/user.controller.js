@@ -15,7 +15,7 @@ exports.user_register = async function (req, res) {
       city: req.body.city ? req.body.city : "-1",
       state: req.body.state ? req.body.state : "-1",
       zip: req.body.zip ? req.body.zip : "-1",
-      country: req.body.country ? req.body.country : "-1",
+      country: req.body.country ? req.body.country : "United States",
       socialId: req.body.socialId ? req.body.socialId : "-1",
     });
 
@@ -130,11 +130,8 @@ exports.user_update_cart = async function (req, res) {
 
 exports.user_update_order = async function (req, res) {
   const id = req.body._id;
-  console.log(req.body);
   try {
     await User.findById(id, async function (err, docs) {
-      console.log("docs");
-      console.log(docs);
       docs.orderInfo = req.body.orderInfo;
       try {
         await docs.save();
@@ -146,6 +143,28 @@ exports.user_update_order = async function (req, res) {
       } catch (error) {
         res.status(400).send(error);
         return;
+      }
+    });
+  } catch (err) {
+    res.status(500).send(err);
+    return;
+  }
+};
+
+exports.user_sell_part = async function (req, res) {
+  const id = req.body._id;
+  try {
+    await User.findById(id, async function (err, docs) {
+      docs.sellParts = req.body.sellParts;
+      try {
+        docs.save();
+        res.send({
+          userObj: docs,
+          successMessage: "Your request has been received",
+        });
+        return;
+      } catch (error) {
+        res.status(400).send(error);
       }
     });
   } catch (err) {
