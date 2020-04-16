@@ -117,7 +117,7 @@ class InvTable extends Component {
     if (!userObj.fName) {
       this.setState({ showModal: true });
     } else {
-      if (userObj.add1 === "-1") {
+      if (userObj.add1 === "-1" || userObj.socialId === "admin") {
         this.setState({ showModal: true });
       } else {
         this.setState({ showModal: false });
@@ -249,10 +249,10 @@ class InvTable extends Component {
                         ) : (
                           <Aux>
                             <p style={{ color: "#424242" }}>
-                              You are currently not <i>signed in</i>.
+                              You are currently signed in as <i>Admin.</i>
                             </p>
                             <p style={{ color: "#424242" }}>
-                              Please sign in or register to checkout.
+                              Please sign in or register as a customer.
                             </p>
                           </Aux>
                         )

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import asaLogo from "../../../assets/images/asa-logo.png";
-// import logo from "../../../assets/images/logo_size.jpg";
+import logo from "../../../assets/images/google-copy.png";
 import "./Footer.scss";
 
 const footer = (props) => {
@@ -61,9 +61,11 @@ const footer = (props) => {
                   href="#"
                 >
                   ASA Certificate
-                  <img src={asaLogo} height="100px" alt="ASA Logo" />
                 </a>
               </p>
+            </li>
+            <li>
+              <img src={asaLogo} height="100px" alt="ASA Logo" />
             </li>
           </ul>
         </div>
@@ -129,7 +131,23 @@ const footer = (props) => {
               </Link>
             </li>
           </ul>
-          {/* <img src={logo} alt="logo" /> */}
+
+          <img
+            src={logo}
+            alt="logo"
+            width="100px"
+            style={{ marginLeft: "5%" }}
+          />
+          <h1
+            style={{
+              fontSize: "20px",
+              fontWeight: "600",
+              marginTop: "3%",
+              color: "#fcfcfc",
+            }}
+          >
+            FALCON AVIATION
+          </h1>
         </div>
       </div>
       <div
