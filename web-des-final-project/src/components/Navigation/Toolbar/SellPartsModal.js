@@ -15,9 +15,7 @@ class SellPartsModal extends Component {
     loading: false,
     parentResp: true,
   };
-  componentDidMount() {
-    console.log("ssss");
-  }
+
   handleSubmit = async (event) => {
     if (this.validDetails()) {
       let res = this.state.parentResp;
@@ -68,7 +66,6 @@ class SellPartsModal extends Component {
   };
 
   render() {
-    console.log(this.props.info);
     let body = "";
     if (this.props.info) {
       if (!this.props.info.add1) {
@@ -93,33 +90,44 @@ class SellPartsModal extends Component {
         );
       } else {
         //user valid
-        body = (
-          <Aux>
-            <p>We are actively buying aircraft parts.</p>
-            <p>Send us your list of inventory for sale!</p>
-            <Form noValidate>
-              <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Form.Label>
-                  <span style={{ color: "#6b6b6b" }}>*</span>&nbsp; Inventory
-                  List:
-                </Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows="6"
-                  placeholder="List of parts"
-                  onChange={this.formChangeHandler}
-                  name="message"
-                  required
-                  isInvalid={this.state.msgError}
-                  value={this.state.message}
-                />
-                <span className="errorMessage">
-                  {this.state.msgError ? this.state.msgError : ""}
-                </span>
-              </Form.Group>
-            </Form>
-          </Aux>
-        );
+        if (this.props.info.socialId === "admin") {
+          body = (
+            <Aux>
+              <h3>
+                <b>This feature is not available to admins</b>
+              </h3>
+              <p>Please sign in as a customer to access this information</p>
+            </Aux>
+          );
+        } else {
+          body = (
+            <Aux>
+              <p>We are actively buying aircraft parts.</p>
+              <p>Send us your list of inventory for sale!</p>
+              <Form noValidate>
+                <Form.Group controlId="exampleForm.ControlTextarea1">
+                  <Form.Label>
+                    <span style={{ color: "#6b6b6b" }}>*</span>&nbsp; Inventory
+                    List:
+                  </Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows="6"
+                    placeholder="List of parts"
+                    onChange={this.formChangeHandler}
+                    name="message"
+                    required
+                    isInvalid={this.state.msgError}
+                    value={this.state.message}
+                  />
+                  <span className="errorMessage">
+                    {this.state.msgError ? this.state.msgError : ""}
+                  </span>
+                </Form.Group>
+              </Form>
+            </Aux>
+          );
+        }
       }
     } else {
       //user not logged in
@@ -190,6 +198,7 @@ class SellPartsModal extends Component {
         {this.props.info &&
         this.props.info.add1 &&
         this.props.info.add1 !== "-1" &&
+        this.props.info.socialId !== "admin" &&
         !this.props.success &&
         !this.state.loading ? (
           <Modal.Footer style={{ justifyContent: "center" }}>

@@ -236,3 +236,21 @@
   font-size: 18px;
   color: #3b3b3b;
 }
+.admin-update-btn,
+.admin-update-btn:focus,
+.admin-update-btn:active,
+.admin-update-btn:active:focus,
+.admin-update-btn:active:disabled {
+  font-size: 20px;
+  background-color: #581842 !important;
+  border-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  margin: 1%;
+}
+
+.admin-update-btn:hover {
+  background-color: rgb(48, 13, 38) !important;
+  border-color: transparent;
+  margin: 1%;
+}
