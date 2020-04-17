@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import asaLogo from "../../../assets/images/asa-logo.png";
 import logo from "../../../assets/images/google-copy.png";
+import FACertificate from "./FACertificate.pdf";
+import Sales from "./Standard_Commercial_Terms_and_Conditions_of_Sale.pdf";
+import TC from "./TermsAndConditions.pdf";
 import "./Footer.scss";
 
 const footer = (props) => {
@@ -20,7 +23,8 @@ const footer = (props) => {
           <ul className="list-unstyled text-small">
             <li>
               <p>
-                <i className="fas fa-home mr-3"></i> New York, NY 10012, US
+                <i className="fas fa-home mr-3"></i> 180, North Station,
+                Chicago, IL 60601, USA
               </p>
             </li>
             <li>
@@ -58,7 +62,8 @@ const footer = (props) => {
               <p>
                 <a
                   style={{ textDecoration: "none", color: "#fcfcfc" }}
-                  href="#"
+                  href={FACertificate}
+                  target="_blank"
                 >
                   ASA Certificate
                 </a>
@@ -81,7 +86,8 @@ const footer = (props) => {
               <p>
                 <a
                   style={{ textDecoration: "none", color: "#fcfcfc" }}
-                  href="#"
+                  href={TC}
+                  target="_blank"
                 >
                   Purchase Order Terms and Conditions
                 </a>
@@ -91,7 +97,8 @@ const footer = (props) => {
               <p>
                 <a
                   style={{ textDecoration: "none", color: "#fcfcfc" }}
-                  href="#"
+                  href={Sales}
+                  target="_blank"
                 >
                   Standard Commercial Terms & Conditions of Sale
                 </a>

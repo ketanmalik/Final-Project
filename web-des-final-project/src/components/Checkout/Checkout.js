@@ -144,6 +144,58 @@ class Checkout extends Component {
               UserInfo.setUserInfoObj(userInfo);
               CartInfo.setOrderPlaced(true);
               this.props.history.replace("/", "/checkout");
+
+              const toName = userInfo.fName + " " + userInfo.lName;
+              const userEmail = userInfo.email;
+              const date = new Date().toDateString();
+              const orderId = orderInfo[orderInfo.length - 1].orderId;
+              const add =
+                userInfo.add1 +
+                ", " +
+                userInfo.city +
+                ", " +
+                userInfo.state +
+                ", " +
+                userInfo.country;
+              const orderItems = (
+                <ul>
+                  {orderInfo[orderInfo.length - 1].items.map((k) => (
+                    <li>{k.description}</li>
+                  ))}
+                </ul>
+              );
+
+              // const message = (
+              //   <div>
+              //     <h3>Order Confirmation Email</h3>
+              //     Hello, we have received your order for the following items:
+              //     {orderItems}
+              //     <h4>
+              //       Shipping To:
+              //       {add}
+              //     </h4>
+              //   </div>
+              // );
+              const message =
+                "We have received you order. Order Number: " +
+                orderId +
+                " with following items: " +
+                orderItems +
+                " shipped to: " +
+                add;
+              console.log("sss", userInfo, orderInfo, orderItems);
+              const templateId = "mytemplate";
+              this.sendFeedback(templateId, {
+                to_name: toName,
+                message_html: `<h2>Order Confirmation</h2>
+                <p><b>Order ID: </b>${orderId}</p>
+                <p><b>Shipping To: </b>${toName}</p>
+                <p><b>Shipping At: </b>${add}</p>
+                <p><b>Order Received On: </b>${date}</p>`,
+                from_name: "Falcon Aviation",
+                reply_to: userEmail,
+                userEmail: userEmail,
+              });
             })
             .catch((err) => {
               console.log("user save error", err.response);
@@ -156,6 +208,21 @@ class Checkout extends Component {
     } else {
       this.setState({ processingPayment: false, safeToProceed: true });
     }
+  };
+
+  sendFeedback = (templateId, variables) => {
+    window.emailjs
+      .send("gmail1234", templateId, variables)
+      .then((res) => {
+        console.log("Email successfully sent!");
+      })
+      // Handle errors here however you like, or use a React error boundary
+      .catch((err) =>
+        console.error(
+          "Oh well, you failed. Here some thoughts on the error that occured:",
+          err
+        )
+      );
   };
 
   payPalHandler = () => {
