@@ -608,22 +608,6 @@ class Dashboard extends Component {
                   disabled={key === "" || key === undefined || key === null}
                 />
               </Col>
-              {/* <Col lg="1">
-                <Button
-                  onClick={this.specsDeleteHandler.bind(this)}
-                  data-id={i}
-                  style={{ float: "right" }}
-                  className="dashboard-view-order-btn"
-                >
-                  <i
-                    className="fas fa-minus-circle"
-                    style={{
-                      float: "right",
-                      color: "red",
-                    }}
-                  />
-                </Button>
-              </Col> */}
             </Row>
           </div>
         );
@@ -1170,7 +1154,7 @@ class Dashboard extends Component {
                             <Form.Control
                               as="select"
                               plaintext={!this.state.editAccountInfo}
-                              readOnly={!this.state.editAccountInfo}
+                              disabled={!this.state.editAccountInfo}
                               onChange={this.formChangeHandler}
                               required
                               name="country"

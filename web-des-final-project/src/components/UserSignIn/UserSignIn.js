@@ -124,8 +124,6 @@ class UserSignIn extends Component {
   };
 
   responseGoogle = async (resp) => {
-    console.log(resp);
-    console.log(process.env.REACT_APP_GOOGLE_CLIENT_ID);
     if (resp && resp.error) return;
     this.setState({ gLoading: true, isLoggedIn: false });
 
@@ -160,7 +158,6 @@ class UserSignIn extends Component {
   };
 
   render() {
-    console.log(process.env.REACT_APP_GOOGLE_CLIENT_ID);
     return (
       <Aux>
         <Modal
