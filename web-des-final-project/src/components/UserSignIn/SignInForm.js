@@ -10,6 +10,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { aux1 as Aux } from "../../hoc/Aux1/Aux1";
 import Toast from "react-bootstrap/Toast";
 import "./UserSignIn.css";
+import User from "./NewUser";
 
 class SignInForm extends Component {
   state = {
@@ -26,6 +27,7 @@ class SignInForm extends Component {
     userObj: null,
     response: "",
   };
+
   handleSubmit = async (event) => {
     let errors = { ...this.state.errors };
     this.setState({ loading: true });
@@ -52,11 +54,12 @@ class SignInForm extends Component {
           password: "",
           response: "You have been logged in",
         });
+        sessionStorage.setItem('user', JSON.stringify(userObj));
         UserInfo.setUserInfoObj(userObj);
-        console.log(userObj);
         return true;
       })
       .catch((err) => {
+        sessionStorage.setItem('user', null);
         errors.email = true;
         errors.password = true;
         userObj = null;
@@ -74,16 +77,9 @@ class SignInForm extends Component {
       const payload = {
         userObj: { ...this.state.userObj },
       };
-      axios({
-        url: "/updatesaveuser",
-        method: "PUT",
-        data: payload,
-      })
-        .then((resp) => {
-          window.location.reload();
-          console.log(resp);
-        })
-        .catch((err) => console.log(err));
+      sessionStorage.setItem('user', JSON.stringify(payload));
+      UserInfo.setUserInfoObj(payload);
+      window.location.reload();
     }
   };
 

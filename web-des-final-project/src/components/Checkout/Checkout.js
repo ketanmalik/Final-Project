@@ -98,7 +98,6 @@ class Checkout extends Component {
   };
 
   payPalSuccess = (details, data) => {
-    console.log("cart", this.state.cartInfo);
     this.setState({ processingPayment: true, safeToProceed: false });
     if (details.status === "COMPLETED") {
       let userInfo = { ...this.state.userInfo };
@@ -127,30 +126,19 @@ class Checkout extends Component {
         method: "PUT",
         data: userInfo,
       })
-        .then((resp) => {
-          axios({
-            url: "/updatesaveuser",
-            method: "PUT",
-            data: { userObj: userInfo },
-          })
-            .then(() => {
-              console.log(resp);
-              this.setState({
-                userInfo: userInfo,
-                orderInfo: orderInfo,
-                processingPayment: false,
-                safeToProceed: true,
-              });
-              UserInfo.setUserInfoObj(userInfo);
-              CartInfo.setOrderPlaced(true);
-              this.props.history.replace("/", "/checkout");
-            })
-            .catch((err) => {
-              console.log("user save error", err.response);
-              this.setState({ processingPayment: false, safeToProceed: true });
-            });
+        .then(() => {
+          sessionStorage.setItem('user', JSON.stringify(userInfo));
+          this.setState({
+            userInfo: userInfo,
+            orderInfo: orderInfo,
+            processingPayment: false,
+            safeToProceed: true,
+          });
+          UserInfo.setUserInfoObj(userInfo);
+          CartInfo.setOrderPlaced(true);
+          this.props.history.replace("/", "/checkout");
         })
-        .catch((err) => {
+        .catch(() => {
           this.setState({ processingPayment: false, safeToProceed: true });
         });
     } else {
@@ -229,10 +217,10 @@ class Checkout extends Component {
           <div className="checkout-heading">
             <h2>Finalize Your Order</h2>
             <p style={{ color: "#737373", textAlign: "center" }}>
-                  <b>
-                    <i>(We just need 5% of the total bill right now to start preparing your order.)</i>
-                  </b>
-                </p>
+              <b>
+                <i>(We just need 5% of the total bill right now to start preparing your order.)</i>
+              </b>
+            </p>
           </div>
           <Row>
             <Col lg="2" />
@@ -354,13 +342,13 @@ class Checkout extends Component {
           </Row>
         </div>
       ) : (
-        this.props.history.push("/")
-      )
+          this.props.history.push("/")
+        )
     ) : (
-      <div style={{ marginLeft: "50%", marginTop: "30%", color: "#581845" }}>
-        <Spinner animation="border" role="status"></Spinner>
-      </div>
-    );
+        <div style={{ marginLeft: "50%", marginTop: "30%", color: "#581845" }}>
+          <Spinner animation="border" role="status"></Spinner>
+        </div>
+      );
   }
 }
 

@@ -116,20 +116,11 @@ class UserSignIn extends Component {
     const payload = {
       userObj: { ...this.state.userObj },
     };
-    axios({
-      url: "/updatesaveuser",
-      method: "PUT",
-      data: payload,
-    })
-      .then((resp) => {
-        window.location.reload();
-        console.log(resp);
-      })
-      .catch((err) => console.log(err));
+    sessionStorage.setItem('user', JSON.stringify(payload));
+    window.location.reload();
   };
 
   responseGoogle = async (resp) => {
-    console.log("resp", resp);
     if (resp && resp.error) return;
     this.setState({ gLoading: true, isLoggedIn: false });
 
@@ -155,21 +146,12 @@ class UserSignIn extends Component {
         this.setState({ gLoading: false, isLoggedIn: true });
       }
     }
-    console.log("google ", this.state.userObj, this.state.isLoggedIn);
 
     const payload = {
       userObj: { ...this.state.userObj },
     };
-    axios({
-      url: "/updatesaveuser",
-      method: "PUT",
-      data: payload,
-    })
-      .then((resp) => {
-        window.location.reload();
-        console.log(resp);
-      })
-      .catch((err) => console.log(err));
+    sessionStorage.setItem('user', JSON.stringify(payload));
+    window.location.reload();
   };
 
   render() {

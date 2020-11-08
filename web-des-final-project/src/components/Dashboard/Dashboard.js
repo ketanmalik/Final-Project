@@ -218,21 +218,13 @@ class Dashboard extends Component {
       method: "PUT",
       data: userObj,
     })
-      .then(async (resp) => {
-        await axios({
-          url: "/updatesaveuser",
-          method: "PUT",
-          data: { userObj: userObj },
-        })
-          .then((r) => {
-            UserInfo.setUserInfoObj(userObj);
-            feedback = true;
-          })
-          .catch((e) => {
-            feedback = false;
-          });
+      .then(() => {
+        sessionStorage.setItem('user', JSON.stringify(userObj));
+        UserInfo.setUserInfoObj(userObj);
+        feedback = true;
+
       })
-      .catch((err) => {
+      .catch(() => {
         feedback = false;
       });
     this.setState({ apiError: !feedback, showToast: true });

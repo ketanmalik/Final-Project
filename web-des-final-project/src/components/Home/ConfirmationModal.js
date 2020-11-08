@@ -15,11 +15,11 @@ class ConfirmationModal extends Component {
 
   async componentDidMount() {
     let res = CartInfo.getOrderPlaced();
-    let info = [];
-    info = await UserInfo.getUserInfoObj();
-    if (info != null) {
-      info = info.orderInfo[info.orderInfo.length - 1];
-      this.setState({ orderPlaced: res, orderInfo: info });
+    let userObj = JSON.parse(sessionStorage.getItem('user'));
+    if (userObj && Object.keys(userObj).length) {
+      userObj = userObj.userObj;
+      userObj = userObj.orderInfo[userObj.orderInfo.length - 1];
+      this.setState({ orderPlaced: res, orderInfo: userObj });
     }
   }
 

@@ -40,37 +40,25 @@ class toolbar extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.setActiveLink();
-    await this.getActiveUserInfo();
+    let user = JSON.parse(sessionStorage.getItem('user'));
+    if (user && Object.keys(user).length > 0) {
+      user = user.userObj;
+      UserInfo.setUserInfoObj(user);
+      const name = user.fName + " " + user.lName;
+      this.setState({
+        userObj: user,
+        loggedIn: true,
+        userName: name,
+      });
+      UserInfo.setUserInfoObj(user);
+    } else {
+      this.setState({ userObj: null, loggedIn: false, userName: "" });
+      UserInfo.setUserInfoObj(null);
+    }
     this.setState({ safeToProceed: true });
   }
-
-  getActiveUserInfo = async () => {
-    await axios
-      .get("/getsaveuser")
-      .then((resp) => {
-        const obj = resp.data.userObj;
-        if (!obj.fName) {
-          this.setState({ userObj: null, loggedIn: false, userName: "" });
-          UserInfo.setUserInfoObj(null);
-        } else {
-          const name = obj.fName + " " + obj.lName;
-          this.setState({
-            userObj: obj,
-            loggedIn: true,
-            userName: name,
-          });
-          UserInfo.setUserInfoObj(obj);
-        }
-        return true;
-      })
-      .catch((err) => {
-        this.setState({ userObj: null, loggedIn: false, userName: "" });
-        UserInfo.setUserInfoObj(null);
-        return false;
-      });
-  };
 
   newUserRegisterHandler = () => {
     this.setState({ newUser: true });
@@ -158,21 +146,12 @@ class toolbar extends Component {
       method: "PUT",
       data: payload,
     })
-      .then(async (resp) => {
-        await axios({
-          url: "/updatesaveuser",
-          method: "PUT",
-          data: { userObj: payload },
-        })
-          .then((res) => {
-            this.setState({ sellPartsSuccess: true, userObj: payload });
-            UserInfo.setUserInfoObj(payload);
-          })
-          .catch((err) => {
-            this.setState({ sellPartsSuccess: false });
-          });
+      .then(() => {
+        sessionStorage.setItem('user', JSON.stringify(payload));
+        this.setState({ sellPartsSuccess: true, userObj: payload });
+        UserInfo.setUserInfoObj(payload);
       })
-      .catch((error) => {
+      .catch(() => {
         this.setState({ sellPartsSuccess: false });
       });
     return this.state.sellPartsSuccess;
@@ -203,16 +182,9 @@ class toolbar extends Component {
     links[8].isActive = false;
     links[9].isActive = true;
     this.setState({ links: links });
-    axios({
-      url: "/updatesaveuser",
-      method: "PUT",
-      data: { userObj: "null" },
-    })
-      .then(() => {
-        UserInfo.setUserInfoObj(null);
-        window.location.reload();
-      })
-      .catch((err) => console.log("toolbar so", err));
+    sessionStorage.setItem('user', null);
+    UserInfo.setUserInfoObj(null);
+    window.location.reload();
   };
 
   homeButtonHandler = () => {
@@ -266,15 +238,6 @@ class toolbar extends Component {
             onClick={this.homeButtonHandler}
           >
             <img src={logo} alt="/logo" width="45px" />
-            {/* <span
-              style={{
-                fontWeight: "700",
-                fontSize: "20px",
-                marginLeft: "1rem",
-              }}
-            >
-              FALCON AVIATION
-            </span> */}
           </Link>
           <button
             className="navbar-toggler"
@@ -310,40 +273,40 @@ class toolbar extends Component {
                   item2={this.state.links[9].isActive}
                 />
               ) : (
-                <li
-                  className={
-                    "nav-item " + (this.state.links[7].isActive ? "active" : "")
-                  }
-                >
-                  <Link
-                    className="nav-link"
-                    to={this.props.location.pathname}
-                    onClick={this.userHandler}
+                  <li
+                    className={
+                      "nav-item " + (this.state.links[7].isActive ? "active" : "")
+                    }
                   >
-                    <svg
-                      className="bi bi-people-circle"
-                      width="1.5em"
-                      height="1.5em"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <Link
+                      className="nav-link"
+                      to={this.props.location.pathname}
+                      onClick={this.userHandler}
                     >
-                      <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z" />
-                      <path
-                        fillRule="evenodd"
-                        d="M8 9a3 3 0 100-6 3 3 0 000 6z"
-                        clipRule="evenodd"
-                      />
-                      <path
-                        fillRule="evenodd"
-                        d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <span className="signin-text">Sign In / Register</span>
-                  </Link>
-                </li>
-              )}
+                      <svg
+                        className="bi bi-people-circle"
+                        width="1.5em"
+                        height="1.5em"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z" />
+                        <path
+                          fillRule="evenodd"
+                          d="M8 9a3 3 0 100-6 3 3 0 000 6z"
+                          clipRule="evenodd"
+                        />
+                        <path
+                          fillRule="evenodd"
+                          d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span className="signin-text">Sign In / Register</span>
+                    </Link>
+                  </li>
+                )}
             </ul>
           </div>
         </nav>
@@ -363,10 +326,10 @@ class toolbar extends Component {
         />
       </div>
     ) : (
-      <div style={{ marginLeft: "50%", marginTop: "30%", color: "#581845" }}>
-        <Spinner animation="border" role="status"></Spinner>
-      </div>
-    );
+        <div style={{ marginLeft: "50%", marginTop: "30%", color: "#581845" }}>
+          <Spinner animation="border" role="status"></Spinner>
+        </div>
+      );
   }
 }
 

@@ -16,21 +16,12 @@ class Layout extends Component {
   };
 
   async componentDidMount() {
-    await axios
-      .get("/getsaveuser")
-      .then((resp) => {
-        const obj = resp.data.userObj;
-        if (!obj.fName) {
-          UserInfo.setUserInfoObj(null);
-        } else {
-          UserInfo.setUserInfoObj(obj);
-        }
-        return true;
-      })
-      .catch((err) => {
-        UserInfo.setUserInfoObj(null);
-        return false;
-      });
+    let user = JSON.parse(sessionStorage.getItem('user'));
+    if (user && Object.keys(user).length > 0) {
+      UserInfo.setUserInfoObj(user.userObj);
+    } else {
+      UserInfo.setUserInfoObj(null);
+    }
     this.setState({ safeToProceed: true });
   }
 
