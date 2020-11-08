@@ -170,10 +170,6 @@ class UserSignIn extends Component {
       .catch((err) => console.log(err));
   };
 
-  componentDidMount() {}
-  componentWillUnmount() {
-    console.log("unmount");
-  }
   render() {
     return (
       <Aux>
