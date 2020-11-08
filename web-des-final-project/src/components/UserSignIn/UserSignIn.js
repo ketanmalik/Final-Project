@@ -12,6 +12,9 @@ import GoogleLogin from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import Spinner from "react-bootstrap/Spinner";
 import "./UserSignIn.css";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class UserSignIn extends Component {
   state = {
@@ -121,6 +124,8 @@ class UserSignIn extends Component {
   };
 
   responseGoogle = async (resp) => {
+    console.log(resp);
+    console.log(process.env.REACT_APP_GOOGLE_CLIENT_ID);
     if (resp && resp.error) return;
     this.setState({ gLoading: true, isLoggedIn: false });
 
@@ -155,6 +160,7 @@ class UserSignIn extends Component {
   };
 
   render() {
+    console.log(process.env.REACT_APP_GOOGLE_CLIENT_ID);
     return (
       <Aux>
         <Modal
@@ -180,60 +186,60 @@ class UserSignIn extends Component {
             {this.props.newUser ? (
               <NewUser {...this.props} />
             ) : (
-              <Aux>
-                <SignInForm {...this.props} />
-                <div className="separator">
-                  <span className="separator-text">or</span>
-                </div>
-                <div className="google-facbook" style={{ textAlign: "center" }}>
-                  <GoogleLogin
-                    clientId="1038547540392-tfs3qj7b7qnlj7cqhm6o97k27tq7lvl4.apps.googleusercontent.com"
-                    render={(renderProps) => (
-                      <button
-                        onClick={renderProps.onClick}
-                        className="google-btn"
-                      >
-                        {this.state.gLoading ? (
-                          <Spinner animation="border" role="status"></Spinner>
-                        ) : (
-                          <Aux>
-                            <i class="fab fa-google"></i>
+                <Aux>
+                  <SignInForm {...this.props} />
+                  <div className="separator">
+                    <span className="separator-text">or</span>
+                  </div>
+                  <div className="google-facbook" style={{ textAlign: "center" }}>
+                    <GoogleLogin
+                      clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                      render={(renderProps) => (
+                        <button
+                          onClick={renderProps.onClick}
+                          className="google-btn"
+                        >
+                          {this.state.gLoading ? (
+                            <Spinner animation="border" role="status"></Spinner>
+                          ) : (
+                              <Aux>
+                                <i class="fab fa-google"></i>
                             &nbsp;&nbsp;&nbsp;&nbsp;Login with Google
-                          </Aux>
-                        )}
-                      </button>
-                    )}
-                    buttonText="Login with Google"
-                    onSuccess={this.responseGoogle}
-                    onFailure={this.responseGoogle}
-                    cookiePolicy={"single_host_origin"}
-                  />
-                  <FacebookLogin
-                    appId="549713162345863"
-                    callback={this.responseFacebook}
-                    fields="name,email,picture"
-                    render={(renderProps) => (
-                      <button onClick={renderProps.onClick} className="fb-btn">
-                        <i class="fab fa-facebook-f"></i>
+                              </Aux>
+                            )}
+                        </button>
+                      )}
+                      buttonText="Login with Google"
+                      onSuccess={this.responseGoogle}
+                      onFailure={this.responseGoogle}
+                      cookiePolicy={"single_host_origin"}
+                    />
+                    <FacebookLogin
+                      appId="549713162345863"
+                      callback={this.responseFacebook}
+                      fields="name,email,picture"
+                      render={(renderProps) => (
+                        <button onClick={renderProps.onClick} className="fb-btn">
+                          <i class="fab fa-facebook-f"></i>
                         &nbsp;&nbsp;&nbsp;&nbsp;Login with Facebook
-                      </button>
-                    )}
-                  />
-                </div>
-                <div className="separator">
-                  <span className="separator-text">or</span>
-                </div>
-                <div style={{ textAlign: "center" }}>
-                  <Link
-                    className="nav-link"
-                    to={this.props.location.pathname}
-                    onClick={this.props.newUserClicked}
-                  >
-                    Register as <i>new user</i>
-                  </Link>
-                </div>
-              </Aux>
-            )}
+                        </button>
+                      )}
+                    />
+                  </div>
+                  <div className="separator">
+                    <span className="separator-text">or</span>
+                  </div>
+                  <div style={{ textAlign: "center" }}>
+                    <Link
+                      className="nav-link"
+                      to={this.props.location.pathname}
+                      onClick={this.props.newUserClicked}
+                    >
+                      Register as <i>new user</i>
+                    </Link>
+                  </div>
+                </Aux>
+              )}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.props.onHide} id="modal-close-btn">
