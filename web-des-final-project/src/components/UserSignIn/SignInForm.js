@@ -119,7 +119,14 @@ class SignInForm extends Component {
           <Form.Row>
             <Form.Group as={Col} md="3" />
             <Form.Group as={Col} md="6" controlId="validationUsername">
-              <Form.Label>Username</Form.Label>
+              <Form.Label>
+                Username
+                <span style={{ color: "#737373", fontSize: "12px", marginLeft: "10px" }}>
+                  <b>
+                    <i>(demo: test@test.com)</i>
+                  </b>
+                </span>
+                </Form.Label>
               <InputGroup>
                 <InputGroup.Prepend>
                   <InputGroup.Text id="inputGroupPrepend">
@@ -143,7 +150,12 @@ class SignInForm extends Component {
             <Form.Group as={Col} md="3" />
             <Form.Group as={Col} md="6" controlId="validationPassword">
               <Form.Label>
-                Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Password
+                <span style={{ color: "#737373", fontSize: "12px", marginLeft: "10px", marginRight: "10px" }}>
+                  <b>
+                    <i>(demo: Test@123)</i>
+                  </b>
+                </span>
                 <Link to={this.props.location.pathname}>
                   <span
                     className="show-password"
