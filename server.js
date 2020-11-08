@@ -26,6 +26,10 @@ mongoose.connection.on("connected", () => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static('web-des-final-project/build'))
+}
+
 app.use("/", cart);
 app.use("/", inventory);
 app.use("/", user);
