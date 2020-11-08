@@ -16,7 +16,7 @@ const testimonials = (props) => {
 
       <Jumbotron>
         <Row>
-          <Col>
+          <Col sm>
             <span className="testimonial-img">
               <img src={img1} alt="Testimonial 1" />
             </span>
@@ -33,7 +33,7 @@ const testimonials = (props) => {
               </i>
             </p>
           </Col>
-          <Col>
+          <Col sm>
             <span className="testimonial-img">
               <img src={img2} alt="Testimonial 1" />
             </span>
@@ -50,7 +50,7 @@ const testimonials = (props) => {
               </i>
             </p>
           </Col>
-          <Col>
+          <Col sm>
             <span className="testimonial-img">
               <img src={img3} alt="Testimonial 1" />
             </span>
