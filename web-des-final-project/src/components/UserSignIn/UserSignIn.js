@@ -129,6 +129,7 @@ class UserSignIn extends Component {
   };
 
   responseGoogle = async (resp) => {
+    console.log("resp", resp);
     this.setState({ gLoading: true, isLoggedIn: false });
 
     if (resp.error || resp.details) {
