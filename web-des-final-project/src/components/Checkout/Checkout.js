@@ -228,6 +228,11 @@ class Checkout extends Component {
         <div className="checkout-wrapper">
           <div className="checkout-heading">
             <h2>Finalize Your Order</h2>
+            <p style={{ color: "#737373", textAlign: "center" }}>
+                  <b>
+                    <i>(We just need 5% of the total bill right now to start preparing your order.)</i>
+                  </b>
+                </p>
           </div>
           <Row>
             <Col lg="2" />
@@ -242,7 +247,7 @@ class Checkout extends Component {
                       className="checkout-accordion-title"
                     >
                       Cart Items&nbsp;-&nbsp;
-                      {numberFormat(this.state.cartInfo.price)}
+                      {numberFormat(this.state.cartInfo.price * 0.05)}
                     </Accordion.Toggle>
                   </Card.Header>
                   <Accordion.Collapse
@@ -336,10 +341,9 @@ class Checkout extends Component {
                     <Card.Body>
                       <div className="payPalWrapper">
                         <PayPalBtn
-                          amount={1}
+                          amount={this.state.cartInfo.price * 0.05}
                           currency={"USD"}
                           onSuccess={this.payPalSuccess}
-                          // onClick={this.payPalHandler}
                         />
                       </div>
                     </Card.Body>
