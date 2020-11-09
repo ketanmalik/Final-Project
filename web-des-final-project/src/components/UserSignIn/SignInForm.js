@@ -117,12 +117,6 @@ class SignInForm extends Component {
             <Form.Group as={Col} md="6" controlId="validationUsername">
               <Form.Label>
                 Username
-                <p style={{ color: "#737373", fontSize: "12px", marginBottom: "5px" }}>
-                  <b>
-                    <i>(for demo user: test@test.com)</i>
-                    <i>(for demo admin: admin@test.com)</i>
-                  </b>
-                </p>
                 </Form.Label>
               <InputGroup>
                 <InputGroup.Prepend>
@@ -141,6 +135,16 @@ class SignInForm extends Component {
                   value={this.state.email}
                 />
               </InputGroup>
+              <p style={{ color: "#737373", fontSize: "12px", margin: "5px" }}>
+                  <b>
+                    <i>(for demo user: test@test.com)</i>
+                  </b>
+                </p>
+                <p style={{ color: "#737373", fontSize: "12px", margin: "5px" }}>
+                  <b>
+                    <i>(for demo admin: admin@test.com)</i>
+                  </b>
+                </p>
             </Form.Group>
           </Form.Row>
           <Form.Row>
@@ -148,19 +152,14 @@ class SignInForm extends Component {
             <Form.Group as={Col} md="6" controlId="validationPassword">
               <Form.Label>
                 Password
-                <Link to={this.props.location.pathname}>
+                <Link to={this.props.location.pathname} tabIndex='-1'>
                   <span
                     className="show-password"
                     onClick={this.showPasswordHandler}
+                    tabIndex='-1'
                   >
                     <i>{showPasswordText}</i>
                   </span>
-                  <p style={{ color: "#737373", fontSize: "12px", marginBottom: "5px" }}>
-                  <b>
-                      <i>(for demo user: Test@123)</i>
-                      <i>(for demo admin: Admin@123)</i>
-                  </b>
-                </p>
                 </Link>
               </Form.Label>
               <InputGroup>
@@ -180,6 +179,16 @@ class SignInForm extends Component {
                   value={this.state.password}
                 />
               </InputGroup>
+              <p style={{ color: "#737373", fontSize: "12px", margin: "5px" }}>
+                  <b>
+                      <i>(for demo user: Test@123)</i>
+                  </b>
+                </p>
+                <p style={{ color: "#737373", fontSize: "12px", margin: "5px" }}>
+                  <b>
+                      <i>(for demo admin: Admin@123)</i>
+                  </b>
+                </p>
             </Form.Group>
           </Form.Row>
           <div style={{ textAlign: "center" }}>
