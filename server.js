@@ -29,11 +29,11 @@ app.use(express.urlencoded({ extended: false }));
 if (process.env.NODE_ENV === "production") {
   app.use(express.static('web-des-final-project/build'));
   app.get('*', (request, response) => {
-    console.log(path.join(__dirname, 'web-des-final-project', 'build', 'index.html'));
-    console.log(__dirname, "dirname");
-    console.log(path, "path");
-    response.sendFile(path.join(__dirname, 'web-des-final-project', 'build', 'index.html'));
+    response.sendFile(path.resolve(__dirname, 'web-des-final-project', 'build', 'index.html'));
   });
+} else {
+  console.log("main", path.join(__dirname, 'web-des-final-project', 'build', 'index.html'));
+  console.log("dir", __dirname);
 }
 
 app.use("/", cart);
