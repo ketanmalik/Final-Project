@@ -27,7 +27,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static('web-des-final-project/build'))
+  app.use(express.static('web-des-final-project/build'));
+  app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, 'web-des-final-project', 'build', 'index.html'));
+});
+  
 }
 
 // app.get('*', (request, response) => {
