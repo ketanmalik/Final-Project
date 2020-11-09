@@ -14,8 +14,6 @@ import {
 
 class MainContent extends Component {
   render() {
-    console.log(window.location)
-    console.log(window.location.pathname)
     return (
       <Switch>
         <Route

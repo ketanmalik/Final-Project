@@ -456,7 +456,6 @@ class Dashboard extends Component {
   };
 
   getInventory = async () => {
-    console.log("sss");
     this.setState({ viewLoading: true });
     await axios
       .get("/getinventory")
@@ -471,11 +470,6 @@ class Dashboard extends Component {
         this.setState({ viewLoading: false, viewError: error })
       );
   };
-
-  // specsDeleteHandler = (e) => {
-  //   console.log(e.currentTarget.dataset.id);
-  //   console.log(this.state.specsLength);
-  // };
 
   render() {
     const toastHeader = this.state.apiError ? "Failure" : "Success";
