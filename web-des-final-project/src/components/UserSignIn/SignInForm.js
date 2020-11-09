@@ -119,7 +119,8 @@ class SignInForm extends Component {
                 Username
                 <p style={{ color: "#737373", fontSize: "12px", marginBottom: "5px" }}>
                   <b>
-                    <i>(for demo use: test@test.com)</i>
+                    <i>(for demo user: test@test.com)</i>
+                    <i>(for demo admin: admin@test.com)</i>
                   </b>
                 </p>
                 </Form.Label>
@@ -156,7 +157,8 @@ class SignInForm extends Component {
                   </span>
                   <p style={{ color: "#737373", fontSize: "12px", marginBottom: "5px" }}>
                   <b>
-                    <i>(for demo use: Test@123)</i>
+                      <i>(for demo user: Test@123)</i>
+                      <i>(for demo admin: Admin@123)</i>
                   </b>
                 </p>
                 </Link>
